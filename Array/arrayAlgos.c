@@ -75,3 +75,22 @@ void Arr2Print(TBase** arr, const TCount _row, const TCount _column)
 		putchar(CARR_CHR);	// Вывод символа перевода каретки
 	}
 }
+
+
+// Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
+TBase* ArrScanAndCreate(TCount *p_len)
+{
+	printf("Enter the length of the array: ");
+	// Ввод длины массива и проверка вводимых данных
+	do{
+		scanf(FORMAT_COMMAND_CNT, p_len);
+	}while(*p_len<0 || MAX_ARR_SIZE<*p_len);
+	// Выделение памяти под массив
+	TBase* arr = ArrCreate(*p_len);
+	// Ввод элементов
+	for(size_t i = 0; i < *p_len; i++){
+		printf("Enter the value [%ld] element: ", i);
+		scanf(FORMAT_COMMAND, &arr[i]);
+	}
+	return arr;
+}

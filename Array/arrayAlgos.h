@@ -9,6 +9,10 @@
  * (C library)
  */
 
+#ifndef __ARRAY_LIB_H__
+#define __ARRAY_LIB_H__
+
+
 //*********************************
 // Основные типы данных
 //*********************************
@@ -28,6 +32,7 @@ typedef int TBool;	// логический тип данных
 #define FORMAT_COMMAND_CNT "%4d"	// команда форматирования для доп. данных
 
 
+
 //********************************************
 // Основные константы для работы с массивами
 //********************************************
@@ -35,6 +40,7 @@ typedef int TBool;	// логический тип данных
 // Для заполнения массивов случайными числами раскомментируйте флаг
 // и укажите диапазон для чисел RANDOM_RANGE
 #define RANDOM_RANGE 100
+
 
 
 //*****************************************
@@ -51,6 +57,7 @@ TBase** Arr2Create(const TCount _row, const TCount _column);
 
 /* TBase*** Arr3Create(TCount _row, TCount _column, TCount _height);	// пока не нужен */
 
+
 // Вывод _len элементов массива Arr
 void ArrPrint(TBase* arr, const TCount _len);
 
@@ -58,3 +65,8 @@ void ArrPrint(TBase* arr, const TCount _len);
 void Arr2Print(TBase** arr, const TCount _row, const TCount _column);
 
 
+// Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
+TBase* ArrScanAndCreate(TCount *p_len);
+
+
+#endif
