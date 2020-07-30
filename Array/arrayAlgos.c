@@ -52,3 +52,26 @@ TBase** Arr2Create(const TCount _row, const TCount _column)
     
     return arr;
 }
+
+
+// Вывод _len элементов массива Arr
+void ArrPrint(TBase* arr, const TCount _len)
+{
+	for(size_t i = 0; i < _len; i++){
+		printf(FORMAT_COMMAND, arr[i]);	// Вывод элемента
+		putchar(DELIM_CHR);	// Вывод символа разделителя
+	}
+	putchar(CARR_CHR);	// Вывод символа перевода каретки
+}
+
+// Вывод row строк и _column столбцов элементов массива Arr
+void Arr2Print(TBase** arr, const TCount _row, const TCount _column)
+{
+	for(size_t row = 0; row < _row; row++){
+		for(size_t column = 0; column < _column; column++){
+			printf(FORMAT_COMMAND, arr[row][column]);	// Вывод элемента
+			putchar(DELIM_CHR);	// Вывод символа разделителя
+		}
+		putchar(CARR_CHR);	// Вывод символа перевода каретки
+	}
+}

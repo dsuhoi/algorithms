@@ -50,3 +50,11 @@ TBase* ArrCreate(const TCount _len);
 TBase** Arr2Create(const TCount _row, const TCount _column);
 
 /* TBase*** Arr3Create(TCount _row, TCount _column, TCount _height);	// пока не нужен */
+
+// Вывод _len элементов массива Arr
+void ArrPrint(TBase* arr, const TCount _len);
+
+// Вывод _row строк и _column столбцов элементов массива Arr
+void Arr2Print(TBase** arr, const TCount _row, const TCount _column);
+
+
