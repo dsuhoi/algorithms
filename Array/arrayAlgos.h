@@ -68,5 +68,8 @@ void Arr2Print(TBase** arr, const TCount _row, const TCount _column);
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
 TBase* ArrScanAndCreate(TCount *p_len);
 
+// Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
+// и выделение памяти под него
+TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column);
 
 #endif

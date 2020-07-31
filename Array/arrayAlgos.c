@@ -94,3 +94,30 @@ TBase* ArrScanAndCreate(TCount *p_len)
 	}
 	return arr;
 }
+
+// Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
+// и выделение памяти под него
+TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
+{	
+	// Ввод кол-ва строк и столбцов и проверка вводимых данных
+	printf("Enter the number of rows in the array: ");
+	do{
+		scanf(FORMAT_COMMAND_CNT, p_row);
+	}while(*p_row<0 || MAX_ARR_SIZE<*p_row);
+	
+	printf("Enter the number of rows in the array: ");
+	do{
+		scanf(FORMAT_COMMAND_CNT, p_column);
+	}while(*p_column<0 || MAX_ARR_SIZE<*p_column);
+	
+	TBase** arr = Arr2Create(*p_row, *p_column);
+	
+	for(size_t row = 0; row < *p_row; row++){
+		for(size_t column = 0; column < *p_column; column++){
+			printf("Enter the value [%ld][%ld] element: ", row, column);	// Ввод элемента
+			scanf(FORMAT_COMMAND, &arr[row][column]);
+		}
+		putchar(CARR_CHR);	// Вывод символа перевода каретки
+	}
+	return arr;
+}
