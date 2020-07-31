@@ -72,4 +72,13 @@ TBase* ArrScanAndCreate(TCount *p_len);
 // и выделение памяти под него
 TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column);
 
+
+// Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
+// элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
+// Метод Ч.А.Р. Хоара (1962г)
+void ArrQuickSort(TBase* arr, const TCount _left, const TCount _right, const TBool sortVector);
+
+// Замена местами элементов под индексами indexA и indexB массива Arr
+void ArrSwap(TBase* arr, const TCount indexA, const TCount indexB);
+
 #endif
