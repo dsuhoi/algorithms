@@ -63,6 +63,9 @@ TBase PopList(Node** headNode);
 // Удалить последний узел из списка с вершиной headNode
 TBase PopBackList(Node** headNode);
 
+// Вставить узел со значением newValue в позицию index списка с вершиной headNode
+void InsertList(Node* headNode, TCount index, TBase newValue);
+
 // Получить указатель на последний узел из списка с вершиной headNode
 Node* GetLastList(Node* headNode);
 

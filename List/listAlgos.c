@@ -85,6 +85,19 @@ TBase PopBackList(Node** headNode)
 }
 
 
+// Вставить узел со значением newValue в позицию index списка с вершиной headNode
+void InsertList(Node* headNode, TCount index, TBase newValue)
+{
+	// Получение указателя на узел по индексу
+	Node* prevNode = GetList(headNode, index);
+	// Создание нового узла
+	Node* newNode = (Node*) malloc(sizeof(Node));
+	newNode->value = newValue;
+	// Вставка узла в нужную позицию
+	newNode->p_nextNode = prevNode->p_nextNode;
+	prevNode->p_nextNode = newNode;
+}
+
 
 
 // Получить указатель на последний узел из списка с вершиной headNode
