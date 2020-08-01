@@ -58,6 +58,10 @@ void PushList(Node** headNode, TBase newValue);
 // Вставить узел со значением newValue в конец списка с вершиной headNode
 void PushBackList(Node* headNode, TBase newValue);
 
+// Удалить начальный узел из списка с вершиной headNode
+TBase PopList(Node** headNode);
+// Удалить последний узел из списка с вершиной headNode
+TBase PopBackList(Node** headNode);
 
 // Получить указатель на последний узел из списка с вершиной headNode
 Node* GetLastList(Node* headNode);

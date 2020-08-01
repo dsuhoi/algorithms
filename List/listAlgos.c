@@ -44,6 +44,48 @@ void PushBackList(Node* headNode, TBase newValue)
 }
 
 
+// Удалить начальный узел из списка с вершиной headNode
+TBase PopList(Node** headNode)
+{
+	// Проверка на наличие узлов в списке
+	if(headNode==NULL) return 0;
+	// Создание указателя на вершину списка
+	Node* lastNode = (*headNode);
+	TBase lastValue = lastNode->value;
+	(*headNode) = (*headNode)->p_nextNode;
+	// Удаление узла
+	free(lastNode);
+	// Возвращение значения удалённого узла
+	return lastValue;
+}
+
+// Удалить последний узел из списка с вершиной headNode
+TBase PopBackList(Node** headNode)
+{
+	// Проверка на наличие узлов в списке
+	if(headNode==NULL) return 0;
+	// Проверка на наличие одного узла в списке и его удаление
+	if((*headNode)->p_nextNode==NULL){
+		free(*headNode);
+		*headNode = NULL;
+		return 0;
+	}
+	// Нахождение указателя на предпоследний узел
+	while((*headNode)->p_nextNode->p_nextNode!=NULL){
+		(*headNode) = (*headNode)->p_nextNode;
+	}
+	// Создание указателя на предпоследний узел
+	Node* lastNode = (*headNode);
+	TBase lastValue = lastNode->p_nextNode->value;
+	// Удаление последнего узла
+	free(lastNode->p_nextNode);
+	lastNode->p_nextNode = NULL;
+	// Возвращение значения удалённого узла
+	return lastValue;
+}
+
+
+
 
 // Получить указатель на последний узел из списка с вершиной headNode
 Node* GetLastList(Node* headNode)
