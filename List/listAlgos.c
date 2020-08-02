@@ -98,6 +98,40 @@ void InsertList(Node* headNode, TCount index, TBase newValue)
 	prevNode->p_nextNode = newNode;
 }
 
+// Удалить index узел из списка с вершиной headNode
+TBase RemoveList(Node** headNode, TCount index)
+{
+	// Проверка индекса (удаление первого элемента)
+	if(index<=0){
+		return PopList(headNode);
+	}
+	// Получение указателя на узел перед искомым
+	Node* prevNode = GetList(*headNode, index-1);
+	// Если узлов нет, то выходим из функции
+	if(prevNode==NULL) return 0;
+	// Создание указателя на удаляемый узел
+	Node* delNode = prevNode->p_nextNode;
+	prevNode->p_nextNode = delNode->p_nextNode;
+	TBase lastValue = delNode->value;
+	// Удаление узла
+	free(delNode);
+	// Возвращение значения удалённого узла
+	return lastValue;
+}
+
+
+// Получить index узел из списка с вершиной headNode
+Node* GetList(Node* headNode, TCount index)
+{
+	TCount cnt = 0;
+	// Получение указателя на искомый узел
+	while(cnt < index && headNode!=NULL){
+		headNode = headNode->p_nextNode;
+		++cnt;
+	}
+	// Возвращение указателя на узел
+	return headNode;
+}
 
 
 // Получить указатель на последний узел из списка с вершиной headNode

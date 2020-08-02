@@ -65,6 +65,11 @@ TBase PopBackList(Node** headNode);
 
 // Вставить узел со значением newValue в позицию index списка с вершиной headNode
 void InsertList(Node* headNode, TCount index, TBase newValue);
+// Удалить index узел из списка с вершиной headNode
+Base RemoveList(Node** headNode, TCount index);
+
+// Получить index узел из списка с вершиной headNode
+Node* GetList(Node* headNode, TCount index);
 
 // Получить указатель на последний узел из списка с вершиной headNode
 Node* GetLastList(Node* headNode);
