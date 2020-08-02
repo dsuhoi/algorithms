@@ -133,7 +133,6 @@ Node* GetList(Node* headNode, TCount index)
 	return headNode;
 }
 
-
 // Получить указатель на последний узел из списка с вершиной headNode
 Node* GetLastList(Node* headNode)
 {
@@ -145,4 +144,17 @@ Node* GetLastList(Node* headNode)
 	}
 	// Возвращение указателя на последний узел
 	return headNode;
+}
+
+// Получить размер списка (кол-во узлов в нём)
+TCount GetSizeList(Node* headNode)
+{
+	TCount sizeList = 0;
+	// Подсчёт узлов до конца списка
+	while(headNode!=NULL){
+		++sizeList;
+		headNode = headNode->p_nextNode;
+	}
+	// Возвращение размера списка
+	return sizeList;
 }

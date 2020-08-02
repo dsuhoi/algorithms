@@ -70,7 +70,7 @@ Base RemoveList(Node** headNode, TCount index);
 
 // Получить index узел из списка с вершиной headNode
 Node* GetList(Node* headNode, TCount index);
-
 // Получить указатель на последний узел из списка с вершиной headNode
 Node* GetLastList(Node* headNode);
-
+// Получить размер списка (кол-во узлов в нём)
+TCount GetSizeList(Node* headNode);
