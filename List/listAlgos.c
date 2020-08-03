@@ -158,3 +158,15 @@ TCount GetSizeList(Node* headNode)
 	// Возвращение размера списка
 	return sizeList;
 }
+
+
+// Вывод узлов списка с вершиной headNode
+void ListPrint(Node* headNode)
+{
+	TCount sizeList = GetSizeList(headNode);
+	for(size_t i = 0 ; i<sizeList; i++){
+		printf(FORMAT_COMMAND, GetList(headNode, i)->value);	// Вывод элемента
+		putchar(DELIM_CHR);	// Вывод символа разделителя
+	}
+	putchar(CARR_CHR);	// Вывод символа перевода каретки
+}
