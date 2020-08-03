@@ -77,5 +77,7 @@ TCount GetSizeList(Node* headNode);
 
 // Вывод узлов списка с вершиной headNode
 void ListPrint(Node* headNode);
+// Ввод узлов списка с вершиной headNode
+Node* ListScan();
 
 #endif

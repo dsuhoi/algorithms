@@ -170,3 +170,28 @@ void ListPrint(Node* headNode)
 	}
 	putchar(CARR_CHR);	// Вывод символа перевода каретки
 }
+
+// Ввод узлов списка с вершиной headNode
+Node* ListScan()
+{
+	TCount sizeList = 0;	//размер списка
+	// Ввод размера списка
+	printf("Enter the number of nodes in the list: ");
+	do{
+		scanf("%d", &sizeList);
+	}while(sizeList<0 || MAX_LIST_SIZE<sizeList);
+	
+	TBase value = 0;
+	printf("Enter the value [0] list node: ");
+	scanf(FORMAT_COMMAND, &value);
+	// Создание списка
+	Node* headNode = InitList(value);
+	// Заполнение списка
+	for(size_t i = 1; i < sizeList; i++){
+		printf("Enter the value [%ld] list node: ", i);
+		scanf(FORMAT_COMMAND, &value);
+		PushBackList(headNode, value);
+	}
+	// Возвращение указателя на готовый список
+	return headNode;
+}
