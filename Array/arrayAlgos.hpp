@@ -133,7 +133,7 @@ TBase* ArrScanAndCreate(TCount *p_len)
 	std::cout << "Enter the length of the array: ";
 	// Ввод длины массива и проверка вводимых данных
 	do{
-		scanf(FORMAT_COMMAND_CNT, p_len);
+		std::cin >> p_len;
 	}while(*p_len<0 || MAX_ARR_SIZE<*p_len);
 	// Выделение памяти под массив
 	TBase* arr = ArrCreate(*p_len);
@@ -147,17 +147,18 @@ TBase* ArrScanAndCreate(TCount *p_len)
 
 // Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
 // и выделение памяти под него
+template <class TBase, class TCount>
 TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
 {
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	std::cout << "Enter the number of rows in the array: ";
 	do{
-		scanf(FORMAT_COMMAND_CNT, p_row);
+		std::cin >> p_row;
 	}while(*p_row<0 || MAX_ARR_SIZE<*p_row);
 	
 	std::cout << "Enter the number of rows in the array: ";
 	do{
-		scanf(FORMAT_COMMAND_CNT, p_column);
+		std::cin >> p_column;
 	}while(*p_column<0 || MAX_ARR_SIZE<*p_column);
 	
 	TBase** arr = Arr2Create(*p_row, *p_column);
@@ -170,6 +171,41 @@ TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
 		std::cout << std::endl;	// Вывод символа перевода каретки
 	}
 	return arr;
+}
+
+
+// Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
+// элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
+// Метод Ч.А.Р. Хоара (1962г)
+template <class TBase, class TCount>
+void ArrQuickSort(TBase* arr, const TCount _left, const TCount _right, bool sortVector)
+{
+	// Условие выхода из рекурсии
+	if(_left>=_right) return;
+	// Перемещение опорного элемента в левый край массива
+	ArrSwap(arr, _left, (_left + _right)/2);
+	// Сохранение индекса крайнего левого (опорного) элемента
+	TCount lastLeft = _left;
+	// Сортировка с учётом направления sortVector
+	for(size_t index = _left+1; index<=_right; index++)
+		if( (arr[index]<arr[_left] && sortVector==true) ||
+			(arr[index]>arr[_left] && sortVector==false) ){
+			ArrSwap(arr, index, ++lastLeft);
+		}
+	// Перемещение опорного элемента за сортируемую область
+	ArrSwap(arr, _left, lastLeft);
+	// Рекурсивный вызов сортировки элементов слудующих частей массива
+	ArrQuickSort(arr, _left, lastLeft-1, sortVector);
+	ArrQuickSort(arr, lastLeft+1, _right, sortVector);
+}
+
+// Замена местами элементов под индексами indexA и indexB массива Arr
+template <class TBase, class TCount>
+void ArrSwap(TBase* arr, const TCount indexA, const TCount indexB)
+{
+	TBase oldElement = arr[indexB];
+	arr[indexB] = arr[indexA];
+	arr[indexA] = oldElement;
 }
 
 #endif
