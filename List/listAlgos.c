@@ -10,12 +10,29 @@
 //*****************************************************
 
 // Создание списка и его первого узла
-Node* InitList(TBase newValue)
+Node* InitList(const TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
 	Node* headNode = (Node*) malloc(sizeof(Node));
 	headNode->value = newValue;
 	return headNode;
+}
+
+// Создание списка с numNode количеством узлов (заполнены случаяными числами)
+Node* GenerateList(const TCount numNode)
+{
+	Node* headNode = InitList(0);	// Первый элемент является нулевым
+	#ifdef RANDOM_RANGE
+		srand(time(NULL));
+	#endif
+	// Если заполнение случайными числами отключено, то заполняем узлы 0
+	for(size_t index = 1; index < numNode; index++){
+		#ifdef RANDOM_RANGE
+			PushBackList(headNode, rand() % RANDOM_RANGE);
+		#else
+			PushBackList(headNode, 0);
+		#endif
+	}
 }
 
 
