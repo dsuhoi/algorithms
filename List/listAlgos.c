@@ -18,7 +18,7 @@ Node* InitList(const TBase newValue)
 	return headNode;
 }
 
-// Создание списка с numNode количеством узлов (заполнены случаяными числами)
+// Создание списка с numNode количеством узлов (заполнены случайными числами)
 Node* GenerateList(const TCount numNode)
 {
 	Node* headNode = InitList(0);	// Первый элемент является нулевым
