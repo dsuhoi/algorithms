@@ -44,7 +44,7 @@
 template <class TBase, class TCount>
 TBase* ArrCreate(const TCount _len)
 {
-	if(_len < 1 || MAX_ARR_SIZE < _len){ 
+	if((_len < 1) || (MAX_ARR_SIZE < _len)){ 
 		return nullptr;
 	}
 	
@@ -74,7 +74,7 @@ TBase* ArrCreate(const TCount _len)
 template <class TBase, class TCount>
 TBase** Arr2Create(const TCount _row, const TCount _column)
 {
-	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column)) ){
+	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column))){
 		return nullptr;
 	}
 

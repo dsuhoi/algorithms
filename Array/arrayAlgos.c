@@ -12,6 +12,10 @@
 // Выделение памяти под одномерный массив длины _len и возвращение указателя на начало массива
 TBase* ArrCreate(const TCount _len)
 {
+	if((_len < 1) || (MAX_ARR_SIZE < _len)){
+		return NULL;
+	}
+	
 	TBase* arr = (TBase*) malloc(_len*sizeof(TBase));
 	
 	#ifdef RANDOM_RANGE
@@ -30,6 +34,10 @@ TBase* ArrCreate(const TCount _len)
 // Выделение памяти под двумерный массив (с row кол-вом рядов и column кол-вом слобцов) и возвращение указателя на начало массива
 TBase** Arr2Create(const TCount _row, const TCount _column)
 {
+	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column))){
+		return nullptr;
+	}
+	
 	// Выделение памяти под элементы и указатели на них
 	TBase** arr = (TBase**) malloc(_row*sizeof(TBase*) + _column*_row*sizeof(TBase));
 	// Установка первого указателя
