@@ -19,3 +19,21 @@ BTreeNode* InitBTree(TBase newValue)
 	Node->leftNode = NULL;
 	Node->rightNode = NULL;
 }
+
+
+// Добавление узла со значением value в бинарное дерево с вершиной headNode
+void PushBTree(BTreeNode* headNode, TBase newValue)
+{
+	while(headNode!=NULL){ 
+		if(newValue < headNode->value){
+			// Если новое значение меньше предыдущего, переводим указатель на левую ветвь
+			headNode = headNode->leftNode;
+		}
+		else{
+			// Иначе на правую
+			headNode = headNode->rightNode;
+		}
+	}
+	// Создаём новый узел
+	headNode = InitBTree(newValue);
+}

@@ -50,5 +50,8 @@ typedef struct BTreeNode{
 // Создание узла дерева со значением value
 BTreeNode* InitBTree(TBase newValue);
 
+// Добавление узла со значением value в бинарное дерево с вершиной headNode
+BTreeNode* PushBTree(BTreeNode* headNode, TBase newValue);
+
 
 #endif
