@@ -37,3 +37,25 @@ void PushBTree(BTreeNode* headNode, TBase newValue)
 	// Создаём новый узел
 	headNode = InitBTree(newValue);
 }
+
+
+// Поиск узла со значением findValue в бинарном дереве с вершиной headNode
+BTreeNode* FindBTree(BTreeNode* headNode, TBase findValue)
+{
+	while(headNode!=NULL){
+		// Если узел найден, то возвращаем указатель на него
+		if(findValue == headNode->value){
+			return headNode;
+		}
+		// Если значение текущего узла больше искомого, то идём по левой ветви
+		else if(findValue < headNode->value){
+			headNode = headNode->leftNode;
+		}
+		// Иначе по правой
+		else{
+			headNode = headNode->rightNode;
+		}
+	}
+	// Если узел не был найден, то возвращаем NULL
+	return NULL;
+}

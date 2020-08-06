@@ -53,5 +53,8 @@ BTreeNode* InitBTree(TBase newValue);
 // Добавление узла со значением value в бинарное дерево с вершиной headNode
 BTreeNode* PushBTree(BTreeNode* headNode, TBase newValue);
 
+// Поиск узла со значением findValue в бинарном дереве с вершиной headNode
+BTreeNode* FindBTree(BTreeNode* headNode, TBase findValue);
+
 
 #endif
