@@ -10,18 +10,18 @@
 //*****************************************************
 
 // Создание списка и его первого узла
-Node* InitList(const TBase newValue)
+ListNode* InitList(const TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	Node* headNode = (Node*) malloc(sizeof(Node));
+	ListNode* headNode = (ListNode*) malloc(sizeof(ListNode));
 	headNode->value = newValue;
 	return headNode;
 }
 
 // Создание списка с numNode количеством узлов (заполнены случайными числами)
-Node* GenerateList(const TCount numNode)
+ListNode* GenerateList(const TCount numNode)
 {
-	Node* headNode = InitList(0);	// Первый элемент является нулевым
+	ListNode* headNode = InitList(0);	// Первый элемент является нулевым
 	#ifdef RANDOM_RANGE
 		srand(time(NULL));
 	#endif
@@ -33,14 +33,15 @@ Node* GenerateList(const TCount numNode)
 			PushBackList(headNode, 0);
 		#endif
 	}
+	return headNode;
 }
 
 
 // Вставить узел со значением newValue в начало списка с вершиной headNode
-void PushList(Node** headNode, TBase newValue)
+void PushList(ListNode** headNode, TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	Node* newNode = (Node*) malloc(sizeof(Node));
+	ListNode* newNode = (ListNode*) malloc(sizeof(ListNode));
 	newNode->value = newValue;
 	// Смена указателя на верхний узел
 	newNode->p_nextNode = (*headNode);
@@ -49,25 +50,25 @@ void PushList(Node** headNode, TBase newValue)
 }
 
 // Вставить узел со значением newValue в конец списка с вершиной headNode
-void PushBackList(Node* headNode, TBase newValue)
+void PushBackList(ListNode* headNode, TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	Node* newNode = (Node*) malloc(sizeof(Node));
+	ListNode* newNode = (ListNode*) malloc(sizeof(ListNode));
 	newNode->value = newValue;
 	newNode->p_nextNode = NULL;
 	// Получение указателя на последний узел
-	Node* lastNode = GetLastList(headNode);
+	ListNode* lastNode = GetLastList(headNode);
 	lastNode->p_nextNode = newNode;
 }
 
 
 // Удалить начальный узел из списка с вершиной headNode
-TBase PopList(Node** headNode)
+TBase PopList(ListNode** headNode)
 {
 	// Проверка на наличие узлов в списке
 	if(headNode==NULL) return 0;
 	// Создание указателя на вершину списка
-	Node* lastNode = (*headNode);
+	ListNode* lastNode = (*headNode);
 	TBase lastValue = lastNode->value;
 	(*headNode) = (*headNode)->p_nextNode;
 	// Удаление узла
@@ -77,7 +78,7 @@ TBase PopList(Node** headNode)
 }
 
 // Удалить последний узел из списка с вершиной headNode
-TBase PopBackList(Node** headNode)
+TBase PopBackList(ListNode** headNode)
 {
 	// Проверка на наличие узлов в списке
 	if(headNode==NULL) return 0;
@@ -92,7 +93,7 @@ TBase PopBackList(Node** headNode)
 		(*headNode) = (*headNode)->p_nextNode;
 	}
 	// Создание указателя на предпоследний узел
-	Node* lastNode = (*headNode);
+	ListNode* lastNode = (*headNode);
 	TBase lastValue = lastNode->p_nextNode->value;
 	// Удаление последнего узла
 	free(lastNode->p_nextNode);
@@ -103,12 +104,12 @@ TBase PopBackList(Node** headNode)
 
 
 // Вставить узел со значением newValue в позицию index списка с вершиной headNode
-void InsertList(Node* headNode, TCount index, TBase newValue)
+void InsertList(ListNode* headNode, TCount index, TBase newValue)
 {
 	// Получение указателя на узел по индексу
-	Node* prevNode = GetList(headNode, index);
+	ListNode* prevNode = GetList(headNode, index);
 	// Создание нового узла
-	Node* newNode = (Node*) malloc(sizeof(Node));
+	ListNode* newNode = (ListNode*) malloc(sizeof(ListNode));
 	newNode->value = newValue;
 	// Вставка узла в нужную позицию
 	newNode->p_nextNode = prevNode->p_nextNode;
@@ -116,18 +117,18 @@ void InsertList(Node* headNode, TCount index, TBase newValue)
 }
 
 // Удалить index узел из списка с вершиной headNode
-TBase RemoveList(Node** headNode, TCount index)
+TBase RemoveList(ListNode** headNode, TCount index)
 {
 	// Проверка индекса (удаление первого элемента)
 	if(index<=0){
 		return PopList(headNode);
 	}
 	// Получение указателя на узел перед искомым
-	Node* prevNode = GetList(*headNode, index-1);
+	ListNode* prevNode = GetList(*headNode, index-1);
 	// Если узлов нет, то выходим из функции
 	if(prevNode==NULL) return 0;
 	// Создание указателя на удаляемый узел
-	Node* delNode = prevNode->p_nextNode;
+	ListNode* delNode = prevNode->p_nextNode;
 	prevNode->p_nextNode = delNode->p_nextNode;
 	TBase lastValue = delNode->value;
 	// Удаление узла
@@ -138,7 +139,7 @@ TBase RemoveList(Node** headNode, TCount index)
 
 
 // Получить index узел из списка с вершиной headNode
-Node* GetList(Node* headNode, TCount index)
+ListNode* GetList(ListNode* headNode, TCount index)
 {
 	TCount cnt = 0;
 	// Получение указателя на искомый узел
@@ -151,7 +152,7 @@ Node* GetList(Node* headNode, TCount index)
 }
 
 // Получить указатель на последний узел из списка с вершиной headNode
-Node* GetLastList(Node* headNode)
+ListNode* GetLastList(ListNode* headNode)
 {
 	// Проверка на наличие узлов в списке
 	if(headNode == NULL) return NULL;
@@ -164,7 +165,7 @@ Node* GetLastList(Node* headNode)
 }
 
 // Получить размер списка (кол-во узлов в нём)
-TCount GetSizeList(Node* headNode)
+TCount GetSizeList(ListNode* headNode)
 {
 	TCount sizeList = 0;
 	// Подсчёт узлов до конца списка
@@ -178,7 +179,7 @@ TCount GetSizeList(Node* headNode)
 
 
 // Вывод узлов списка с вершиной headNode
-void ListPrint(Node* headNode)
+void ListPrint(ListNode* headNode)
 {
 	TCount sizeList = GetSizeList(headNode);
 	for(size_t i = 0 ; i<sizeList; i++){
@@ -189,7 +190,7 @@ void ListPrint(Node* headNode)
 }
 
 // Ввод узлов списка с вершиной headNode
-Node* ListScan()
+ListNode* ListScan()
 {
 	TCount sizeList = 0;	//размер списка
 	// Ввод размера списка
@@ -202,7 +203,7 @@ Node* ListScan()
 	printf("Enter the value [0] list node: ");
 	scanf(FORMAT_COMMAND, &value);
 	// Создание списка
-	Node* headNode = InitList(value);
+	ListNode* headNode = InitList(value);
 	// Заполнение списка
 	for(size_t i = 1; i < sizeList; i++){
 		printf("Enter the value [%ld] list node: ", i);
