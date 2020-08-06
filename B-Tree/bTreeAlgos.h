@@ -47,5 +47,8 @@ typedef struct BTreeNode{
 } BTreeNode;
 
 
+// Создание узла дерева со значением value
+BTreeNode* InitBTree(TBase newValue);
+
 
 #endif
