@@ -78,8 +78,11 @@ ListNode* GetLastList(ListNode* headNode);
 TCount GetSizeList(ListNode* headNode);
 
 // Вывод узлов списка с вершиной headNode
-void ListPrint(ListNode* headNode);
+void PrintList(ListNode* headNode);
 // Ввод узлов списка с вершиной headNode
-ListNode* ListScan();
+ListNode* ScanList();
+
+// Создание массива (с указателем на длину p_len) из элементов списка с вершиной headNode
+TBase* ListToArray(ListNode* headNode, TCount* p_len);
 
 #endif

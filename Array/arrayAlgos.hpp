@@ -128,17 +128,17 @@ void Arr2Print(TBase** arr, const TCount _row, const TCount _column)
 
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
 template <class TBase, class TCount>
-TBase* ArrScanAndCreate(TCount *p_len)
+TBase* ArrScanAndCreate(TCount &p_len)
 {
 	std::cout << "Enter the length of the array: ";
 	// Ввод длины массива и проверка вводимых данных
 	do{
 		std::cin >> p_len;
-	}while(*p_len<0 || MAX_ARR_SIZE<*p_len);
+	}while(p_len < 0 || MAX_ARR_SIZE < p_len);
 	// Выделение памяти под массив
-	TBase* arr = ArrCreate(*p_len);
+	TBase* arr = ArrCreate(p_len);
 	// Ввод элементов
-	for(size_t i = 0; i < *p_len; i++){
+	for(size_t i = 0; i < p_len; i++){
 		std::cout << "Enter the value [" << i << "] element: ";
 		std::cin >> arr[i];
 	}
@@ -148,23 +148,23 @@ TBase* ArrScanAndCreate(TCount *p_len)
 // Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
 // и выделение памяти под него
 template <class TBase, class TCount>
-TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
+TBase** Arr2ScanAndCreate(TCount &p_row, TCount &p_column)
 {
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	std::cout << "Enter the number of rows in the array: ";
 	do{
 		std::cin >> p_row;
-	}while(*p_row<0 || MAX_ARR_SIZE<*p_row);
+	}while(p_row < 0 || MAX_ARR_SIZE < p_row);
 	
 	std::cout << "Enter the number of rows in the array: ";
 	do{
 		std::cin >> p_column;
-	}while(*p_column<0 || MAX_ARR_SIZE<*p_column);
+	}while(p_column < 0 || MAX_ARR_SIZE < p_column);
 	
-	TBase** arr = Arr2Create(*p_row, *p_column);
+	TBase** arr = Arr2Create(p_row, p_column);
 	
-	for(size_t row = 0; row < *p_row; row++){
-		for(size_t column = 0; column < *p_column; column++){
+	for(size_t row = 0; row < p_row; row++){
+		for(size_t column = 0; column < p_column; column++){
 			std::cout << "Enter the value [" << row << "][" << column << "] element: ";	// Ввод элемента
 			std::cin << arr[row][column];
 		}

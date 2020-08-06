@@ -92,7 +92,7 @@ TBase* ArrScanAndCreate(TCount *p_len)
 	// Ввод длины массива и проверка вводимых данных
 	do{
 		scanf(FORMAT_COMMAND_CNT, p_len);
-	}while(*p_len<0 || MAX_ARR_SIZE<*p_len);
+	}while(*p_len < 0 || MAX_ARR_SIZE < *p_len);
 	// Выделение памяти под массив
 	TBase* arr = ArrCreate(*p_len);
 	// Ввод элементов
@@ -111,12 +111,12 @@ TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
 	printf("Enter the number of rows in the array: ");
 	do{
 		scanf(FORMAT_COMMAND_CNT, p_row);
-	}while(*p_row<0 || MAX_ARR_SIZE<*p_row);
+	}while(*p_row < 0 || MAX_ARR_SIZE < *p_row);
 	
 	printf("Enter the number of rows in the array: ");
 	do{
 		scanf(FORMAT_COMMAND_CNT, p_column);
-	}while(*p_column<0 || MAX_ARR_SIZE<*p_column);
+	}while(*p_column < 0 || MAX_ARR_SIZE < *p_column);
 	
 	TBase** arr = Arr2Create(*p_row, *p_column);
 	
@@ -137,22 +137,22 @@ TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
 void ArrQuickSort(TBase* arr, const TCount _left, const TCount _right, const TBool sortVector)
 {
 	// Условие выхода из рекурсии
-	if(_left>=_right) return;
+	if(_left >= _right) return;
 	// Перемещение опорного элемента в левый край массива
 	ArrSwap(arr, _left, (_left + _right)/2);
 	// Сохранение индекса крайнего левого (опорного) элемента
 	TCount lastLeft = _left;
 	// Сортировка с учётом направления sortVector
 	for(size_t index = _left+1; index<=_right; index++)
-		if( (arr[index]<arr[_left] && sortVector==True) ||
-			(arr[index]>arr[_left] && sortVector==False) ){
+		if( (arr[index] < arr[_left] && sortVector == True) ||
+			(arr[index] > arr[_left] && sortVector == False) ){
 			ArrSwap(arr, index, ++lastLeft);
 		}
 	// Перемещение опорного элемента за сортируемую область
 	ArrSwap(arr, _left, lastLeft);
 	// Рекурсивный вызов сортировки элементов слудующих частей массива
-	ArrQuickSort(arr, _left, lastLeft-1, sortVector);
-	ArrQuickSort(arr, lastLeft+1, _right, sortVector);
+	ArrQuickSort(arr, _left, lastLeft - 1, sortVector);
+	ArrQuickSort(arr, lastLeft + 1, _right, sortVector);
 }
 
 // Замена местами элементов под индексами indexA и indexB массива Arr

@@ -179,7 +179,7 @@ TCount GetSizeList(ListNode* headNode)
 
 
 // Вывод узлов списка с вершиной headNode
-void ListPrint(ListNode* headNode)
+void PrintList(ListNode* headNode)
 {
 	TCount sizeList = GetSizeList(headNode);
 	for(size_t i = 0 ; i<sizeList; i++){
@@ -190,7 +190,7 @@ void ListPrint(ListNode* headNode)
 }
 
 // Ввод узлов списка с вершиной headNode
-ListNode* ListScan()
+ListNode* ScanList()
 {
 	TCount sizeList = 0;	//размер списка
 	// Ввод размера списка
@@ -212,4 +212,21 @@ ListNode* ListScan()
 	}
 	// Возвращение указателя на готовый список
 	return headNode;
+}
+
+
+// Создание линейного массива из элементов списка с вершиной headNode
+TBase* ListToArray(ListNode* headNode, TCount* p_len)
+{
+	// Получение длины будущего массива (кол-ва узлов в списке)
+	*p_len = GetSizeList(headNode);
+	// Выделение памяти под массив
+	TBase* arr = (TBase*) malloc((*p_len) * sizeof(TBase));
+	// Заполнение массива
+	for(size_t i = 0; i < *p_len; i++){
+		// Получение значения из узла под индексом i
+		arr[i] = GetList(headNode, i)->value;
+	}
+	// Возвращение указателя на массив
+	return arr;
 }
