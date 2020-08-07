@@ -41,8 +41,8 @@
  * Освобождение памяти:
  * delete [] arr;
  */
-template <class TBase, class TCount>
-TBase* ArrCreate(const TCount _len)
+template <typename TBase>
+TBase* ArrCreate(const unsigned int _len)
 {
 	if((_len < 1) || (MAX_ARR_SIZE < _len)){ 
 		return nullptr;
@@ -71,8 +71,8 @@ TBase* ArrCreate(const TCount _len)
  * delete [] arr[0];
  * delete [] arr;
  */
-template <class TBase, class TCount>
-TBase** Arr2Create(const TCount _row, const TCount _column)
+template <typename TBase>
+TBase** Arr2Create(const unsigned int _row, const unsigned int _column)
 {
 	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column))){
 		return nullptr;
@@ -104,8 +104,8 @@ TBase** Arr2Create(const TCount _row, const TCount _column)
 
 
 // Вывод _len элементов массива Arr
-template <class TBase, class TCount>
-void ArrPrint(TBase* arr, const TCount _len)
+template <typename TBase>
+void ArrPrint(TBase* arr, const unsigned int _len)
 {
 	for(size_t i = 0; i < _len; i++){
 		std::cout << arr[i] << DELIM_CHR;	// Вывод элемента и символа разделителя
@@ -114,8 +114,8 @@ void ArrPrint(TBase* arr, const TCount _len)
 }
 
 // Вывод _row строк и _column столбцов элементов массива Arr
-template <class TBase, class TCount>
-void Arr2Print(TBase** arr, const TCount _row, const TCount _column)
+template <typename TBase>
+void Arr2Print(TBase** arr, const unsigned int _row, const unsigned int _column)
 {
 	for(size_t row = 0; row < _row; row++){
 		for(size_t column = 0; column < _column; column++){
@@ -127,8 +127,8 @@ void Arr2Print(TBase** arr, const TCount _row, const TCount _column)
 
 
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
-template <class TBase, class TCount>
-TBase* ArrScanAndCreate(TCount &p_len)
+template <typename TBase>
+TBase* ArrScanAndCreate(unsigned int &p_len)
 {
 	std::cout << "Enter the length of the array: ";
 	// Ввод длины массива и проверка вводимых данных
@@ -136,7 +136,7 @@ TBase* ArrScanAndCreate(TCount &p_len)
 		std::cin >> p_len;
 	}while(p_len < 0 || MAX_ARR_SIZE < p_len);
 	// Выделение памяти под массив
-	TBase* arr = ArrCreate(p_len);
+	TBase* arr = ArrCreate<TBase>(p_len);
 	// Ввод элементов
 	for(size_t i = 0; i < p_len; i++){
 		std::cout << "Enter the value [" << i << "] element: ";
@@ -147,8 +147,8 @@ TBase* ArrScanAndCreate(TCount &p_len)
 
 // Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
 // и выделение памяти под него
-template <class TBase, class TCount>
-TBase** Arr2ScanAndCreate(TCount &p_row, TCount &p_column)
+template <typename TBase>
+TBase** Arr2ScanAndCreate(unsigned int &p_row, unsigned int &p_column)
 {
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	std::cout << "Enter the number of rows in the array: ";
@@ -161,7 +161,7 @@ TBase** Arr2ScanAndCreate(TCount &p_row, TCount &p_column)
 		std::cin >> p_column;
 	}while(p_column < 0 || MAX_ARR_SIZE < p_column);
 	
-	TBase** arr = Arr2Create(p_row, p_column);
+	TBase** arr = Arr2Create<TBase>(p_row, p_column);
 	
 	for(size_t row = 0; row < p_row; row++){
 		for(size_t column = 0; column < p_column; column++){
@@ -177,15 +177,15 @@ TBase** Arr2ScanAndCreate(TCount &p_row, TCount &p_column)
 // Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
 // элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
 // Метод Ч.А.Р. Хоара (1962г)
-template <class TBase, class TCount>
-void ArrQuickSort(TBase* arr, const TCount _left, const TCount _right, bool sortVector)
+template <typename TBase>
+void ArrQuickSort(TBase* arr, const unsigned int _left, const unsigned int _right, bool sortVector)
 {
 	// Условие выхода из рекурсии
 	if(_left>=_right) return;
 	// Перемещение опорного элемента в левый край массива
 	ArrSwap(arr, _left, (_left + _right)/2);
 	// Сохранение индекса крайнего левого (опорного) элемента
-	TCount lastLeft = _left;
+	unsigned int lastLeft = _left;
 	// Сортировка с учётом направления sortVector
 	for(size_t index = _left+1; index<=_right; index++)
 		if( (arr[index]<arr[_left] && sortVector==true) ||
@@ -200,8 +200,8 @@ void ArrQuickSort(TBase* arr, const TCount _left, const TCount _right, bool sort
 }
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
-template <class TBase, class TCount>
-void ArrSwap(TBase* arr, const TCount indexA, const TCount indexB)
+template <typename TBase>
+void ArrSwap(TBase* arr, const unsigned int indexA, const unsigned int indexB)
 {
 	TBase oldElement = arr[indexB];
 	arr[indexB] = arr[indexA];

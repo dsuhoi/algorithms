@@ -84,5 +84,7 @@ ListNode* ScanList();
 
 // Создание массива (с указателем на длину p_len) из элементов списка с вершиной headNode
 TBase* ListToArray(ListNode* headNode, TCount* p_len);
+// Создание односвязного списка из массива arr с длиной len
+ListNode* ArrayToList(TBase* arr, const TCount len);
 
 #endif

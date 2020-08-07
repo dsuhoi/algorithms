@@ -230,3 +230,16 @@ TBase* ListToArray(ListNode* headNode, TCount* p_len)
 	// Возвращение указателя на массив
 	return arr;
 }
+
+// Создание односвязного списка из массива arr с длиной len
+ListNode* ArrayToList(TBase* arr, const TCount len)
+{
+	// Создание верщины списка
+	ListNode* headNode = InitList(arr[0]);
+	for(size_t i = 0; i < len; i++){
+		// Создание узлов списка с элементами массива
+		PushBackList(headNode, arr[i]);
+	}
+	// Возвращение указателя на вершину списка
+	return headNode;
+}
