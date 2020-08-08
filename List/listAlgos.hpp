@@ -122,6 +122,22 @@ void ListNode<TBase>::Push(TBase newValue)
 	}
 }
 
-
+// Добавить newValue узел в конец списка
+template <typename TBase>
+void ListNode<TBase>::PushBack(TBase newValue)
+{
+	// Выделение памяти под первый узел и присвоение значений
+	if(Node* newNode = new Node(newValue)){
+		newNode->p_nextNode = nullptr;
+		// Получение указателя на последний узел
+		ListNode* lastNode = headNode;
+		// Нахождение последнего элемента списка
+		while(lastNode->p_nextNode!=nullptr){
+			lastNode = lastNode->p_nextNode;
+		}
+		// Присвоение указателя
+		lastNode->p_nextNode = newNode;
+	}
+}
 
 #endif
