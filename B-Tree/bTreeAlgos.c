@@ -59,3 +59,14 @@ BTreeNode* FindBTree(BTreeNode* headNode, TBase findValue)
 	// Если узел не был найден, то возвращаем NULL
 	return NULL;
 }
+
+
+// Получение указателя на узел с наименьшим значением бинарного дерева с вершиной headNode
+BTreeNode* GetMinBTree(BTreeNode* headNode)
+{
+	// Итерация по левой ветви
+	while(headNode->leftNode!=NULL){ 
+		headNode = headNode->leftNode;
+	}
+	return headNode;
+}

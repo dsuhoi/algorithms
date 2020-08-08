@@ -56,5 +56,8 @@ BTreeNode* PushBTree(BTreeNode* headNode, TBase newValue);
 // Поиск узла со значением findValue в бинарном дереве с вершиной headNode
 BTreeNode* FindBTree(BTreeNode* headNode, TBase findValue);
 
+// Получение указателя на узел с наименьшим значением бинарного дерева с вершиной headNode
+BTreeNode* GetMinBTree(BTreeNode* headNode);
+
 
 #endif
