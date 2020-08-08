@@ -70,3 +70,13 @@ BTreeNode* GetMinBTree(BTreeNode* headNode)
 	}
 	return headNode;
 }
+
+// Получение указателя на узел с наибольшим значением бинарного дерева с вершиной headNode
+BTreeNode* GetMaxBTree(BTreeNode* headNode)
+{
+	// Итерация по правой ветви
+	while(headNode->rightNode!=NULL){ 
+		headNode = headNode->rightNode;
+	}
+	return headNode;
+}
