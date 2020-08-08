@@ -155,7 +155,9 @@ ListNode* GetList(ListNode* headNode, TCount index)
 ListNode* GetLastList(ListNode* headNode)
 {
 	// Проверка на наличие узлов в списке
-	if(headNode == NULL) return NULL;
+	if(headNode == NULL){ 
+		return NULL;
+	}
 	// Нахождение последнего элемента
 	while(headNode->p_nextNode!=NULL){
 		headNode = headNode->p_nextNode;

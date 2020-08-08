@@ -32,6 +32,9 @@ private:
 	};
 	// Вершина списка
 	Node* headNode;
+
+	// Получить указатель на последний узел
+	Node* GetLastNode();
 public:
 	ListNode();	// Пустой конструктор
 	// Конструктор списка по numNode количеству узлов в нём (все узлы равны 0)
@@ -57,6 +60,8 @@ public:
 	
 	// Получить значение узла в позиции index
 	TBase GetNode(const unsigned int index);
+	// Получить значение последнего узла
+	TBase GetLast();
 	
 	// Вывод всех элементов списка
 	void Print();
@@ -81,6 +86,39 @@ ListNode<TBase>::ListNode(const unsigned int numNode) : headNode(nullptr)
 {
 	for(size_t i = 0; i < numNode; i++){
 		Push(0);
+	}
+}
+
+// Конструктор списка по numNode количеству узлов в нём
+// (все узлы равны случайным числам с пределом randomRange)
+template <typename TBase>
+ListNode<TBase>::ListNode(const unsigned int numNode, const unsigned int randomRange) : headNode(nullptr)
+{
+	srand(time(NULL));
+	
+	for(size_t i = 0; i < numNode; i++){
+		Push(rand() % randomRange);
+	}
+}
+
+// Деструктор списка
+template <typename TBase>
+ListNode<TBase>::~ListNode()
+{
+	while(Pop()!=NULL);
+}
+
+
+// Добавить newValue узел в начало списка
+template <typename TBase>
+void ListNode<TBase>::Push(TBase newValue)
+{
+	// Выделение памяти под новый узел
+	if(Node* newNode = new Node(newValue)){
+		// Смена указателя на верхний узел
+		newNode->p_nextNode = headNode;
+		// Перестановка указателя на новый верхний узел
+		headNode = newNode;
 	}
 }
 
