@@ -140,4 +140,49 @@ void ListNode<TBase>::PushBack(TBase newValue)
 	}
 }
 
+
+// Удалить первый узел
+template <typename TBase>
+TBase ListNode<TBase>::Pop()
+{
+	// Проверка на наличие узлов в списке
+	if(headNode==nullptr) return NULL;
+	// Создание указателя на вершину списка
+	ListNode* lastNode = headNode;
+	TBase lastValue = lastNode->value;
+	headNode = headNode->p_nextNode;
+	// Удаление узла
+	free(lastNode);
+	// Возвращение значения удалённого узла
+	return lastValue;
+}
+
+// Удалить последний узел
+template <typename TBase>
+TBase ListNode<TBase>::PopBack()
+{
+	// Проверка на наличие узлов в списке
+	if(headNode==nullptr) return NULL;
+	// Проверка на наличие одного узла в списке и его удаление
+	if(headNode->p_nextNode==nullptr){
+		free(headNode);
+		headNode = nullptr;
+		return NULL;
+	}
+	// Нахождение указателя на предпоследний узел
+	while(headNode->p_nextNode->p_nextNode!=nullptr){
+		headNode = headNode->p_nextNode;
+	}
+	// Создание указателя на предпоследний узел
+	ListNode* lastNode = headNode;
+	// Значение последнего узла
+	TBase lastValue = lastNode->p_nextNode->value;
+	// Удаление последнего узла
+	free(lastNode->p_nextNode);
+	// Установка нулевого указателя
+	lastNode->p_nextNode = nullptr;
+	// Возвращение значения удалённого узла
+	return lastValue;
+}
+
 #endif
