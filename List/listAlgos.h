@@ -45,46 +45,46 @@ typedef int TCount;	// переменная для дополнительных 
 
 //структура элементов списка
 typedef struct ListNode{
-	struct ListNode* p_nextNode;
+	struct ListNode *p_nextNode;
 	TBase value; 
 } ListNode;
 
 
 // Создание списка и его первого узла
-ListNode* InitList(const TBase newValue);
+ListNode *InitList(const TBase newValue);
 // Создание списка с numNode количеством узлов (заполнены случайными числами)
-ListNode* GenerateList(const TCount numNode);
+ListNode *GenerateList(const TCount numNode);
 
 // Вставить узел со значением newValue в начало списка с вершиной headNode
-void PushList(ListNode** headNode, TBase newValue);
+void PushList(ListNode **headNode, TBase newValue);
 // Вставить узел со значением newValue в конец списка с вершиной headNode
-void PushBackList(ListNode* headNode, TBase newValue);
+void PushBackList(ListNode *headNode, TBase newValue);
 
 // Удалить начальный узел из списка с вершиной headNode
-TBase PopList(ListNode** headNode);
+TBase PopList(ListNode **headNode);
 // Удалить последний узел из списка с вершиной headNode
-TBase PopBackList(ListNode** headNode);
+TBase PopBackList(ListNode **headNode);
 
 // Вставить узел со значением newValue в позицию index списка с вершиной headNode
-void InsertList(ListNode* headNode, TCount index, TBase newValue);
+void InsertList(ListNode *headNode, TCount index, TBase newValue);
 // Удалить index узел из списка с вершиной headNode
-TBase RemoveList(ListNode** headNode, TCount index);
+TBase RemoveList(ListNode **headNode, TCount index);
 
 // Получить index узел из списка с вершиной headNode
-ListNode* GetList(ListNode* headNode, TCount index);
+ListNode *GetList(ListNode *headNode, TCount index);
 // Получить указатель на последний узел из списка с вершиной headNode
-ListNode* GetLastList(ListNode* headNode);
+ListNode *GetLastList(ListNode *headNode);
 // Получить размер списка (кол-во узлов в нём)
-TCount GetSizeList(ListNode* headNode);
+TCount GetSizeList(ListNode *headNode);
 
 // Вывод узлов списка с вершиной headNode
-void PrintList(ListNode* headNode);
+void PrintList(ListNode *headNode);
 // Ввод узлов списка с вершиной headNode
-ListNode* ScanList();
+ListNode *ScanList();
 
 // Создание массива (с указателем на длину p_len) из элементов списка с вершиной headNode
-TBase* ListToArray(ListNode* headNode, TCount* p_len);
+TBase *ListToArray(ListNode *headNode, TCount *p_len);
 // Создание односвязного списка из массива arr с длиной len
-ListNode* ArrayToList(TBase* arr, const TCount len);
+ListNode *ArrayToList(TBase *arr, const TCount len);
 
 #endif

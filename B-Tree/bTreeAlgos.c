@@ -10,10 +10,10 @@
 //***************************************************
 
 // Создание узла дерева со значением value
-BTreeNode* InitBTree(TBase newValue)
+BTreeNode *InitBTree(TBase newValue)
 {
 	// Выделение памяти под узел
-	BTreeNode* Node = (BTreeNode*) malloc(sizeof(BTreeNode));
+	BTreeNode *Node = (BTreeNode*) malloc(sizeof(BTreeNode));
 	// Присвоение значения узлу
 	Node->value = newValue;
 	Node->leftNode = NULL;
@@ -22,9 +22,9 @@ BTreeNode* InitBTree(TBase newValue)
 
 
 // Добавление узла со значением value в бинарное дерево с вершиной headNode
-void PushBTree(BTreeNode* headNode, TBase newValue)
+void PushBTree(BTreeNode *headNode, TBase newValue)
 {
-	while(headNode!=NULL){ 
+	while(headNode != NULL){ 
 		if(newValue < headNode->value){
 			// Если новое значение меньше предыдущего, переводим указатель на левую ветвь
 			headNode = headNode->leftNode;
@@ -40,9 +40,9 @@ void PushBTree(BTreeNode* headNode, TBase newValue)
 
 
 // Поиск узла со значением findValue в бинарном дереве с вершиной headNode
-BTreeNode* FindBTree(BTreeNode* headNode, TBase findValue)
+BTreeNode *FindBTree(BTreeNode *headNode, TBase findValue)
 {
-	while(headNode!=NULL){
+	while(headNode != NULL){
 		// Если узел найден, то возвращаем указатель на него
 		if(findValue == headNode->value){
 			return headNode;
@@ -62,20 +62,20 @@ BTreeNode* FindBTree(BTreeNode* headNode, TBase findValue)
 
 
 // Получение указателя на узел с наименьшим значением бинарного дерева с вершиной headNode
-BTreeNode* GetMinBTree(BTreeNode* headNode)
+BTreeNode *GetMinBTree(BTreeNode *headNode)
 {
 	// Итерация по левой ветви
-	while(headNode->leftNode!=NULL){ 
+	while(headNode->leftNode != NULL){ 
 		headNode = headNode->leftNode;
 	}
 	return headNode;
 }
 
 // Получение указателя на узел с наибольшим значением бинарного дерева с вершиной headNode
-BTreeNode* GetMaxBTree(BTreeNode* headNode)
+BTreeNode *GetMaxBTree(BTreeNode *headNode)
 {
 	// Итерация по правой ветви
-	while(headNode->rightNode!=NULL){ 
+	while(headNode->rightNode != NULL){ 
 		headNode = headNode->rightNode;
 	}
 	return headNode;

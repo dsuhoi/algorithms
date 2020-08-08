@@ -42,23 +42,23 @@ typedef int TCount;	// переменная для дополнительных 
 
 typedef struct BTreeNode{
 	TBase value;
-	BTreeNode* leftNode;
-	BTreeNode* rightNode;
+	BTreeNode *leftNode;
+	BTreeNode *rightNode;
 } BTreeNode;
 
 
 // Создание узла дерева со значением value
-BTreeNode* InitBTree(TBase newValue);
+BTreeNode *InitBTree(TBase newValue);
 
 // Добавление узла со значением value в бинарное дерево с вершиной headNode
-BTreeNode* PushBTree(BTreeNode* headNode, TBase newValue);
+BTreeNode *PushBTree(BTreeNode *headNode, TBase newValue);
 
 // Поиск узла со значением findValue в бинарном дереве с вершиной headNode
-BTreeNode* FindBTree(BTreeNode* headNode, TBase findValue);
+BTreeNode *FindBTree(BTreeNode *headNode, TBase findValue);
 
 // Получение указателя на узел с наименьшим значением бинарного дерева с вершиной headNode
-BTreeNode* GetMinBTree(BTreeNode* headNode);
+BTreeNode *GetMinBTree(BTreeNode *headNode);
 // Получение указателя на узел с наибольшим значением бинарного дерева с вершиной headNode
-BTreeNode* GetMaxBTree(BTreeNode* headNode);
+BTreeNode *GetMaxBTree(BTreeNode *headNode);
 
 #endif

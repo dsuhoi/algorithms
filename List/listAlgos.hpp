@@ -15,6 +15,18 @@
 #include <ctime>
 
 
+//*********************************
+// Основные константы
+//*********************************
+#define DELIM_CHR ' '	// символ разделитель
+
+
+//********************************************************
+// Основные константы для работы с односвязными списками
+//********************************************************
+#define MAX_LIST_SIZE 1000	// максимальное кол-во узлов в списке
+
+
 //****************************
 // Класс односвязного списка
 //****************************
@@ -24,17 +36,17 @@ class ListNode {
 private:
 	// Структура узла
 	struct Node {
-		Node* p_nextNode;
+		Node *p_nextNode;
 		TBase value;
 		// Конструкторы узла
 		Node() : p_nextNode(nullptr) {}
 		Node(TBase newValue) : value(newValue), p_nextNode(nullptr) {}
 	};
 	// Вершина списка
-	Node* headNode;
+	Node *headNode;
 
 	// Получить указатель на последний узел
-	Node* GetLastNode();
+	Node *GetLastNode();
 public:
 	ListNode();	// Пустой конструктор
 	// Конструктор списка по numNode количеству узлов в нём (все узлы равны 0)
@@ -62,14 +74,13 @@ public:
 	TBase GetNode(const unsigned int index);
 	// Получить значение последнего узла
 	TBase GetLast();
+	// Получить количество узлов в списке
+	unsigned int GetSize();
 	
 	// Вывод всех элементов списка
 	void Print();
 	// Ввод элементов списка
 	void Scan();
-	
-	// Получить количество узлов в списке
-	unsigned int GetSize();
 };
 
 
@@ -114,7 +125,7 @@ template <typename TBase>
 void ListNode<TBase>::Push(TBase newValue)
 {
 	// Выделение памяти под новый узел
-	if(Node* newNode = new Node(newValue)){
+	if(Node *newNode = new Node(newValue)){
 		// Смена указателя на верхний узел
 		newNode->p_nextNode = headNode;
 		// Перестановка указателя на новый верхний узел
@@ -127,10 +138,10 @@ template <typename TBase>
 void ListNode<TBase>::PushBack(TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	if(Node* newNode = new Node(newValue)){
+	if(Node *newNode = new Node(newValue)){
 		newNode->p_nextNode = nullptr;
 		// Получение указателя на последний узел
-		ListNode* lastNode = headNode;
+		ListNode *lastNode = headNode;
 		// Нахождение последнего элемента списка
 		while(lastNode->p_nextNode!=nullptr){
 			lastNode = lastNode->p_nextNode;
@@ -148,7 +159,7 @@ TBase ListNode<TBase>::Pop()
 	// Проверка на наличие узлов в списке
 	if(headNode==nullptr) return NULL;
 	// Создание указателя на вершину списка
-	ListNode* lastNode = headNode;
+	ListNode *lastNode = headNode;
 	TBase lastValue = lastNode->value;
 	headNode = headNode->p_nextNode;
 	// Удаление узла
@@ -174,7 +185,7 @@ TBase ListNode<TBase>::PopBack()
 		headNode = headNode->p_nextNode;
 	}
 	// Создание указателя на предпоследний узел
-	ListNode* lastNode = headNode;
+	ListNode *lastNode = headNode;
 	// Значение последнего узла
 	TBase lastValue = lastNode->p_nextNode->value;
 	// Удаление последнего узла
@@ -184,5 +195,6 @@ TBase ListNode<TBase>::PopBack()
 	// Возвращение значения удалённого узла
 	return lastValue;
 }
+
 
 #endif

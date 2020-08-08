@@ -42,13 +42,13 @@
  * delete [] arr;
  */
 template <typename TBase>
-TBase* ArrCreate(const unsigned int _len)
+TBase *ArrCreate(const unsigned int _len)
 {
 	if((_len < 1) || (MAX_ARR_SIZE < _len)){ 
 		return nullptr;
 	}
 	
-	TBase* arr = new TBase [_len];
+	TBase *arr = new TBase [_len];
 	
 	#ifdef RANDOM_RANGE
 		// Заполнение случайными числами
@@ -72,14 +72,14 @@ TBase* ArrCreate(const unsigned int _len)
  * delete [] arr;
  */
 template <typename TBase>
-TBase** Arr2Create(const unsigned int _row, const unsigned int _column)
+TBase **Arr2Create(const unsigned int _row, const unsigned int _column)
 {
 	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column))){
 		return nullptr;
 	}
 
 	// Выделение памяти под указатели на указатели на элементы
-	TBase** arr = new TBase* [_row];
+	TBase **arr = new TBase* [_row];
 	// Установка первого указателя
 	arr[0] = new TBase [_row * _column];
     
@@ -105,7 +105,7 @@ TBase** Arr2Create(const unsigned int _row, const unsigned int _column)
 
 // Вывод _len элементов массива Arr
 template <typename TBase>
-void ArrPrint(TBase* arr, const unsigned int _len)
+void ArrPrint(TBase *arr, const unsigned int _len)
 {
 	for(size_t i = 0; i < _len; i++){
 		std::cout << arr[i] << DELIM_CHR;	// Вывод элемента и символа разделителя
@@ -115,7 +115,7 @@ void ArrPrint(TBase* arr, const unsigned int _len)
 
 // Вывод _row строк и _column столбцов элементов массива Arr
 template <typename TBase>
-void Arr2Print(TBase** arr, const unsigned int _row, const unsigned int _column)
+void Arr2Print(TBase **arr, const unsigned int _row, const unsigned int _column)
 {
 	for(size_t row = 0; row < _row; row++){
 		for(size_t column = 0; column < _column; column++){
@@ -128,7 +128,7 @@ void Arr2Print(TBase** arr, const unsigned int _row, const unsigned int _column)
 
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
 template <typename TBase>
-TBase* ArrScanAndCreate(unsigned int &p_len)
+TBase *ArrScanAndCreate(unsigned int &p_len)
 {
 	std::cout << "Enter the length of the array: ";
 	// Ввод длины массива и проверка вводимых данных
@@ -136,7 +136,7 @@ TBase* ArrScanAndCreate(unsigned int &p_len)
 		std::cin >> p_len;
 	}while(p_len < 0 || MAX_ARR_SIZE < p_len);
 	// Выделение памяти под массив
-	TBase* arr = ArrCreate<TBase>(p_len);
+	TBase *arr = ArrCreate<TBase>(p_len);
 	// Ввод элементов
 	for(size_t i = 0; i < p_len; i++){
 		std::cout << "Enter the value [" << i << "] element: ";
@@ -148,7 +148,7 @@ TBase* ArrScanAndCreate(unsigned int &p_len)
 // Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
 // и выделение памяти под него
 template <typename TBase>
-TBase** Arr2ScanAndCreate(unsigned int &p_row, unsigned int &p_column)
+TBase **Arr2ScanAndCreate(unsigned int &p_row, unsigned int &p_column)
 {
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	std::cout << "Enter the number of rows in the array: ";
@@ -161,7 +161,7 @@ TBase** Arr2ScanAndCreate(unsigned int &p_row, unsigned int &p_column)
 		std::cin >> p_column;
 	}while(p_column < 0 || MAX_ARR_SIZE < p_column);
 	
-	TBase** arr = Arr2Create<TBase>(p_row, p_column);
+	TBase **arr = Arr2Create<TBase>(p_row, p_column);
 	
 	for(size_t row = 0; row < p_row; row++){
 		for(size_t column = 0; column < p_column; column++){
@@ -178,7 +178,7 @@ TBase** Arr2ScanAndCreate(unsigned int &p_row, unsigned int &p_column)
 // элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
 // Метод Ч.А.Р. Хоара (1962г)
 template <typename TBase>
-void ArrQuickSort(TBase* arr, const unsigned int _left, const unsigned int _right, bool sortVector)
+void ArrQuickSort(TBase *arr, const unsigned int _left, const unsigned int _right, bool sortVector)
 {
 	// Условие выхода из рекурсии
 	if(_left>=_right) return;
@@ -201,7 +201,7 @@ void ArrQuickSort(TBase* arr, const unsigned int _left, const unsigned int _righ
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 template <typename TBase>
-void ArrSwap(TBase* arr, const unsigned int indexA, const unsigned int indexB)
+void ArrSwap(TBase *arr, const unsigned int indexA, const unsigned int indexB)
 {
 	TBase oldElement = arr[indexB];
 	arr[indexB] = arr[indexA];

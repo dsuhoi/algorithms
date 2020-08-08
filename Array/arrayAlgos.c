@@ -10,13 +10,13 @@
 //*****************************************
 
 // Выделение памяти под одномерный массив длины _len и возвращение указателя на начало массива
-TBase* ArrCreate(const TCount _len)
+TBase *ArrCreate(const TCount _len)
 {
 	if((_len < 1) || (MAX_ARR_SIZE < _len)){
 		return NULL;
 	}
 	
-	TBase* arr = (TBase*) malloc(_len*sizeof(TBase));
+	TBase *arr = (TBase*) malloc(_len*sizeof(TBase));
 	
 	#ifdef RANDOM_RANGE
 		// Заполнение случайными числами
@@ -32,14 +32,14 @@ TBase* ArrCreate(const TCount _len)
 }
 
 // Выделение памяти под двумерный массив (с row кол-вом рядов и column кол-вом слобцов) и возвращение указателя на начало массива
-TBase** Arr2Create(const TCount _row, const TCount _column)
+TBase **Arr2Create(const TCount _row, const TCount _column)
 {
 	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column))){
 		return nullptr;
 	}
 	
 	// Выделение памяти под элементы и указатели на них
-	TBase** arr = (TBase**) malloc(_row*sizeof(TBase*) + _column*_row*sizeof(TBase));
+	TBase **arr = (TBase**) malloc(_row * sizeof(TBase*) + _column * _row * sizeof(TBase));
 	// Установка первого указателя
     arr[0] = (TCount*) (arr + _row);
     
@@ -63,7 +63,7 @@ TBase** Arr2Create(const TCount _row, const TCount _column)
 
 
 // Вывод _len элементов массива Arr
-void ArrPrint(TBase* arr, const TCount _len)
+void ArrPrint(TBase *arr, const TCount _len)
 {
 	for(size_t i = 0; i < _len; i++){
 		printf(FORMAT_COMMAND, arr[i]);	// Вывод элемента
@@ -73,7 +73,7 @@ void ArrPrint(TBase* arr, const TCount _len)
 }
 
 // Вывод row строк и _column столбцов элементов массива Arr
-void Arr2Print(TBase** arr, const TCount _row, const TCount _column)
+void Arr2Print(TBase **arr, const TCount _row, const TCount _column)
 {
 	for(size_t row = 0; row < _row; row++){
 		for(size_t column = 0; column < _column; column++){
@@ -86,7 +86,7 @@ void Arr2Print(TBase** arr, const TCount _row, const TCount _column)
 
 
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
-TBase* ArrScanAndCreate(TCount *p_len)
+TBase *ArrScanAndCreate(TCount *p_len)
 {
 	printf("Enter the length of the array: ");
 	// Ввод длины массива и проверка вводимых данных
@@ -94,7 +94,7 @@ TBase* ArrScanAndCreate(TCount *p_len)
 		scanf(FORMAT_COMMAND_CNT, p_len);
 	}while(*p_len < 0 || MAX_ARR_SIZE < *p_len);
 	// Выделение памяти под массив
-	TBase* arr = ArrCreate(*p_len);
+	TBase *arr = ArrCreate(*p_len);
 	// Ввод элементов
 	for(size_t i = 0; i < *p_len; i++){
 		printf("Enter the value [%ld] element: ", i);
@@ -105,7 +105,7 @@ TBase* ArrScanAndCreate(TCount *p_len)
 
 // Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
 // и выделение памяти под него
-TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
+TBase **Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
 {	
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	printf("Enter the number of rows in the array: ");
@@ -118,7 +118,7 @@ TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
 		scanf(FORMAT_COMMAND_CNT, p_column);
 	}while(*p_column < 0 || MAX_ARR_SIZE < *p_column);
 	
-	TBase** arr = Arr2Create(*p_row, *p_column);
+	TBase **arr = Arr2Create(*p_row, *p_column);
 	
 	for(size_t row = 0; row < *p_row; row++){
 		for(size_t column = 0; column < *p_column; column++){
@@ -134,7 +134,7 @@ TBase** Arr2ScanAndCreate(TCount *p_row, TCount *p_column)
 // Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
 // элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
 // Метод Ч.А.Р. Хоара (1962г)
-void ArrQuickSort(TBase* arr, const TCount _left, const TCount _right, const TBool sortVector)
+void ArrQuickSort(TBase *arr, const TCount _left, const TCount _right, const TBool sortVector)
 {
 	// Условие выхода из рекурсии
 	if(_left >= _right) return;
@@ -156,7 +156,7 @@ void ArrQuickSort(TBase* arr, const TCount _left, const TCount _right, const TBo
 }
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
-void ArrSwap(TBase* arr, const TCount indexA, const TCount indexB)
+void ArrSwap(TBase *arr, const TCount indexA, const TCount indexB)
 {
 	TBase oldElement = arr[indexB];
 	arr[indexB] = arr[indexA];
