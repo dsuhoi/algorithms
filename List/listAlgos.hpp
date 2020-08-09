@@ -224,12 +224,25 @@ TBase ListNode<TBase>::GetNode(const unsigned int index)
 	ListNode *indexNode = headNode;
 	size_t cnt = 0;
 	// Получение указателя на искомый узел
-	while(cnt < index && indexNode!=NULL){
+	while(cnt < index && indexNode != NULL){
 		indexNode = indexNode->p_nextNode;
 		++cnt;
 	}
 	// Возвращение значения узла
 	return indexNode->value;
+}
+
+
+// Вывод всех элементов списка
+template <typename TBase>
+void ListNode<TBase>::Print()
+{
+	unsigned int sizeList = GetSize();
+	for(size_t index = 0 ; index < sizeList; index++){
+		// Вывод элемента и символа разделителя
+		std::cout << GetNode(index) << DELIM_CHR;
+	}
+	std::cout << std::endl;	// Вывод символа перевода каретки
 }
 
 #endif
