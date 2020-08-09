@@ -216,5 +216,20 @@ void ListNode<TBase>::Insert(TBase newValue, const unsigned int index)
 	}
 }
 
+// Получить значение узла в позиции index
+template <typename TBase>
+TBase ListNode<TBase>::GetNode(const unsigned int index)
+{
+	// Создание указателя на узел
+	ListNode *indexNode = headNode;
+	size_t cnt = 0;
+	// Получение указателя на искомый узел
+	while(cnt < index && indexNode!=NULL){
+		indexNode = indexNode->p_nextNode;
+		++cnt;
+	}
+	// Возвращение значения узла
+	return indexNode->value;
+}
 
 #endif
