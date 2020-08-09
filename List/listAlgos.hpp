@@ -157,7 +157,7 @@ template <typename TBase>
 TBase ListNode<TBase>::Pop()
 {
 	// Проверка на наличие узлов в списке
-	if(headNode==nullptr) return NULL;
+	if(headNode == nullptr) return NULL;
 	// Создание указателя на вершину списка
 	ListNode *lastNode = headNode;
 	TBase lastValue = lastNode->value;
@@ -175,13 +175,13 @@ TBase ListNode<TBase>::PopBack()
 	// Проверка на наличие узлов в списке
 	if(headNode==nullptr) return NULL;
 	// Проверка на наличие одного узла в списке и его удаление
-	if(headNode->p_nextNode==nullptr){
+	if(headNode->p_nextNode == nullptr){
 		free(headNode);
 		headNode = nullptr;
 		return NULL;
 	}
 	// Нахождение указателя на предпоследний узел
-	while(headNode->p_nextNode->p_nextNode!=nullptr){
+	while(headNode->p_nextNode->p_nextNode != nullptr){
 		headNode = headNode->p_nextNode;
 	}
 	// Создание указателя на предпоследний узел
@@ -194,6 +194,26 @@ TBase ListNode<TBase>::PopBack()
 	lastNode->p_nextNode = nullptr;
 	// Возвращение значения удалённого узла
 	return lastValue;
+}
+
+// Вставить newValue узел в позицию index
+template <typename TBase>
+void ListNode<TBase>::Insert(TBase newValue, const unsigned int index)
+{
+	// Получение указателя на узел до индекса
+	ListNode *prevNode = headNode;
+	size_t cnt = 0;
+	while(cnt < index && prevNode!=nullptr){
+		prevNode = prevNode->p_nextNode;
+		++cnt;
+	}
+	
+	// Создание нового узла
+	if(ListNode *newNode = new ListNode(newValue)){
+		// Вставка узла в нужную позицию
+		newNode->p_nextNode = prevNode->p_nextNode;
+		prevNode->p_nextNode = newNode;
+	}
 }
 
 
