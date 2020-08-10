@@ -36,7 +36,9 @@ class ListNode {
 private:
 	// Структура узла
 	struct Node {
+		// Указатель на следующий узел
 		Node *p_nextNode;
+		// Значение узла
 		TBase value;
 		// Конструкторы узла
 		Node() : p_nextNode(nullptr) {}
@@ -237,12 +239,37 @@ TBase ListNode<TBase>::GetNode(const unsigned int index)
 template <typename TBase>
 void ListNode<TBase>::Print()
 {
-	unsigned int sizeList = GetSize();
-	for(size_t index = 0 ; index < sizeList; index++){
+	// Получение размера списка
+	unsigned int listSize = GetSize();
+	for(size_t index = 0 ; index < listSize; index++){
 		// Вывод элемента и символа разделителя
 		std::cout << GetNode(index) << DELIM_CHR;
 	}
 	std::cout << std::endl;	// Вывод символа перевода каретки
+}
+
+// Ввод элементов списка
+template <typename TBase>
+void ListNode<TBase>::Scan()
+{
+	unsigned int sizeList = 0;	// Размер списка
+	// Ввод размера списка
+	std::cout << "Enter the number of nodes in the list: ";
+	do{
+		std::cin >> sizeList;
+	}while(sizeList < 0 || MAX_LIST_SIZE < sizeList);
+	
+	TBase value = 0;
+	std::cout << "Enter the value [0] list node: ";
+	std::cin >> value;
+	// Первый узел списка
+	PushBack(value);
+	// Заполнение списка
+	for(size_t i = 1; i < sizeList; i++){
+		std::cout << "Enter the value [" << i << "] list node: ";
+		std::cin >> value;
+		PushBackList(value);
+	}
 }
 
 #endif
