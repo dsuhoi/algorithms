@@ -74,8 +74,6 @@ public:
 	
 	// Получить значение узла в позиции index
 	TBase GetNode(const unsigned int index);
-	// Получить значение последнего узла
-	TBase GetLast();
 	// Получить количество узлов в списке
 	unsigned int GetSize();
 	
@@ -83,6 +81,9 @@ public:
 	void Print();
 	// Ввод элементов списка
 	void Scan();
+	
+	// Создание массива (со ссылкой на длину ArrayLen) из элементов списка
+	TBase *ListToArray(unsigned int &ArrayLen);
 };
 
 
@@ -159,7 +160,9 @@ template <typename TBase>
 TBase ListNode<TBase>::Pop()
 {
 	// Проверка на наличие узлов в списке
-	if(headNode == nullptr) return NULL;
+	if(headNode == nullptr){ 
+		return NULL;
+	}
 	// Создание указателя на вершину списка
 	ListNode *lastNode = headNode;
 	TBase lastValue = lastNode->value;
@@ -175,7 +178,9 @@ template <typename TBase>
 TBase ListNode<TBase>::PopBack()
 {
 	// Проверка на наличие узлов в списке
-	if(headNode==nullptr) return NULL;
+	if(headNode==nullptr){ 
+		return NULL;
+	}
 	// Проверка на наличие одного узла в списке и его удаление
 	if(headNode->p_nextNode == nullptr){
 		free(headNode);
@@ -270,6 +275,21 @@ void ListNode<TBase>::Scan()
 		std::cin >> value;
 		PushBackList(value);
 	}
+}
+
+// Получить количество узлов в списке
+template <typename TBase>
+unsigned int ListNode<TBase>::GetSize()
+{
+	unsigned int sizeList = 0;
+	ListNode *listCounter = headNode;
+	// Подсчёт узлов до конца списка
+	while(listCounter != NULL){
+		++sizeList;
+		listCounter = listCounter->p_nextNode;
+	}
+	// Возвращение размера списка
+	return sizeList;
 }
 
 #endif
