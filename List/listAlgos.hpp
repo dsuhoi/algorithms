@@ -292,4 +292,21 @@ unsigned int ListNode<TBase>::GetSize()
 	return sizeList;
 }
 
+// Создание массива (со ссылкой на длину ArrayLen) из элементов списка с вершиной headNode
+template <typename TBase>
+TBase *ListNode<TBase>::ListToArray(unsigned int &ArrayLen)
+{
+	// Получение длины будущего массива (кол-ва узлов в списке)
+	ArrayLen = GetSizeList();
+	// Выделение памяти под массив
+	TBase *arr = (TBase*) malloc(ArrayLen * sizeof(TBase));
+	// Заполнение массива
+	for(size_t i = 0; i < ArrayLen; i++){
+		// Получение значения из узла под индексом i
+		arr[i] = GetList(headNode, i)->value;
+	}
+	// Возвращение указателя на массив
+	return arr;
+}
+
 #endif
