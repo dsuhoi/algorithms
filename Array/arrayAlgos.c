@@ -16,7 +16,7 @@ TBase *ArrCreate(const TCount _len)
 		return NULL;
 	}
 	
-	TBase *arr = (TBase*) malloc(_len*sizeof(TBase));
+	TBase *arr = malloc(_len*sizeof(TBase));
 	
 	#ifdef RANDOM_RANGE
 		// Заполнение случайными числами
@@ -39,7 +39,7 @@ TBase **Arr2Create(const TCount _row, const TCount _column)
 	}
 	
 	// Выделение памяти под элементы и указатели на них
-	TBase **arr = (TBase**) malloc(_row * sizeof(TBase*) + _column * _row * sizeof(TBase));
+	TBase **arr = malloc(_row * sizeof(TBase*) + _column * _row * sizeof(TBase));
 	// Установка первого указателя
     arr[0] = (TCount*) (arr + _row);
     

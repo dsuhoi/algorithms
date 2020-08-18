@@ -13,7 +13,7 @@
 BTreeNode *InitBTree(TBase newValue)
 {
 	// Выделение памяти под узел
-	BTreeNode *Node = (BTreeNode*) malloc(sizeof(BTreeNode));
+	BTreeNode *Node = malloc(sizeof(BTreeNode));
 	// Присвоение значения узлу
 	Node->value = newValue;
 	Node->leftNode = NULL;

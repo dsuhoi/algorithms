@@ -13,7 +13,7 @@
 ListNode *InitList(const TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	ListNode *headNode = (ListNode*) malloc(sizeof(ListNode));
+	ListNode *headNode = malloc(sizeof(ListNode));
 	headNode->value = newValue;
 	return headNode;
 }
@@ -41,7 +41,7 @@ ListNode *GenerateList(const TCount numNode)
 void PushList(ListNode** headNode, TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	ListNode *newNode = (ListNode*) malloc(sizeof(ListNode));
+	ListNode *newNode = malloc(sizeof(ListNode));
 	newNode->value = newValue;
 	// Смена указателя на верхний узел
 	newNode->p_nextNode = (*headNode);
@@ -53,7 +53,7 @@ void PushList(ListNode** headNode, TBase newValue)
 void PushBackList(ListNode* headNode, TBase newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	ListNode *newNode = (ListNode*) malloc(sizeof(ListNode));
+	ListNode *newNode = malloc(sizeof(ListNode));
 	newNode->value = newValue;
 	newNode->p_nextNode = NULL;
 	// Получение указателя на последний узел
@@ -113,7 +113,7 @@ void InsertList(ListNode *headNode, TCount index, TBase newValue)
 	// Получение указателя на узел по индексу
 	ListNode *prevNode = GetList(headNode, index);
 	// Создание нового узла
-	ListNode *newNode = (ListNode*) malloc(sizeof(ListNode));
+	ListNode *newNode = malloc(sizeof(ListNode));
 	newNode->value = newValue;
 	// Вставка узла в нужную позицию
 	newNode->p_nextNode = prevNode->p_nextNode;
@@ -229,7 +229,7 @@ TBase *ListToArray(ListNode *headNode, TCount *p_len)
 	// Получение длины будущего массива (кол-ва узлов в списке)
 	*p_len = GetSizeList(headNode);
 	// Выделение памяти под массив
-	TBase *arr = (TBase*) malloc((*p_len) * sizeof(TBase));
+	TBase *arr = malloc((*p_len) * sizeof(TBase));
 	// Заполнение массива
 	for(size_t i = 0; i < *p_len; i++){
 		// Получение значения из узла под индексом i
