@@ -149,6 +149,19 @@ void ListNode<TBase>::ListIterator::operator ++()
 	}
 }
 
+// Возвращение итератора начала списка
+template <typename TBase>
+typename ListNode<TBase>::ListIterator ListNode<TBase>::Begin()
+{
+	return ListIterator(headNode);
+}
+
+// Возвращение итератора конца списка
+template <typename TBase>
+typename ListNode<TBase>::ListIterator ListNode<TBase>::End()
+{
+	return ListIterator(nullptr);
+}
 
 //*********************************************
 // Основные методы класса односвязного списка
