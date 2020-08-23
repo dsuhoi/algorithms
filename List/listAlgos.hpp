@@ -130,6 +130,16 @@ bool ListNode<TBase>::ListIterator::operator !=(const ListIterator &iter)
 	return !(this == iter);
 }
 
+// Оператор разыменования
+template <typename TBase>
+TBase ListNode<TBase>::ListIterator::operator *()
+{
+	if(currentNode != nullptr){
+		return currentNode->value;
+	}
+	return TBase();
+}
+
 
 //*********************************************
 // Основные методы класса односвязного списка
