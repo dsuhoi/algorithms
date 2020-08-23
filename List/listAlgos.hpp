@@ -47,9 +47,25 @@ private:
 	// Вершина списка
 	Node *headNode;
 
-	// Получить указатель на последний узел
-	Node *GetLastNode();
 public:
+	// Класс итератора односвязного списка
+	class ListIterator {
+	private:
+		Node *currentNode;
+	public:
+		// Конструктор класса
+		ListIterator(Node *_node);
+		// Операторы сравнения
+		bool operator ==(const ListIterator &iter);
+		bool operator !=(const ListIterator &iter);
+		// Оператор разыменования
+		TBase operator *();
+		// Оператор инкрементирования
+		void operator ++();
+	};
+
+
+
 	ListNode();	// Пустой конструктор
 	// Конструктор списка по numNode количеству узлов в нём (все узлы равны 0)
 	ListNode(const unsigned int numNode);
@@ -82,10 +98,14 @@ public:
 	// Ввод элементов списка
 	void Scan();
 	
+	// Возвращение итератора начала списка
+	ListIterator Begin();
+	// Возвращение итератора конца списка
+	ListIterator End();
+	
 	// Создание массива (со ссылкой на длину ArrayLen) из элементов списка
 	TBase *ListToArray(unsigned int &ArrayLen);
 };
-
 
 //*********************************************
 // Основные методы класса односвязного списка
@@ -297,7 +317,7 @@ template <typename TBase>
 TBase *ListNode<TBase>::ListToArray(unsigned int &ArrayLen)
 {
 	// Получение длины будущего массива (кол-ва узлов в списке)
-	ArrayLen = GetSizeList();
+	ArrayLen = GetSize();
 	// Выделение памяти под массив
 	TBase *arr = (TBase*) malloc(ArrayLen * sizeof(TBase));
 	// Заполнение массива
