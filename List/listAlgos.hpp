@@ -107,6 +107,30 @@ public:
 	TBase *ListToArray(unsigned int &ArrayLen);
 };
 
+//*******************************************************
+// Основные методы класса итератора односвязного списка
+//*******************************************************
+// Конструктор класса
+template <typename TBase>
+ListNode<TBase>::ListIterator::ListIterator(Node *_node) : currentNode(_node) {}
+
+// Операторы сравнения
+template <typename TBase>
+bool ListNode<TBase>::ListIterator::operator ==(const ListIterator &iter)
+{
+	if(this == &iter){
+		return true;
+	}
+	return currentNode == iter.currentNode;
+}
+
+template <typename TBase>
+bool ListNode<TBase>::ListIterator::operator !=(const ListIterator &iter)
+{
+	return !(this == iter);
+}
+
+
 //*********************************************
 // Основные методы класса односвязного списка
 //*********************************************
