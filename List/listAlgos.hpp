@@ -140,6 +140,15 @@ TBase ListNode<TBase>::ListIterator::operator *()
 	return TBase();
 }
 
+// Оператор инкрементирования
+template <typename TBase>
+void ListNode<TBase>::ListIterator::operator ++()
+{
+	if(currentNode != nullptr){
+		currentNode = currentNode->p_nextNode;
+	}
+}
+
 
 //*********************************************
 // Основные методы класса односвязного списка
