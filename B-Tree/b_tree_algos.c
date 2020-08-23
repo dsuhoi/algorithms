@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "bTreeAlgos.h"
+#include "b_tree_algos.h"
 
 
 //***************************************************

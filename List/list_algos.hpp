@@ -1,5 +1,5 @@
 /*
- * listAlgos.hpp
+ * list_algos.hpp
  * 
  * Copyright 2020 DSuhoi
  * 

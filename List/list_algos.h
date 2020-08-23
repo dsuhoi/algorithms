@@ -1,5 +1,5 @@
 /*
- * listAlgos.h
+ * list_algos.h
  * 
  * Copyright 2020 DSuhoi
  * 

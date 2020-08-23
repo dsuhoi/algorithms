@@ -1,5 +1,5 @@
 /*
- * arrayAlgos.h
+ * array_algos.h
  * 
  * Copyright 2020 DSuhoi
  * 

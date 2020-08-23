@@ -1,5 +1,5 @@
 /*
- * bTreeAlgos.h
+ * b_tree_algos.h
  * 
  * Copyright 2020 DSuhoi
  * 
@@ -9,8 +9,8 @@
  * (C library)
  */
 
-#ifndef __BTREE_LIB_H__
-#define __BTREE_LIB_H__
+#ifndef __B_TREE_LIB_H__
+#define __B_TREE_LIB_H__
 
 
 //*********************************

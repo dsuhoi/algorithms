@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "listAlgos.h"
+#include "list_algos.h"
 
 
 //*****************************************************
