@@ -6,12 +6,33 @@
  * (C++ library)
  */
 
+#ifndef __STACK_LIB_HPP__
+#define __STACK_LIB_HPP__
 
-#include <iostream>
-
-int main(int argc, char **argv)
-{
+template <typename TBase>
+class StackNode {
+private:
+	// Структура элементов стека
+	struct Node {
+		// Указатель на прошлый элемент
+		Node *p_lastNode;
+		// Значение элемента стека
+		TBase value;
+		// Конструкторы
+		Node() : p_lastNode(nullptr) {}
+		Node(TBase newValue) : value(newValue), p_lastNode(nullptr) {}
+	};
 	
-	return 0;
-}
+	// Конец стека
+	Node *endNode;
+public:
+	// Конструктор
+	StackNode();
+	// Деструктор
+	~StackNode();
+	
+	
+};
 
+
+#endif
