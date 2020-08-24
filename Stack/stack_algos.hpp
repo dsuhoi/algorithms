@@ -37,11 +37,14 @@ public:
 	StackNode(TBase newValue);
 	// Деструктор
 	~StackNode();
+	
 	// Создание нового элемента стека
 	void Push(TBase newValue);
 	// Удаление элемента из стека
 	TBase Pop();
 	
+	// Очистка всего стека
+	void Clear();
 };
 
 //********************************
@@ -63,9 +66,7 @@ StackNode<TBase>::StackNode(TBase newValue)
 template <typename TBase>
 StackNode<TBase>::~StackNode()
 {
-	while(endNode != nullptr){
-		Pop();
-	}
+	Clear();
 }
 
 // Создание нового элемента стека
@@ -96,5 +97,16 @@ TBase StackNode<TBase>::Pop()
 	// Возвращение значения элемента стека
 	return value;
 }
+
+// Очистка всего стека
+template <typename TBase>
+void StackNode<TBase>::Clear()
+{
+	while(endNode != nullptr){
+		Pop();
+	}
+}
+
+
 
 #endif
