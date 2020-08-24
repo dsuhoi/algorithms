@@ -9,6 +9,11 @@
 #ifndef __STACK_LIB_HPP__
 #define __STACK_LIB_HPP__
 
+
+
+//**************
+// Класс стека
+//**************
 template <typename TBase>
 class StackNode {
 private:
@@ -28,11 +33,31 @@ private:
 public:
 	// Конструктор
 	StackNode();
+	// Конструктор с параметром
+	StackNode(TBase newValue);
 	// Деструктор
 	~StackNode();
-	
+	// Создание нового элемента стека
+	void Push(TBase newValue);
+	// Удаление элемента из стека
+	TBase Pop();
 	
 };
+
+//********************************
+// Основные функции класса стека
+//********************************
+
+// Конструктор
+template <typename TBase>
+StackNode<TBase>::StackNode() : endNode(nullptr) {}
+
+// Конструктор с параметром
+template <typename TBase>
+StackNode<TBase>::StackNode(TBase newValue)
+{
+	endNode = new Node(newValue);
+}
 
 
 #endif
