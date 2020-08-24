@@ -59,5 +59,13 @@ StackNode<TBase>::StackNode(TBase newValue)
 	endNode = new Node(newValue);
 }
 
+// Деструктор
+template <typename TBase>
+StackNode<TBase>::~StackNode()
+{
+	while(endNode != nullptr){
+		Pop();
+	}
+}
 
 #endif
