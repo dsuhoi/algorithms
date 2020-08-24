@@ -79,4 +79,22 @@ void StackNode<TBase>::Push(TBase newValue)
 	}
 }
 
+// Удаление элемента из стека
+template <typename TBase>
+TBase StackNode<TBase>::Pop()
+{
+	// Проверка последнего элемента
+	if(endNode == nullptr){
+		return TBase();
+	}
+	
+	Node *removeNode = endNode;
+	endNode = endNode->p_lastNode;
+	TBase value = removeNode->value;
+	// Удаление последнего элемента
+	delete removeNode;
+	// Возвращение значения элемента стека
+	return value;
+}
+
 #endif
