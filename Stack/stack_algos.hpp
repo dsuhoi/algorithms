@@ -68,4 +68,15 @@ StackNode<TBase>::~StackNode()
 	}
 }
 
+// Создание нового элемента стека
+template <typename TBase>
+void StackNode<TBase>::Push(TBase newValue)
+{
+	Node *newNode;
+	if(newNode = new Node(newValue)){
+		newNode->p_lastNode = endNode;
+		endNode = newNode;
+	}
+}
+
 #endif
