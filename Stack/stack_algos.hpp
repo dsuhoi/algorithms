@@ -69,7 +69,7 @@ TBase StackNode<TBase, MAX_STACK_SIZE>::Pop()
 		
 	}
 	TBase value = stackData[index];
-	stackData[index] = TBase();
+	stackData[index--] = TBase();
 	// Возвращение значения элемента стека
 	return value;
 }
