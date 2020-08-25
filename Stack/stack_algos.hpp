@@ -31,6 +31,22 @@ private:
 	// Конец стека
 	Node *endNode;
 public:
+	// Класс итератора стека
+	class StackIterator {
+	private:
+		Node *currentNode;
+	public:
+		// Конструктор класса
+		StackIterator(Node *_node);
+		// Операторы сравнения
+		bool operator ==(const StackIterator &iter);
+		bool operator !=(const StackIterator &iter);
+		// Оператор разыменования
+		TBase operator *();
+		// Оператор инкрементирования
+		void operator ++();
+	};
+
 	// Конструктор
 	StackNode();
 	// Конструктор с параметром
@@ -54,6 +70,11 @@ public:
 	TBase *StackToArray(unsigned int &arrayLen);
 	
 };
+
+//******************************************
+// Основные функции класса итератора стека
+//******************************************
+
 
 //********************************
 // Основные функции класса стека
