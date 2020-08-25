@@ -193,7 +193,7 @@ ListNode<TBase>::ListNode(const unsigned int numNode, const unsigned int randomR
 template <typename TBase>
 ListNode<TBase>::~ListNode()
 {
-	while(Pop()!=NULL);
+	while(Pop() != nullptr);
 }
 
 

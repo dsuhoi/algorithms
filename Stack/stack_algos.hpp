@@ -81,8 +81,7 @@ StackNode<TBase>::~StackNode()
 template <typename TBase>
 void StackNode<TBase>::Push(TBase newValue)
 {
-	Node *newNode;
-	if(newNode = new Node(newValue)){
+	if(Node *newNode = new Node(newValue)){
 		newNode->p_lastNode = endNode;
 		endNode = newNode;
 	}
