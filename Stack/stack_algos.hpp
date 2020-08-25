@@ -10,49 +10,21 @@
 #define __STACK_LIB_HPP__
 
 #include <iostream>
+#include <cstring>
 
 //**************
 // Класс стека
 //**************
-template <typename TBase>
+template <typename TBase, size_t MAX_STACK_SIZE>
 class StackNode {
 private:
-	// Структура элементов стека
-	struct Node {
-		// Указатель на прошлый элемент
-		Node *p_lastNode;
-		// Значение элемента стека
-		TBase value;
-		// Конструкторы
-		Node() : p_lastNode(nullptr) {}
-		Node(TBase newValue) : value(newValue), p_lastNode(nullptr) {}
-	};
-	
-	// Конец стека
-	Node *endNode;
+	// Стек
+	TBase stackData[MAX_STACK_SIZE];
+	// Позиция последнего элемента в стеке
+	size_t index;
 public:
-	// Класс итератора стека
-	class StackIterator {
-	private:
-		Node *currentNode;
-	public:
-		// Конструктор класса
-		StackIterator(Node *_node);
-		// Операторы сравнения
-		bool operator ==(const StackIterator &iter);
-		bool operator !=(const StackIterator &iter);
-		// Оператор разыменования
-		TBase operator *();
-		// Оператор инкрементирования
-		void operator ++();
-	};
-
 	// Конструктор
 	StackNode();
-	// Конструктор с параметром
-	StackNode(TBase newValue);
-	// Деструктор
-	~StackNode();
 	
 	// Создание нового элемента стека
 	void Push(TBase newValue);
@@ -64,116 +36,78 @@ public:
 	// Очистка всего стека
 	void Clear();
 	// Вернуть размер стека
-	unsigned int Size();
+	size_t Size();
 	
 	// Создание массива из элементов стека
 	TBase *StackToArray(unsigned int &arrayLen);
 	
 };
 
-//******************************************
-// Основные функции класса итератора стека
-//******************************************
-
-
 //********************************
 // Основные функции класса стека
 //********************************
 
 // Конструктор
-template <typename TBase>
-StackNode<TBase>::StackNode() : endNode(nullptr) {}
-
-// Конструктор с параметром
-template <typename TBase>
-StackNode<TBase>::StackNode(TBase newValue)
-{
-	endNode = new Node(newValue);
-}
-
-// Деструктор
-template <typename TBase>
-StackNode<TBase>::~StackNode()
-{
-	Clear();
-}
+template <typename TBase, size_t MAX_STACK_SIZE>
+StackNode<TBase, MAX_STACK_SIZE>::StackNode() : index(0) {}
 
 // Создание нового элемента стека
-template <typename TBase>
-void StackNode<TBase>::Push(TBase newValue)
+template <typename TBase, size_t MAX_STACK_SIZE>
+void StackNode<TBase, MAX_STACK_SIZE>::Push(TBase newValue)
 {
-	if(Node *newNode = new Node(newValue)){
-		newNode->p_lastNode = endNode;
-		endNode = newNode;
+	if(index < MAX_STACK_SIZE - 1){
+		stackData[index++] = newValue;
 	}
 }
 
 // Удаление элемента из стека
-template <typename TBase>
-TBase StackNode<TBase>::Pop()
+template <typename TBase, size_t MAX_STACK_SIZE>
+TBase StackNode<TBase, MAX_STACK_SIZE>::Pop()
 {
-	// Проверка последнего элемента
-	if(endNode == nullptr){
+	if(index < 0){
 		return TBase();
+		
 	}
-	
-	Node *removeNode = endNode;
-	endNode = endNode->p_lastNode;
-	TBase value = removeNode->value;
-	// Удаление последнего элемента
-	delete removeNode;
+	TBase value = stackData[index];
+	stackData[index] = TBase();
 	// Возвращение значения элемента стека
 	return value;
 }
 
 // Вернуть значение последнего элемента
-template <typename TBase>
-TBase StackNode<TBase>::Top()
+template <typename TBase, size_t MAX_STACK_SIZE>
+TBase StackNode<TBase, MAX_STACK_SIZE>::Top()
 {
-	if(endNode == nullptr){
-		return TBase();
-	}
-	
-	return endNode->value;
+	return stackData[index];
 }
 
 // Очистка всего стека
-template <typename TBase>
-void StackNode<TBase>::Clear()
+template <typename TBase, size_t MAX_STACK_SIZE>
+void StackNode<TBase, MAX_STACK_SIZE>::Clear()
 {
-	while(endNode != nullptr){
+	while(index >= 0){
 		Pop();
 	}
 }
 
 // Вернуть размер стека!
-template <typename TBase>
-unsigned int StackNode<TBase>::Size()
+template <typename TBase, size_t MAX_STACK_SIZE>
+size_t StackNode<TBase, MAX_STACK_SIZE>::Size()
 {
-	Node *lastNode = endNode;
-	unsigned int size = 0;
-	// Подсчёт элементов
-	while(lastNode != nullptr){
-		lastNode = lastNode->p_lastNode;
-		++size;
-	}
 	// Возвращение размера стека
-	return size;
+	return (index + 1);
 }
 
 // Создание массива из элементов стека
-template <typename TBase>
-TBase *StackNode<TBase>::StackToArray(unsigned int &arrayLen)
+template <typename TBase, size_t MAX_STACK_SIZE>
+TBase *StackNode<TBase, MAX_STACK_SIZE>::StackToArray(unsigned int &arrayLen)
 {
 	// Получение длины будущего массива
 	arrayLen = Size();
 	// Выделение памяти под массив
 	TBase *arr = new TBase[arrayLen];
 	// Заполнение массива
-	for(size_t i = 0; i < arrayLen; i++){
-		// Получение значения из элементов стека
-		arr[i] = Pop();
-	}
+	memcpy(arr, stackData, arrayLen * sizeof(TBase));
 	// Возвращение указателя на массив
 	return arr;
 }
