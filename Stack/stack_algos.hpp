@@ -42,9 +42,14 @@ public:
 	void Push(TBase newValue);
 	// Удаление элемента из стека
 	TBase Pop();
+	// Вернуть значение последнего элемента
+	TBase Top();
 	
 	// Очистка всего стека
 	void Clear();
+	// Вернуть размер стека
+	unsigned int Size();
+	
 };
 
 //********************************
@@ -98,6 +103,17 @@ TBase StackNode<TBase>::Pop()
 	return value;
 }
 
+// Вернуть значение последнего элемента
+template <typename TBase>
+TBase StackNode<TBase>::Top()
+{
+	if(endNode == nullptr){
+		return TBase();
+	}
+	
+	return endNode->value;
+}
+
 // Очистка всего стека
 template <typename TBase>
 void StackNode<TBase>::Clear()
@@ -106,7 +122,6 @@ void StackNode<TBase>::Clear()
 		Pop();
 	}
 }
-
 
 
 #endif
