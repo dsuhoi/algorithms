@@ -123,5 +123,19 @@ void StackNode<TBase>::Clear()
 	}
 }
 
+// Вернуть размер стека!
+template <typename TBase>
+unsigned int StackNode<TBase>::Size()
+{
+	Node *lastNode = endNode;
+	unsigned int size = 0;
+	// Подсчёт элементов
+	while(lastNode != nullptr){
+		lastNode = lastNode->p_lastNode;
+		++size;
+	}
+	// Возвращение размера стека
+	return size;
+}
 
 #endif
