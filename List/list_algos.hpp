@@ -64,8 +64,6 @@ public:
 		void operator ++();
 	};
 
-
-
 	ListNode();	// Пустой конструктор
 	// Конструктор списка по numNode количеству узлов в нём (все узлы равны 0)
 	ListNode(const unsigned int numNode);
@@ -91,7 +89,7 @@ public:
 	// Получить значение узла в позиции index
 	TBase GetNode(const unsigned int index);
 	// Получить количество узлов в списке
-	unsigned int GetSize();
+	unsigned int Size();
 	
 	// Вывод всех элементов списка
 	void Print();
@@ -103,12 +101,12 @@ public:
 	// Возвращение итератора конца списка
 	ListIterator End();
 	
-	// Создание массива (со ссылкой на длину ArrayLen) из элементов списка
-	TBase *ListToArray(unsigned int &ArrayLen);
+	// Создание массива (со ссылкой на длину arrayLen) из элементов списка
+	TBase *ListToArray(unsigned int &arrayLen);
 };
 
 //*******************************************************
-// Основные методы класса итератора односвязного списка
+// Основные функции класса итератора односвязного списка
 //*******************************************************
 // Конструктор класса
 template <typename TBase>
@@ -164,7 +162,7 @@ typename ListNode<TBase>::ListIterator ListNode<TBase>::End()
 }
 
 //*********************************************
-// Основные методы класса односвязного списка
+// Основные функции класса односвязного списка
 //*********************************************
 // Пустой конструктор
 template <typename TBase>
@@ -237,7 +235,7 @@ TBase ListNode<TBase>::Pop()
 {
 	// Проверка на наличие узлов в списке
 	if(headNode == nullptr){ 
-		return NULL;
+		return TBase();
 	}
 	// Создание указателя на вершину списка
 	ListNode *lastNode = headNode;
@@ -254,7 +252,7 @@ template <typename TBase>
 TBase ListNode<TBase>::PopBack()
 {
 	// Проверка на наличие узлов в списке
-	if(headNode==nullptr){ 
+	if(headNode == nullptr){ 
 		return NULL;
 	}
 	// Проверка на наличие одного узла в списке и его удаление
@@ -286,7 +284,7 @@ void ListNode<TBase>::Insert(TBase newValue, const unsigned int index)
 	// Получение указателя на узел до индекса
 	ListNode *prevNode = headNode;
 	size_t cnt = 0;
-	while(cnt < index && prevNode!=nullptr){
+	while(cnt < index && prevNode != nullptr){
 		prevNode = prevNode->p_nextNode;
 		++cnt;
 	}
@@ -321,7 +319,7 @@ template <typename TBase>
 void ListNode<TBase>::Print()
 {
 	// Получение размера списка
-	unsigned int listSize = GetSize();
+	unsigned int listSize = Size();
 	for(size_t index = 0 ; index < listSize; index++){
 		// Вывод элемента и символа разделителя
 		std::cout << GetNode(index) << DELIM_CHR;
@@ -355,7 +353,7 @@ void ListNode<TBase>::Scan()
 
 // Получить количество узлов в списке
 template <typename TBase>
-unsigned int ListNode<TBase>::GetSize()
+unsigned int ListNode<TBase>::Size()
 {
 	unsigned int sizeList = 0;
 	ListNode *listCounter = headNode;
@@ -370,14 +368,14 @@ unsigned int ListNode<TBase>::GetSize()
 
 // Создание массива (со ссылкой на длину ArrayLen) из элементов списка с вершиной headNode
 template <typename TBase>
-TBase *ListNode<TBase>::ListToArray(unsigned int &ArrayLen)
+TBase *ListNode<TBase>::ListToArray(unsigned int &arrayLen)
 {
 	// Получение длины будущего массива (кол-ва узлов в списке)
-	ArrayLen = GetSize();
+	arrayLen = Size();
 	// Выделение памяти под массив
-	TBase *arr = (TBase*) malloc(ArrayLen * sizeof(TBase));
+	TBase *arr = new TBase[arrayLen];
 	// Заполнение массива
-	for(size_t i = 0; i < ArrayLen; i++){
+	for(size_t i = 0; i < arrayLen; i++){
 		// Получение значения из узла под индексом i
 		arr[i] = GetList(headNode, i)->value;
 	}

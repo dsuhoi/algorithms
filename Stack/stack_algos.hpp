@@ -9,7 +9,7 @@
 #ifndef __STACK_LIB_HPP__
 #define __STACK_LIB_HPP__
 
-
+#include <iostream>
 
 //**************
 // Класс стека
@@ -49,6 +49,9 @@ public:
 	void Clear();
 	// Вернуть размер стека
 	unsigned int Size();
+	
+	// Создание массива из элементов стека
+	TBase *StackToArray(unsigned int &arrayLen);
 	
 };
 
@@ -136,6 +139,23 @@ unsigned int StackNode<TBase>::Size()
 	}
 	// Возвращение размера стека
 	return size;
+}
+
+// Создание массива из элементов стека
+template <typename TBase>
+TBase *StackNode<TBase>::StackToArray(unsigned int &arrayLen)
+{
+	// Получение длины будущего массива
+	arrayLen = Size();
+	// Выделение памяти под массив
+	TBase *arr = new TBase[arrayLen];
+	// Заполнение массива
+	for(size_t i = 0; i < arrayLen; i++){
+		// Получение значения из элементов стека
+		arr[i] = Pop();
+	}
+	// Возвращение указателя на массив
+	return arr;
 }
 
 #endif
