@@ -40,6 +40,8 @@ public:
 	
 	// Вывод стека
 	void Print();
+	// Ввод стека
+	void Scan();
 	
 	// Создание массива из элементов стека
 	TBase *StackToArray(unsigned int &arrayLen);
@@ -123,6 +125,16 @@ void StackNode<TBase, MAX_STACK_SIZE>::Print()
 		std::cout << stackData[_index] << ' ';
 	}
 	std::cout << std::endl;
+}
+
+// Ввод стека
+template <typename TBase, size_t MAX_STACK_SIZE>
+void StackNode<TBase, MAX_STACK_SIZE>::Scan()
+{
+	for(size_t _index = 0; _index < MAX_STACK_SIZE; _index++){
+		std::cout << "Enter the value [" << _index << "] stack element: ";
+		std::cin >> stackData[_index];
+	}
 }
 
 #endif
