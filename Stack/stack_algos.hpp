@@ -38,6 +38,9 @@ public:
 	// Вернуть размер стека
 	size_t Size();
 	
+	// Вывод стека
+	void Print();
+	
 	// Создание массива из элементов стека
 	TBase *StackToArray(unsigned int &arrayLen);
 	
@@ -110,6 +113,16 @@ TBase *StackNode<TBase, MAX_STACK_SIZE>::StackToArray(unsigned int &arrayLen)
 	memcpy(arr, stackData, arrayLen * sizeof(TBase));
 	// Возвращение указателя на массив
 	return arr;
+}
+
+// Вывод стека
+template <typename TBase, size_t MAX_STACK_SIZE>
+void StackNode<TBase, MAX_STACK_SIZE>::Print()
+{
+	for(size_t _index = 0; _index <= index; _index++){
+		std::cout << stackData[_index] << ' ';
+	}
+	std::cout << std::endl;
 }
 
 #endif
