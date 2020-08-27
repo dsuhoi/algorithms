@@ -17,23 +17,23 @@
 // Основные типы данных
 //*********************************
 
-typedef int TBase;	// искомая переменная (тип данных для массива и т.п.)
-typedef int TCount;	// переменная для дополнительных данных (константные аргументы функций и т.п.)
+typedef int TBase;  // искомая переменная (тип данных для массива и т.п.)
+typedef int TCount; // переменная для дополнительных данных (константные аргументы функций и т.п.)
 
 
 //*********************************
 // Основные константы
 //*********************************
-#define DELIM_CHR ' '	// символ разделитель
-#define CARR_CHR '\n'	// символ перевода каретки
-#define FORMAT_COMMAND "%4d"	// команда форматирования
-#define FORMAT_COMMAND_CNT "%4d"	// команда форматирования для доп. данных
+#define DELIM_CHR ' '            // символ разделитель
+#define CARR_CHR '\n'            // символ перевода каретки
+#define FORMAT_COMMAND "%4d"     // команда форматирования
+#define FORMAT_COMMAND_CNT "%4d" // команда форматирования для доп. данных
 
 
 //********************************************************
 // Основные константы для работы с односвязными списками
 //********************************************************
-#define MAX_LIST_SIZE 1000	// максимальное кол-во узлов в списке
+#define MAX_LIST_SIZE 1000  // максимальное кол-во узлов в списке
 // Для заполнения односвязных списков случайными числами раскомментируйте флаг
 // и укажите диапазон для чисел RANDOM_RANGE
 #define RANDOM_RANGE 500
@@ -44,47 +44,47 @@ typedef int TCount;	// переменная для дополнительных 
 //*****************************************************
 
 //структура элементов списка
-typedef struct ListNode{
-	struct ListNode *p_nextNode;
-	TBase value; 
+typedef struct ListNode {
+    struct ListNode *p_nextNode;
+    TBase value; 
 } ListNode;
 
 
 // Создание списка и его первого узла
-ListNode *InitList(const TBase newValue);
+ListNode *initList(const TBase newValue);
 // Создание списка с numNode количеством узлов (заполнены случайными числами)
-ListNode *GenerateList(const TCount numNode);
+ListNode *generateList(const TCount numNode);
 
 // Вставить узел со значением newValue в начало списка с вершиной headNode
-void PushList(ListNode **headNode, TBase newValue);
+void pushList(ListNode **headNode, TBase newValue);
 // Вставить узел со значением newValue в конец списка с вершиной headNode
-void PushBackList(ListNode *headNode, TBase newValue);
+void pushBackList(ListNode *headNode, TBase newValue);
 
 // Удалить начальный узел из списка с вершиной headNode
-TBase PopList(ListNode **headNode);
+TBase popList(ListNode **headNode);
 // Удалить последний узел из списка с вершиной headNode
-TBase PopBackList(ListNode **headNode);
+TBase popBackList(ListNode **headNode);
 
 // Вставить узел со значением newValue в позицию index списка с вершиной headNode
-void InsertList(ListNode *headNode, TCount index, TBase newValue);
+void insertList(ListNode *headNode, TCount index, TBase newValue);
 // Удалить index узел из списка с вершиной headNode
-TBase RemoveList(ListNode **headNode, TCount index);
+TBase removeList(ListNode **headNode, TCount index);
 
 // Получить index узел из списка с вершиной headNode
-ListNode *GetList(ListNode *headNode, TCount index);
+ListNode *getList(ListNode *headNode, TCount index);
 // Получить указатель на последний узел из списка с вершиной headNode
-ListNode *GetLastList(ListNode *headNode);
+ListNode *getLastList(ListNode *headNode);
 // Получить размер списка (кол-во узлов в нём)
-TCount GetSizeList(ListNode *headNode);
+TCount getSizeList(ListNode *headNode);
 
 // Вывод узлов списка с вершиной headNode
-void PrintList(ListNode *headNode);
+void printList(ListNode *headNode);
 // Ввод узлов списка с вершиной headNode
-ListNode *ScanList();
+ListNode *scanList();
 
 // Создание массива (с указателем на длину p_len) из элементов списка с вершиной headNode
-TBase *ListToArray(ListNode *headNode, TCount *p_len);
+TBase *listToArray(ListNode *headNode, TCount *p_len);
 // Создание односвязного списка из массива arr с длиной len
-ListNode *ArrayToList(TBase *arr, const TCount len);
+ListNode *arrayToList(TBase *arr, const TCount len);
 
 #endif

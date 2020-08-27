@@ -15,37 +15,37 @@
 //**************
 // Класс стека
 //**************
-template <typename TBase, size_t MAX_STACK_SIZE>
+template <typename T, size_t MAX_STACK_SIZE>
 class StackNode {
 private:
-	// Стек
-	TBase stackData[MAX_STACK_SIZE];
-	// Позиция последнего элемента в стеке
-	size_t index;
+    // Стек
+    T stackData[MAX_STACK_SIZE];
+    // Позиция последнего элемента в стеке
+    size_t index;
 public:
-	// Конструктор
-	StackNode();
-	
-	// Создание нового элемента стека
-	void Push(TBase newValue);
-	// Удаление элемента из стека
-	TBase Pop();
-	// Вернуть значение последнего элемента
-	TBase Top();
-	
-	// Очистка всего стека
-	void Clear();
-	// Вернуть размер стека
-	size_t Size();
-	
-	// Вывод стека
-	void Print();
-	// Ввод стека
-	void Scan();
-	
-	// Создание массива из элементов стека
-	TBase *StackToArray(unsigned int &arrayLen);
-	
+    // Конструктор
+    StackNode();
+    
+    // Создание нового элемента стека
+    void push(T newValue);
+    // Удаление элемента из стека
+    T pop();
+    // Вернуть значение последнего элемента
+    T top();
+    
+    // Очистка всего стека
+    void clear();
+    // Вернуть размер стека
+    size_t size();
+    
+    // Вывод стека
+    void print();
+    // Ввод стека
+    void scan();
+    
+    // Создание массива из элементов стека
+    T *stackToArray(unsigned int &arrayLen);
+    
 };
 
 //********************************
@@ -53,88 +53,84 @@ public:
 //********************************
 
 // Конструктор
-template <typename TBase, size_t MAX_STACK_SIZE>
-StackNode<TBase, MAX_STACK_SIZE>::StackNode() : index(0) {}
+template <typename T, size_t MAX_STACK_SIZE>
+StackNode<T, MAX_STACK_SIZE>::StackNode() : index(0) {}
 
 // Создание нового элемента стека
-template <typename TBase, size_t MAX_STACK_SIZE>
-void StackNode<TBase, MAX_STACK_SIZE>::Push(TBase newValue)
+template <typename T, size_t MAX_STACK_SIZE>
+void StackNode<T, MAX_STACK_SIZE>::push(T newValue)
 {
-	if(index < MAX_STACK_SIZE - 1){
-		stackData[index++] = newValue;
-	}
+    if(index < MAX_STACK_SIZE - 1)
+        stackData[index++] = newValue;
 }
 
 // Удаление элемента из стека
-template <typename TBase, size_t MAX_STACK_SIZE>
-TBase StackNode<TBase, MAX_STACK_SIZE>::Pop()
+template <typename T, size_t MAX_STACK_SIZE>
+T StackNode<T, MAX_STACK_SIZE>::pop()
 {
-	if(index < 0){
-		return TBase();
-		
-	}
-	TBase value = stackData[index];
-	stackData[index--] = TBase();
-	// Возвращение значения элемента стека
-	return value;
+    if(index < 0)
+        return T();
+
+    T value = stackData[index];
+    stackData[index--] = T();
+    // Возвращение значения элемента стека
+    return value;
 }
 
 // Вернуть значение последнего элемента
-template <typename TBase, size_t MAX_STACK_SIZE>
-TBase StackNode<TBase, MAX_STACK_SIZE>::Top()
+template <typename T, size_t MAX_STACK_SIZE>
+T StackNode<T, MAX_STACK_SIZE>::top()
 {
-	return stackData[index];
+    return stackData[index];
 }
 
 // Очистка всего стека
-template <typename TBase, size_t MAX_STACK_SIZE>
-void StackNode<TBase, MAX_STACK_SIZE>::Clear()
+template <typename T, size_t MAX_STACK_SIZE>
+void StackNode<T, MAX_STACK_SIZE>::clear()
 {
-	while(index >= 0){
-		Pop();
-	}
+    while(index >= 0)
+        pop();
 }
 
 // Вернуть размер стека!
-template <typename TBase, size_t MAX_STACK_SIZE>
-size_t StackNode<TBase, MAX_STACK_SIZE>::Size()
+template <typename T, size_t MAX_STACK_SIZE>
+size_t StackNode<T, MAX_STACK_SIZE>::size()
 {
-	// Возвращение размера стека
-	return (index + 1);
+    // Возвращение размера стека
+    return (index + 1);
 }
 
 // Создание массива из элементов стека
-template <typename TBase, size_t MAX_STACK_SIZE>
-TBase *StackNode<TBase, MAX_STACK_SIZE>::StackToArray(unsigned int &arrayLen)
+template <typename T, size_t MAX_STACK_SIZE>
+T *StackNode<T, MAX_STACK_SIZE>::stackToArray(unsigned int &arrayLen)
 {
-	// Получение длины будущего массива
-	arrayLen = Size();
-	// Выделение памяти под массив
-	TBase *arr = new TBase[arrayLen];
-	// Заполнение массива
-	memcpy(arr, stackData, arrayLen * sizeof(TBase));
-	// Возвращение указателя на массив
-	return arr;
+    // Получение длины будущего массива
+    arrayLen = size();
+    // Выделение памяти под массив
+    T *arr = new T[arrayLen];
+    // Заполнение массива
+    memcpy(arr, stackData, arrayLen * sizeof(T));
+    // Возвращение указателя на массив
+    return arr;
 }
 
 // Вывод стека
-template <typename TBase, size_t MAX_STACK_SIZE>
-void StackNode<TBase, MAX_STACK_SIZE>::Print()
+template <typename T, size_t MAX_STACK_SIZE>
+void StackNode<T, MAX_STACK_SIZE>::print()
 {
-	for(size_t _index = 0; _index <= index; _index++){
-		std::cout << stackData[_index] << ' ';
-	}
-	std::cout << std::endl;
+    for(size_t _index = 0; _index <= index; _index++)
+        std::cout << stackData[_index] << ' ';
+    std::cout << std::endl;
 }
 
 // Ввод стека
-template <typename TBase, size_t MAX_STACK_SIZE>
-void StackNode<TBase, MAX_STACK_SIZE>::Scan()
+template <typename T, size_t MAX_STACK_SIZE>
+void StackNode<T, MAX_STACK_SIZE>::scan()
 {
-	for(size_t _index = 0; _index < MAX_STACK_SIZE; _index++){
-		std::cout << "Enter the value [" << _index << "] stack element: ";
-		std::cin >> stackData[_index];
-	}
+    for(size_t _index = 0; _index < MAX_STACK_SIZE; _index++) {
+        std::cout << "Enter the value [" << _index << "] stack element: ";
+        std::cin >> stackData[_index];
+    }
 }
 
 #endif
