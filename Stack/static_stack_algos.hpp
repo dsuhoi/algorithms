@@ -1,22 +1,22 @@
 /*
- * stack_algos.hpp
+ * static_stack_algos.hpp
  * 
  * Copyright 2020 DSuhoi
- * Библиотека для работы со стеком
+ * Библиотека для работы со статическим стеком
  * (C++ library)
  */
 
-#ifndef __STACK_LIB_HPP__
-#define __STACK_LIB_HPP__
+#ifndef __STAT_STACK_LIB_HPP__
+#define __STAT_STACK_LIB_HPP__
 
 #include <iostream>
 #include <cstring>
 
-//**************
-// Класс стека
-//**************
+//***************************
+// Класс статического стека
+//***************************
 template <typename T, size_t MAX_STACK_SIZE>
-class StackNode {
+class StatStackNode {
 private:
     // Стек
     T stackData[MAX_STACK_SIZE];
@@ -24,7 +24,7 @@ private:
     size_t index;
 public:
     // Конструктор
-    StackNode();
+    StatStackNode();
     
     // Создание нового элемента стека
     void push(T newValue);
@@ -48,17 +48,17 @@ public:
     
 };
 
-//********************************
-// Основные функции класса стека
-//********************************
+//*********************************************
+// Основные функции класса статического стека
+//*********************************************
 
 // Конструктор
 template <typename T, size_t MAX_STACK_SIZE>
-StackNode<T, MAX_STACK_SIZE>::StackNode() : index(0) {}
+StatStackNode<T, MAX_STACK_SIZE>::StackNode() : index(0) {}
 
 // Создание нового элемента стека
 template <typename T, size_t MAX_STACK_SIZE>
-void StackNode<T, MAX_STACK_SIZE>::push(T newValue)
+void StatStackNode<T, MAX_STACK_SIZE>::push(T newValue)
 {
     if(index < MAX_STACK_SIZE - 1)
         stackData[index++] = newValue;
@@ -66,7 +66,7 @@ void StackNode<T, MAX_STACK_SIZE>::push(T newValue)
 
 // Удаление элемента из стека
 template <typename T, size_t MAX_STACK_SIZE>
-T StackNode<T, MAX_STACK_SIZE>::pop()
+T StatStackNode<T, MAX_STACK_SIZE>::pop()
 {
     if(index < 0)
         return T();
@@ -79,14 +79,14 @@ T StackNode<T, MAX_STACK_SIZE>::pop()
 
 // Вернуть значение последнего элемента
 template <typename T, size_t MAX_STACK_SIZE>
-T StackNode<T, MAX_STACK_SIZE>::top()
+T StatStackNode<T, MAX_STACK_SIZE>::top()
 {
     return stackData[index];
 }
 
 // Очистка всего стека
 template <typename T, size_t MAX_STACK_SIZE>
-void StackNode<T, MAX_STACK_SIZE>::clear()
+void StatStackNode<T, MAX_STACK_SIZE>::clear()
 {
     while(index >= 0)
         pop();
@@ -94,7 +94,7 @@ void StackNode<T, MAX_STACK_SIZE>::clear()
 
 // Вернуть размер стека!
 template <typename T, size_t MAX_STACK_SIZE>
-size_t StackNode<T, MAX_STACK_SIZE>::size()
+size_t StatStackNode<T, MAX_STACK_SIZE>::size()
 {
     // Возвращение размера стека
     return (index + 1);
@@ -102,7 +102,7 @@ size_t StackNode<T, MAX_STACK_SIZE>::size()
 
 // Создание массива из элементов стека
 template <typename T, size_t MAX_STACK_SIZE>
-T *StackNode<T, MAX_STACK_SIZE>::stackToArray(unsigned int &arrayLen)
+T *StatStackNode<T, MAX_STACK_SIZE>::stackToArray(unsigned int &arrayLen)
 {
     // Получение длины будущего массива
     arrayLen = size();
@@ -116,7 +116,7 @@ T *StackNode<T, MAX_STACK_SIZE>::stackToArray(unsigned int &arrayLen)
 
 // Вывод стека
 template <typename T, size_t MAX_STACK_SIZE>
-void StackNode<T, MAX_STACK_SIZE>::print()
+void StatStackNode<T, MAX_STACK_SIZE>::print()
 {
     for(size_t _index = 0; _index <= index; _index++)
         std::cout << stackData[_index] << ' ';
@@ -125,7 +125,7 @@ void StackNode<T, MAX_STACK_SIZE>::print()
 
 // Ввод стека
 template <typename T, size_t MAX_STACK_SIZE>
-void StackNode<T, MAX_STACK_SIZE>::scan()
+void StatStackNode<T, MAX_STACK_SIZE>::scan()
 {
     for(size_t _index = 0; _index < MAX_STACK_SIZE; _index++) {
         std::cout << "Enter the value [" << _index << "] stack element: ";
