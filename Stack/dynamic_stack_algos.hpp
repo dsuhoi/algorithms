@@ -12,7 +12,7 @@
 //***************************
 // Класс динамического стека
 //***************************
-template <typename T, size_t MAX_STACK_SIZE>
+template <typename T>
 class DynStackNode {
 private:
     // Стек
@@ -20,7 +20,6 @@ private:
     // Позиция последнего элемента в стеке
     size_t index;
     
-    void _realloc(T *_stack);
 public:
     // Конструктор
     DynStackNode();
@@ -53,16 +52,30 @@ public:
 //*********************************************
 
 // Конструктор
-DynStackNode::DynStackNode()
+template <typename T>
+DynStackNode<T>::DynStackNode()
 {
     stackData = nullptr;
     index = 0;
 }
 
 // Деструктор
-DynStackNode::~DynStackNode()
+template <typename T>
+DynStackNode<T>::~DynStackNode()
 {
-    
+    delete [] stackData;
+}
+
+// Создание нового элемента стека
+template <typename T>
+void DynStackNode<T>::push(T newValue)
+{
+    T *tempData = new T[index + 2];
+    for(size_t i = 0; i <= index; i++)
+        tempData[i] = stackData[i];
+    delete [] stackData;
+    stackData = tempData;
+    stckData[index++] = newValue;
 }
 
 
