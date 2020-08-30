@@ -98,6 +98,13 @@ T DynStackNode<T>::pop()
     return value;
 }
 
+// Вернуть значение последнего элемента
+template <typename T>
+T DynStackNode<T>::top()
+{
+    return stackData[index];
+}
+
 // Очистка всего стека
 template <typename T>
 void DynStackNode<T>::clear()
@@ -105,5 +112,14 @@ void DynStackNode<T>::clear()
     while(index >= 0)
         pop();
 }
+
+// Вернуть размер стека
+template <typename T>
+size_t DynStackNode<T>::size()
+{
+    return (index + 1);
+}
+
+
 
 #endif
