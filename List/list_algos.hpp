@@ -13,7 +13,7 @@
 
 #include <iostream>
 #include <ctime>
-
+#include "../Interface/data_interface.hpp"
 
 //*********************************
 // Основные константы
@@ -32,7 +32,7 @@
 //****************************
 
 template <typename T>
-class ListNode {
+class ListNode : DataInterface<T> {
 private:
     // Структура узла
     struct Node {
@@ -74,14 +74,14 @@ public:
     ~ListNode();
     
     // Добавить newValue узел в начало списка
-    void push(T newValue);
+    void push(T newValue) override;
     // Добавить newValue узел в конец списка
-    void pushBack(T newValue);
+    void pushBack(T newValue) override;
     
     // Удалить первый узел
-    T pop();
+    T pop() override;
     // Удалить последний узел
-    T popBack();
+    T popBack() override;
     
     // Вставить newValue узел в позицию index
     void insert(T newValue, const unsigned int index);
@@ -89,12 +89,12 @@ public:
     // Получить значение узла в позиции index
     T getNode(const unsigned int index);
     // Получить количество узлов в списке
-    unsigned int size();
+    size_t size() override;
     
     // Вывод всех элементов списка
-    void print();
+    void print() override;
     // Ввод элементов списка
-    void scan();
+    void scan() override;
     
     // Возвращение итератора начала списка
     ListIterator begin();
@@ -344,9 +344,9 @@ void ListNode<T>::scan()
 
 // Получить количество узлов в списке
 template <typename T>
-unsigned int ListNode<T>::size()
+size_t ListNode<T>::size()
 {
-    unsigned int sizeList = 0;
+    size_t sizeList = 0;
     ListNode *listCounter = m_headNode;
     // Подсчёт узлов до конца списка
     while(listCounter != nullptr) {

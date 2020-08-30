@@ -16,7 +16,9 @@ template <typename T>
 class DataInterface {
 public:
     virtual void push(T newValue) = 0;
+    virtual void pushBack(T newValue) = 0;
     virtual T pop() = 0;
+    virtual T popBack() = 0;
     virtual T top() = 0;
     
     virtual void clear() = 0;
