@@ -78,5 +78,22 @@ void DynStackNode<T>::push(T newValue)
     stckData[index++] = newValue;
 }
 
+// Удаление элемента из стека
+template <typename T>
+T DynStackNode<T>::pop()
+{
+    if(index < 0)
+        return T();
+    T value = stackData[index];
+    T *tempStack = new T[index];
+    for(size_t i = 0; i < index; i++)
+        tempStack[i] = stackData[i];
+    delete [] stackData;
+    --index;
+    // Возвращение значения элемента стека
+    return value;
+}
+
+
 
 #endif
