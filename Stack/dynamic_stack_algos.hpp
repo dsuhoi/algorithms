@@ -129,4 +129,22 @@ void DynStackNode<T>::print()
     std::cout << std::endl;
 }
 
+// Ввод стека
+template <typename T>
+void DynStackNode<T>::scan()
+{
+    std::cout << "Enter the number of stack elements: ";
+    size_t stackSize;
+    
+    do {
+        std::cin >> stackSize;
+    } while(stackSize < 1);
+    
+    for(size_t _index = 0; _index < stackSize; _index++) {
+        std::cout << "Enter the value [" << _index << "] stack element: ";
+        T input;
+        std::cin >> input;
+        push(input);
+    }
+}
 #endif
