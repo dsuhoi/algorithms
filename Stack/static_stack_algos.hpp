@@ -12,11 +12,29 @@
 #include <iostream>
 #include <cstring>
 
+
+//******************
+// Интерфейс стека
+//******************
+template <typename T>
+class StackInterface {
+public:
+    virtual void push(T newValue) = 0;
+    virtual T pop() = 0;
+    virtual T top() = 0;
+    
+    virtual void clear() = 0;
+    virtual size_t size() = 0;
+    
+    virtual void print();
+    virtual void scan();
+};
+
 //***************************
 // Класс статического стека
 //***************************
 template <typename T, size_t MAX_STACK_SIZE>
-class StatStackNode {
+class StatStackNode : StackInterface<T> {
 private:
     // Стек
     T stackData[MAX_STACK_SIZE];
@@ -27,21 +45,21 @@ public:
     StatStackNode();
     
     // Создание нового элемента стека
-    void push(T newValue);
+    void push(T newValue) override;
     // Удаление элемента из стека
-    T pop();
+    T pop() override;
     // Вернуть значение последнего элемента
-    T top();
+    T top() override;
     
     // Очистка всего стека
-    void clear();
+    void clear() override;
     // Вернуть размер стека
-    size_t size();
+    size_t size() override;
     
     // Вывод стека
-    void print();
+    void print() override;
     // Ввод стека
-    void scan();
+    void scan() override;
     
     // Создание массива из элементов стека
     T *stackToArray(unsigned int &arrayLen);
@@ -54,7 +72,7 @@ public:
 
 // Конструктор
 template <typename T, size_t MAX_STACK_SIZE>
-StatStackNode<T, MAX_STACK_SIZE>::StackNode() : index(0) {}
+StatStackNode<T, MAX_STACK_SIZE>::StatStackNode() : index(0) {}
 
 // Создание нового элемента стека
 template <typename T, size_t MAX_STACK_SIZE>
