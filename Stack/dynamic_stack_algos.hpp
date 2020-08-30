@@ -120,6 +120,13 @@ size_t DynStackNode<T>::size()
     return (index + 1);
 }
 
-
+// Вывод стека
+template <typename T>
+void DynStackNode<T>::print()
+{
+    for(size_t _index = 0; _index <= index; _index++)
+        std::cout << stackData[_index] << ' ';
+    std::cout << std::endl;
+}
 
 #endif
