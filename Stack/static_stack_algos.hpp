@@ -11,30 +11,13 @@
 
 #include <iostream>
 #include <cstring>
-
-
-//******************
-// Интерфейс стека
-//******************
-template <typename T>
-class StackInterface {
-public:
-    virtual void push(T newValue) = 0;
-    virtual T pop() = 0;
-    virtual T top() = 0;
-    
-    virtual void clear() = 0;
-    virtual size_t size() = 0;
-    
-    virtual void print();
-    virtual void scan();
-};
+#include "../Interface/data_interface.hpp"
 
 //***************************
 // Класс статического стека
 //***************************
 template <typename T, size_t MAX_STACK_SIZE>
-class StatStackNode : StackInterface<T> {
+class StatStackNode : DataInterface<T> {
 private:
     // Стек
     T stackData[MAX_STACK_SIZE];
@@ -65,6 +48,7 @@ public:
     T *stackToArray(unsigned int &arrayLen);
     
 };
+
 
 //*********************************************
 // Основные функции класса статического стека

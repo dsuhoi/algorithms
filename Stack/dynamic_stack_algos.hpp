@@ -9,11 +9,15 @@
 #ifndef __DYN_STACK_LIB_HPP__
 #define __DYN_STACK_LIB_HPP__
 
+#include <iostream>
+#include <cstring>
+#include "../Interface/data_interface.hpp"
+
 //***************************
 // Класс динамического стека
 //***************************
 template <typename T>
-class DynStackNode {
+class DynStackNode : DataInterface<T>{
 private:
     // Стек
     T *stackData;
@@ -26,21 +30,21 @@ public:
     // Деструктор
     ~DynStackNode();
     // Создание нового элемента стека
-    void push(T newValue);
+    void push(T newValue) override;
     // Удаление элемента из стека
-    T pop();
+    T pop() override;
     // Вернуть значение последнего элемента
-    T top();
+    T top() override;
     
     // Очистка всего стека
-    void clear();
+    void clear() override;
     // Вернуть размер стека
-    size_t size();
+    size_t size() override;
     
     // Вывод стека
-    void print();
+    void print() override;
     // Ввод стека
-    void scan();
+    void scan() override;
     
     // Создание массива из элементов стека
     T *stackToArray(unsigned int &arrayLen);
@@ -75,7 +79,7 @@ void DynStackNode<T>::push(T newValue)
         tempData[i] = stackData[i];
     delete [] stackData;
     stackData = tempData;
-    stckData[index++] = newValue;
+    stackData[index++] = newValue;
 }
 
 // Удаление элемента из стека
