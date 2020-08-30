@@ -94,6 +94,12 @@ T DynStackNode<T>::pop()
     return value;
 }
 
-
+// Очистка всего стека
+template <typename T>
+void DynStackNode<T>::clear()
+{
+    while(index >= 0)
+        pop();
+}
 
 #endif
