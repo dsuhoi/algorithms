@@ -46,7 +46,6 @@ public:
     
     // Создание массива из элементов стека
     T *stackToArray(unsigned int &arrayLen);
-    
 };
 
 
