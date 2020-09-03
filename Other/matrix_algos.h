@@ -8,6 +8,8 @@
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
 
+#include <iostream>
+
 class Matrix {
 private:
     // Указатель на элементы матрицы
@@ -22,11 +24,11 @@ public:
     // Фукнция получения определителя
     long getDeterm();
     // Вывод матрицы
-    void print();
+    void print(int _t = 5);
     // Ввод матрицы
     void scan();
     // Возвращение элемента матрицы
-    long getMatrix(size_t);
+    long &operator()(size_t _row, size_t column);
 };
 
 #endif

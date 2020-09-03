@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <cstring>
 #include "matrix_algos.h"
 
@@ -23,11 +24,11 @@ Matrix::~Matrix()
 
 
 // Вывод матрицы
-void Matrix::print()
-{
+void Matrix::print(int _t)
+{    
     for(size_t i = 0; i < sizeMatrix; i++) {
         for(size_t j = 0; j < sizeMatrix; j++)
-            std::cout << matrix[i][j] << ' ';
+            std::cout << std::setw(_t) << matrix[i][j] << ' ';
         std::cout << std::endl;
     }
 }
@@ -42,4 +43,11 @@ void Matrix::scan()
         }
         std::cout << std::endl;
     }
+}
+
+// Возвращение элемента матрицы
+long &Matrix::operator()(size_t _row, size_t _column)
+{
+    if((0 <= _row || _row < sizeMatrix) && (0 <= _column || _column < sizeMatrix))
+        return matrix[_row][_column];
 }
