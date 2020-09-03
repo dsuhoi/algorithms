@@ -5,11 +5,11 @@
 
 
 // Конструктор матрицы
-Matrix::Matrix(size_t _size) : sizeMatrix(_size)
+Matrix::Matrix(unsigned int _size) : sizeMatrix(_size)
 {
     matrix = new long*[sizeMatrix];
     matrix[0] = new long[sizeMatrix * sizeMatrix];
-    for(size_t i = 0; i < sizeMatrix; i++) {
+    for(unsigned int i = 0; i < sizeMatrix; i++) {
         matrix[i] = matrix[0] + sizeMatrix * i;
         memset(matrix[i], 0, sizeMatrix);
     }
@@ -24,10 +24,10 @@ Matrix::~Matrix()
 
 
 // Вывод матрицы
-void Matrix::print(int _t)
+void Matrix::print(unsigned int _t)
 {    
-    for(size_t i = 0; i < sizeMatrix; i++) {
-        for(size_t j = 0; j < sizeMatrix; j++)
+    for(unsigned int i = 0; i < sizeMatrix; i++) {
+        for(unsigned int j = 0; j < sizeMatrix; j++)
             std::cout << std::setw(_t) << matrix[i][j] << ' ';
         std::cout << std::endl;
     }
@@ -36,8 +36,8 @@ void Matrix::print(int _t)
 // Ввод матрицы
 void Matrix::scan()
 {
-    for(size_t i = 0; i < sizeMatrix; i++) {
-        for(size_t j = 0; j < sizeMatrix; j++) {
+    for(unsigned int i = 0; i < sizeMatrix; i++) {
+        for(unsigned int j = 0; j < sizeMatrix; j++) {
             std::cout << "Enter the value [" << i << "][" << j << "] element: ";
             std::cin >> matrix[i][j];
         }
@@ -45,8 +45,17 @@ void Matrix::scan()
     }
 }
 
+// Заполнение матрицы случайными числами
+void Matrix::randMatrix(const long range)
+{
+    srand(time(NULL));
+    for(unsigned int i = 0; i < sizeMatrix; i++)
+        for(unsigned int j = 0; j < sizeMatrix; j++)
+            matrix[i][j] = rand() % range;
+}
+
 // Возвращение элемента матрицы
-long *Matrix::operator[](size_t _row)
+long *Matrix::operator[](unsigned int _row)
 {
     if(0 <= _row || _row < sizeMatrix)
         return matrix[_row];

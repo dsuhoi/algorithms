@@ -15,20 +15,22 @@ private:
     // Указатель на элементы матрицы
     long **matrix;
     // Размерность матрицы
-    size_t sizeMatrix;
+    unsigned int sizeMatrix;
 public:
     // Конструктор матрицы
-    Matrix(size_t _size = 3);
+    Matrix(unsigned int _size = 3);
     // Деструктор матрицы
     ~Matrix();
     // Фукнция получения определителя
     long getDeterm();
     // Вывод матрицы
-    void print(int _t = 5);
+    void print(unsigned int _t = 5);
     // Ввод матрицы
     void scan();
+    // Заполнение матрицы случайными числами
+    void randMatrix(const long range = 1000);
     // Возвращение элемента матрицы
-    long *operator[](size_t _row);
+    long *operator[](unsigned int _row);
 };
 
 #endif
