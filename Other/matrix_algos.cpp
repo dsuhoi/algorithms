@@ -31,3 +31,15 @@ void Matrix::print()
         std::cout << std::endl;
     }
 }
+
+// Ввод матрицы
+void Matrix::scan()
+{
+    for(size_t i = 0; i < sizeMatrix; i++) {
+        for(size_t j = 0; j < sizeMatrix; j++) {
+            std::cout << "Enter the value [" << i << "][" << j << "] element: ";
+            std::cin >> matrix[i][j];
+        }
+        std::cout << std::endl;
+    }
+}
