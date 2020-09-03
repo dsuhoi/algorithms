@@ -14,3 +14,9 @@ Matrix::Matrix(size_t _size) : sizeMatrix(_size)
     }
 }
 
+// Деструктор матрицы
+Matrix::~Matrix()
+{
+    delete [] matrix[0];
+    delete [] matrix;
+}
