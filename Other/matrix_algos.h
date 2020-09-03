@@ -29,6 +29,8 @@ public:
     void scan();
     // Заполнение матрицы случайными числами
     void randMatrix(const long range = 1000);
+    // Поменять строки и столбцы матрицы местами
+    void replace();
     // Возвращение элемента матрицы
     long *operator[](unsigned int _row);
 };

@@ -54,6 +54,17 @@ void Matrix::randMatrix(const long range)
             matrix[i][j] = rand() % range;
 }
 
+// Поменять строки и столбцы матрицы местами
+void Matrix::replace()
+{
+    for(unsigned int i = 0; i < sizeMatrix; i++)
+        for(unsigned int j = 0; j < sizeMatrix; j++) {
+            long tmp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = tmp;
+        }
+}
+
 // Возвращение элемента матрицы
 long *Matrix::operator[](unsigned int _row)
 {
