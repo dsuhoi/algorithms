@@ -5,11 +5,8 @@
  * (C++)
  */
 
-#ifndef __MATRIX_HPP__
-#define __MATRIX_HPP__
-
-#include <iostream>
-
+#ifndef __MATRIX_H__
+#define __MATRIX_H__
 
 class Matrix {
 private:
@@ -18,10 +15,8 @@ private:
     // Размерность матрицы
     size_t sizeMatrix;
 public:
-    // Конструктор матрицы по умолчанию
-    Matrix();
-    // Конструктор матрицы с параметром
-    Matrix(size_t _size);
+    // Конструктор матрицы
+    Matrix(size_t _size = 3);
     // Деструктор матрицы
     ~Matrix();
     // Фукнция получения определителя
@@ -31,6 +26,7 @@ public:
     // Ввод матрицы
     void scan();
     // Возвращение элемента матрицы
-    long getMatrix(size_t)
+    long getMatrix(size_t);
 };
 
+#endif
