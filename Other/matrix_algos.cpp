@@ -20,3 +20,14 @@ Matrix::~Matrix()
     delete [] matrix[0];
     delete [] matrix;
 }
+
+
+// Вывод матрицы
+void Matrix::print()
+{
+    for(size_t i = 0; i < sizeMatrix; i++) {
+        for(size_t j = 0; j < sizeMatrix; j++)
+            std::cout << matrix[i][j] << ' ';
+        std::cout << std::endl;
+    }
+}
