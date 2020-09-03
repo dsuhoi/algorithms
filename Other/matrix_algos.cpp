@@ -46,8 +46,9 @@ void Matrix::scan()
 }
 
 // Возвращение элемента матрицы
-long &Matrix::operator()(size_t _row, size_t _column)
+long *Matrix::operator[](size_t _row)
 {
-    if((0 <= _row || _row < sizeMatrix) && (0 <= _column || _column < sizeMatrix))
-        return matrix[_row][_column];
+    if(0 <= _row || _row < sizeMatrix)
+        return matrix[_row];
+    return nullptr;
 }

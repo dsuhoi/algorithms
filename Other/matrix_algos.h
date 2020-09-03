@@ -28,7 +28,7 @@ public:
     // Ввод матрицы
     void scan();
     // Возвращение элемента матрицы
-    long &operator()(size_t _row, size_t column);
+    long *operator[](size_t _row);
 };
 
 #endif
