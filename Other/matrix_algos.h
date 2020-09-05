@@ -28,16 +28,20 @@ public:
     ~Matrix();
     // Фукнция получения определителя
     long long getDeterm();
+    // Получение размера матрицы
+    unsigned char size();
     // Вывод матрицы
     void print(unsigned int _t = 5);
     // Ввод матрицы
     void scan();
     // Заполнение матрицы случайными числами
-    void randMatrix(const long range = 1000);
+    void random(const long range = 1000);
     // Поменять строки и столбцы матрицы местами
     void replace();
-    // Возвращение элемента матрицы
+    // Возвращение строки матрицы
     long *operator[](unsigned int _row);
+    // Перегрузка оператора потокового вывода
+    friend std::ostream &operator<<(std::ostream &out, Matrix &matrix);
 };
 
 #endif

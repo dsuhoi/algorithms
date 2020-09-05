@@ -76,7 +76,7 @@ void Matrix::scan()
 }
 
 // Заполнение матрицы случайными числами
-void Matrix::randMatrix(const long range)
+void Matrix::random(const long range)
 {
     srand(time(NULL));
     for(unsigned int i = 0; i < sizeMatrix; i++)
@@ -101,10 +101,27 @@ long long Matrix::getDeterm()
     return procDeterm(matrix, sizeMatrix);
 }
 
+// Получение размера матрицы
+unsigned char Matrix::size()
+{
+    return sizeMatrix;
+}
+
 // Возвращение элемента матрицы
 long *Matrix::operator[](unsigned int _row)
 {
     if(0 <= _row || _row < sizeMatrix)
         return matrix[_row];
     return nullptr;
+}
+
+// Перегрузка оператора потокового вывода
+std::ostream &operator<<(std::ostream &out, Matrix &matrix)
+{
+    for(unsigned int i = 0; i < matrix.size(); i++) {
+        for(unsigned int j = 0; j < matrix.size(); j++)
+            out << std::setw(5) << matrix[i][j] << ' ';
+        out << std::endl;
+    }
+    return out;
 }
