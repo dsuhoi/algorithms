@@ -16,6 +16,9 @@ private:
     long **matrix;
     // Размерность матрицы
     unsigned int sizeMatrix;
+    
+    // Вычисление определителя
+    long processDet(long *_matrix, unsigned int size);
 public:
     // Конструктор матрицы
     Matrix(unsigned int _size = 3);

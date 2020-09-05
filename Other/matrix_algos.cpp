@@ -65,6 +65,12 @@ void Matrix::replace()
         }
 }
 
+// Фукнция получения определител
+long getDeterm()
+{
+    return processDet(matrix, sizeMatrix);
+}
+
 // Возвращение элемента матрицы
 long *Matrix::operator[](unsigned int _row)
 {
