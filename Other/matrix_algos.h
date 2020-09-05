@@ -17,8 +17,10 @@ private:
     // Размерность матрицы
     unsigned int sizeMatrix;
     
+    // Вычисление подматрицы
+    long **getSubMatrix(long **_matrix, unsigned int size, unsigned int delim);
     // Вычисление определителя
-    long processDet(long *_matrix, unsigned int size);
+    long procDeterm(long **_matrix, unsigned int size);
 public:
     // Конструктор матрицы
     Matrix(unsigned int _size = 3);
