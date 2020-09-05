@@ -22,41 +22,35 @@ Matrix::~Matrix()
     delete [] matrix;
 }
 
-long **getSubMatrix(long **_matrix, unsigned int size, unsigned int delim)
+long **Matrix::getSubMatrix(long **_matrix, unsigned int size, unsigned int delim)
 {
-    long **subMatrix = new long*[size - 1];
-    subMatrix[0] = new long[(size - 1) * (size - 1)];
-    for(unsigned int i = 1; i < size; i++) {
-        if(i < size - 1)
-            subMatrix[i] = subMatrix[0] + (size - 1) * i;
-        for(unsigned int j = 0, k = 0; j < size - 1; j++, k++)
-            if(j != delim)
-                subMatrix[i - 1][j] = _matrix[i][k];
-            else
-                subMatrix[i - 1][j] = _matrix[i][++k];
+    unsigned int subSize = size - 1;
+    long **subMatrix = new long*[subSize];
+    subMatrix[0] = new long[subSize * subSize];
+    for(unsigned int i = 0; i < subSize; i++) {
+            subMatrix[i] = subMatrix[0] + subSize * i;
+        for(unsigned int j = 0, k = 0; j < subSize; j++, k++)
+            subMatrix[i][j] = _matrix[i + 1][(j == delim) ? ++k : k];
     }
     return subMatrix;
 }
 
 // Вычисление определителя
-long Matrix::procDeterm(long **_matrix, unsigned int size)
+long long Matrix::procDeterm(long **_matrix, unsigned int size)
 {
     if(size <= 1) {
-        long lastDet = _matrix[0][0];
-        delete [] _matrix[0];
-        delete [] _matrix;
-        return lastDet;
+        return _matrix[0][0];
     }
-        
-    long tmp = 0;
+    
+    long long determinator = 0;
     for(unsigned int i = 0; i < size; i++) {
         long **subMatrix = getSubMatrix(_matrix, size, i);
-        tmp += _matrix[0][i] * procDeterm(subMatrix, size - 1) * ((i % 2 == 0) ? 1 : -1);
+        determinator += _matrix[0][i] * procDeterm(subMatrix, size - 1) * ((i % 2 == 0) ? 1 : -1);
         delete [] subMatrix[0];
         delete [] subMatrix;
     }
     
-    return tmp;
+    return determinator;
 }
 
 // Вывод матрицы
@@ -102,7 +96,7 @@ void Matrix::replace()
 }
 
 // Фукнция получения определител
-long Matrix::getDeterm()
+long long Matrix::getDeterm()
 {
     return procDeterm(matrix, sizeMatrix);
 }

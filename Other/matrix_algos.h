@@ -20,14 +20,14 @@ private:
     // Вычисление подматрицы
     long **getSubMatrix(long **_matrix, unsigned int size, unsigned int delim);
     // Вычисление определителя
-    long procDeterm(long **_matrix, unsigned int size);
+    long long procDeterm(long **_matrix, unsigned int size);
 public:
     // Конструктор матрицы
     Matrix(unsigned int _size = 3);
     // Деструктор матрицы
     ~Matrix();
     // Фукнция получения определителя
-    long getDeterm();
+    long long getDeterm();
     // Вывод матрицы
     void print(unsigned int _t = 5);
     // Ввод матрицы
