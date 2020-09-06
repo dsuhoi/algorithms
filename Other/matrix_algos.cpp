@@ -129,6 +129,20 @@ Matrix Matrix::operator+(Matrix &matrix)
         
 }
 
+// Перегрузка оператора вычитания
+Matrix Matrix::operator+(Matrix &matrix)
+{
+    if(this->sizeMatrix != matrix.sizeMatrix)
+        return *this;
+    
+    Matrix result(*this);
+    for(unsigned i = 0; i < this->sizeMatrix; i++)
+        for(unsigned j = 0; j < this->sizeMatrix; j++)
+            result.matrix[i][j] -= matrix.matrix[i][j];
+    return result;
+        
+}
+
 // Перегрузка оператора потокового вывода
 std::ostream &operator<<(std::ostream &out, Matrix &matrix)
 {

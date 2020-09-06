@@ -42,6 +42,8 @@ public:
     long *operator[](unsigned int _row);
     // Перегрузка оператора сложения
     Matrix operator+(Matrix &matrix);
+    // Перегрузка оператора вычитания
+    Matrix operator-(Matrix &matrix);
     // Перегрузка оператора потокового вывода
     friend std::ostream &operator<<(std::ostream &out, Matrix &matrix);
 };
