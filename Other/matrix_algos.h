@@ -12,7 +12,7 @@
 
 class Matrix {
 private:
-    // Указатель на элементы матрицы
+    // Указатель на указатели на элементы матрицы
     long **matrix;
     // Размерность матрицы
     unsigned int sizeMatrix;
@@ -35,17 +35,13 @@ public:
     // Ввод матрицы
     void scan();
     // Заполнение матрицы случайными числами
-    void random(const long range = 1000);
+    void random(const long range = 1000, unsigned int _rand = time(NULL));
     // Поменять строки и столбцы матрицы местами
     void replace();
     // Возвращение строки матрицы
     long *operator[](unsigned int _row);
-    // Перегрузка оператора сложения
-    Matrix operator+(Matrix &matrix);
-    // Перегрузка оператора вычитания
-    Matrix operator-(Matrix &matrix);
     // Перегрузка оператора потокового вывода
-    friend std::ostream &operator<<(std::ostream &out, Matrix &matrix);
+    friend std::ostream &operator<<(std::ostream &out, Matrix matrix);
 };
 
 #endif

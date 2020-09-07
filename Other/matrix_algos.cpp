@@ -1,4 +1,3 @@
-#include <iostream>
 #include <iomanip>
 #include <cstring>
 #include "matrix_algos.h"
@@ -76,9 +75,9 @@ void Matrix::scan()
 }
 
 // Заполнение матрицы случайными числами
-void Matrix::random(const long range)
+void Matrix::random(const long range, unsigned int _rand)
 {
-    srand(time(NULL));
+    srand(_rand);
     for(unsigned int i = 0; i < sizeMatrix; i++)
         for(unsigned int j = 0; j < sizeMatrix; j++)
             matrix[i][j] = rand() % range;
@@ -115,36 +114,8 @@ long *Matrix::operator[](unsigned int _row)
     return nullptr;
 }
 
-// Перегрузка оператора сложения
-Matrix Matrix::operator+(Matrix &matrix)
-{
-    if(this->sizeMatrix != matrix.sizeMatrix)
-        return *this;
-    
-    Matrix result(*this);
-    for(unsigned i = 0; i < this->sizeMatrix; i++)
-        for(unsigned j = 0; j < this->sizeMatrix; j++)
-            result.matrix[i][j] += matrix.matrix[i][j];
-    return result;
-        
-}
-
-// Перегрузка оператора вычитания
-Matrix Matrix::operator+(Matrix &matrix)
-{
-    if(this->sizeMatrix != matrix.sizeMatrix)
-        return *this;
-    
-    Matrix result(*this);
-    for(unsigned i = 0; i < this->sizeMatrix; i++)
-        for(unsigned j = 0; j < this->sizeMatrix; j++)
-            result.matrix[i][j] -= matrix.matrix[i][j];
-    return result;
-        
-}
-
 // Перегрузка оператора потокового вывода
-std::ostream &operator<<(std::ostream &out, Matrix &matrix)
+std::ostream &operator<<(std::ostream &out, Matrix matrix)
 {
     for(unsigned int i = 0; i < matrix.size(); i++) {
         for(unsigned int j = 0; j < matrix.size(); j++)
