@@ -96,6 +96,8 @@ public:
     // Ввод элементов списка
     void scan() override;
     
+    friend std::ofstream &operator<<(std::ofstream &out, ListNode<T> &list);
+    
     // Возвращение итератора начала списка
     ListIterator begin();
     // Возвращение итератора конца списка

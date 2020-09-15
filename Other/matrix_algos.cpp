@@ -21,15 +21,15 @@ Matrix::~Matrix()
     delete [] matrix;
 }
 
-long **Matrix::getSubMatrix(long **_matrix, unsigned int size, unsigned int delim)
+long **Matrix::getSubMatrix(long **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y)
 {
     unsigned int subSize = size - 1;
     long **subMatrix = new long*[subSize];
     subMatrix[0] = new long[subSize * subSize];
-    for(unsigned int i = 0; i < subSize; i++) {
+    for(unsigned int i = 0, h = 0; i < subSize; i++, h++) {
             subMatrix[i] = subMatrix[0] + subSize * i;
         for(unsigned int j = 0, k = 0; j < subSize; j++, k++)
-            subMatrix[i][j] = _matrix[i + 1][(j == delim) ? ++k : k];
+            subMatrix[i][j] = _matrix[(h == delim_y) ? ++h : h][(j == delim_x) ? ++k : k];
     }
     return subMatrix;
 }
@@ -43,7 +43,7 @@ long long Matrix::procDeterm(long **_matrix, unsigned int size)
     
     long long determinator = 0;
     for(unsigned int i = 0; i < size; i++) {
-        long **subMatrix = getSubMatrix(_matrix, size, i);
+        long **subMatrix = getSubMatrix(_matrix, size, i, 0);
         determinator += _matrix[0][i] * procDeterm(subMatrix, size - 1) * ((i % 2 == 0) ? 1 : -1);
         delete [] subMatrix[0];
         delete [] subMatrix;
@@ -94,7 +94,7 @@ void Matrix::replace()
         }
 }
 
-// Фукнция получения определител
+// Фукнция получения определителя
 long long Matrix::getDeterm()
 {
     return procDeterm(matrix, sizeMatrix);

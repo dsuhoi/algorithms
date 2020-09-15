@@ -18,7 +18,7 @@ private:
     unsigned int sizeMatrix;
     
     // Вычисление подматрицы
-    long **getSubMatrix(long **_matrix, unsigned int size, unsigned int delim);
+    long **getSubMatrix(long **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y);
     // Вычисление определителя
     long long procDeterm(long **_matrix, unsigned int size);
 public:
