@@ -1,9 +1,9 @@
 /*
- * tcp_server.c
+ * tcp_client.c
  * 
  * Copyright 2020 DSuhoi
  * 
- * Пример TCP сервера (приём-передачи). 
+ * Пример TCP клиента (приём-передачи). 
  * (C++)
  */
 
@@ -23,7 +23,7 @@ enum RESULT {
 };
 
 
-inline RESULT initServer(int *listener, const int host)
+inline RESULT initClient(int *sock, const int host)
 {
     /*
      * AF_UNIX для передачи данных используется файловая система ввода/вывода Unix.
@@ -34,8 +34,8 @@ inline RESULT initServer(int *listener, const int host)
      * SOCK_RAW. Этот тип присваивается низкоуровневым (т. н. "сырым") сокетам.
      */
     
-    *listener = socket(AF_INET, SOCK_STREAM, 0);
-    if(*listener < 0) {
+    *sock = socket(AF_INET, SOCK_STREAM, 0);
+    if(*sock < 0) {
         perror("socket");
         return SOCKET;
     }
@@ -62,20 +62,21 @@ inline RESULT initServer(int *listener, const int host)
     addr.sin_port = htons(host);
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     
-    // Открытие портов
-    if(bind(*listener, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-        perror("bind");
+    // Установка соединения с сервером
+    if(connect(*sock, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+        perror("connect");
         return BIND;
     }
     
-    // Создание запроса на соединение
-    listen(*listener, 1);
+    // Сообщение о подключении
+    const char mess[] = "connect!\n";
+    send(*sock, mess, sizeof(mess), 0);
     
     return NO_ERROR;
 }
 
 
-inline RESULT connection(int *listener)
+inline RESULT connection(int *sock)
 {
     // Параметры буфера ввода/вывода
     const size_t BUF_LEN = 1024;
@@ -83,34 +84,20 @@ inline RESULT connection(int *listener)
     const char STOP_CHR = '#';
     
     do {
-        // Создание сокета для общения с клиентом
-        int sock = accept(*listener, NULL, NULL);
-        if(sock < 0) {
-            perror("accept");
-            return ACCEPT;
-        }
-
-        // Ожидание ответа от клиента
-        while(1) {
-            if(recv(sock, buf, BUF_LEN, 0) <= 0)
-                break;
+        // Ожидание ответа от сервера
+        while(recv(*sock, buf, BUF_LEN, 0) <= 0);
+        printf(">>%s", buf);
+        // Если получен символ окончания передачи, то разрываем соединение
+        if(buf[0] == '#')
+            break;
         
-            printf(">>%s", buf);
-    
-            // Если получен символ окончания передачи, то разрываем соединение
-            if(buf[0] == STOP_CHR)
-                break;
-            
-            printf("<<");
-            // Очистка буфера
-            memset(buf, 0, BUF_LEN);
-            // Чтение строки из потока
-            fgets(buf, BUF_LEN, stdin);
-            // Передача строки
-            send(sock, buf, BUF_LEN, 0);
-        }
-        // Закрытие сокета по дескриптору
-        close(sock);
+        printf("<<");
+        // Очистка буфера
+        memset(buf, 0, BUF_LEN);
+        // Чтение строки из потока
+        fgets(buf, BUF_LEN, stdin);
+        // Передача строки
+        send(*sock, buf, BUF_LEN, 0);
     } while(buf[0] != STOP_CHR);
     
     return NO_ERROR;
@@ -122,15 +109,15 @@ int main()
     RESULT result;
     const int host = 5558;
     // Дескриптор
-    int listener;
-    if((result = initServer(&listener, host)) != NO_ERROR)
+    int sock;
+    if((result = initClient(&sock, host)) != NO_ERROR)
+        return result;
+        
+    if((result = connection(&sock)) != NO_ERROR)
         return result;
     
-    if((result = connection(&listener)) != NO_ERROR)
-        return result;
-    
-    // Конец TCP соединения
-    close(listener);
-    
-    return result;
+    // Конец TCP соединения    
+    close(sock);
+
+    return 0;
 }
