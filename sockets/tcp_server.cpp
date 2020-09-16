@@ -77,6 +77,41 @@ inline RESULT initServer(int *listener, const int host)
 
 inline RESULT connection(int *listener)
 {
+    // Параметры буфера ввода/вывода
+    const size_t BUF_LEN = 1024;
+    char buf[BUF_LEN] = {0};
+    const char STOP_CHR = '#';
+    
+    do {
+        // Создание сокета для общения с клиентом
+        int sock = accept(*listener, NULL, NULL);
+        if(sock < 0) {
+            perror("accept");
+            return ACCEPT;
+        }
+
+        // Ожидание ответа от клиента
+        while(1) {
+            if(recv(sock, buf, BUF_LEN, 0) <= 0)
+                break;
+        
+            printf(">>%s", buf);
+    
+            // Если получен символ окончания передачи, то разрываем соединение
+            if(buf[0] == STOP_CHR)
+                break;
+            
+            printf("<<");
+            // Очистка буфера
+            memset(buf, 0, BUF_LEN);
+            // Чтение строки из потока
+            fgets(buf, BUF_LEN, stdin);
+            // Передача строки
+            send(sock, buf, BUF_LEN, 0);
+        }
+        // Закрытие сокета по дескриптору
+        close(sock);
+    } while(buf[0] != STOP_CHR);
     
     return NO_ERROR;
 }
