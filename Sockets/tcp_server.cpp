@@ -3,7 +3,7 @@
  * 
  * Copyright 2020 DSuhoi
  * 
- * Пример TCP сервера (приём-передачи). 
+ * Пример TCP (UDP) сервера (приём-передачи). 
  * (C++)
  */
 
@@ -70,6 +70,12 @@ inline RESULT initServer(int *listener, const int host)
     
     // Создание запроса на соединение
     listen(*listener, 1);
+    
+    /*
+     * Функции для UDP протокола
+     * sendto(*sock, mess, sizeof(mess), 0, (struct sockaddr *)&addr, sizeof(addr));
+     * recvto(*sock, mess, sizeof(mess), 0, (struct sockaddr *)&addr, sizeof(addr));
+     */
     
     return NO_ERROR;
 }
