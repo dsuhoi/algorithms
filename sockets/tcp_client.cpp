@@ -72,6 +72,12 @@ inline RESULT initClient(int *sock, const int host)
     const char mess[] = "connect!\n";
     send(*sock, mess, sizeof(mess), 0);
     
+    /*
+     * Функции для UDP протокола
+     * sendto(*sock, mess, sizeof(mess), 0, (struct sockaddr *)&addr, sizeof(addr));
+     * recvto(*sock, mess, sizeof(mess), 0, (struct sockaddr *)&addr, sizeof(addr));
+     */
+    
     return NO_ERROR;
 }
 
