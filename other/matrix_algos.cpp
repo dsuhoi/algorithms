@@ -6,8 +6,8 @@
 // Конструктор матрицы
 Matrix::Matrix(unsigned int _size) : sizeMatrix(_size)
 {
-    matrix = new long*[sizeMatrix];
-    matrix[0] = new long[sizeMatrix * sizeMatrix];
+    matrix = new double*[sizeMatrix];
+    matrix[0] = new double[sizeMatrix * sizeMatrix];
     for(unsigned int i = 0; i < sizeMatrix; i++) {
         matrix[i] = matrix[0] + sizeMatrix * i;
         memset(matrix[i], 0, sizeMatrix);
@@ -21,11 +21,11 @@ Matrix::~Matrix()
     delete [] matrix;
 }
 
-long **Matrix::getSubMatrix(long **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y)
+double **Matrix::getSubMatrix(double **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y)
 {
     unsigned int subSize = size - 1;
-    long **subMatrix = new long*[subSize];
-    subMatrix[0] = new long[subSize * subSize];
+    double **subMatrix = new double*[subSize];
+    subMatrix[0] = new double[subSize * subSize];
     for(unsigned int i = 0, h = 0; i < subSize; i++, h++) {
             subMatrix[i] = subMatrix[0] + subSize * i;
         for(unsigned int j = 0, k = 0; j < subSize; j++, k++)
@@ -35,15 +35,15 @@ long **Matrix::getSubMatrix(long **_matrix, unsigned int size, unsigned int deli
 }
 
 // Вычисление определителя
-long long Matrix::procDeterm(long **_matrix, unsigned int size)
+double Matrix::procDeterm(double **_matrix, unsigned int size)
 {
     if(size <= 1) {
         return _matrix[0][0];
     }
     
-    long long determinator = 0;
+    double determinator = 0;
     for(unsigned int i = 0; i < size; i++) {
-        long **subMatrix = getSubMatrix(_matrix, size, i, 0);
+        double **subMatrix = getSubMatrix(_matrix, size, i, 0);
         determinator += _matrix[0][i] * procDeterm(subMatrix, size - 1) * ((i % 2 == 0) ? 1 : -1);
         delete [] subMatrix[0];
         delete [] subMatrix;
@@ -88,14 +88,14 @@ void Matrix::replace()
 {
     for(unsigned int i = 0; i < sizeMatrix; i++)
         for(unsigned int j = 0; j < sizeMatrix; j++) {
-            long tmp = matrix[i][j];
+            double tmp = matrix[i][j];
             matrix[i][j] = matrix[j][i];
             matrix[j][i] = tmp;
         }
 }
 
 // Фукнция получения определителя
-long long Matrix::getDeterm()
+double Matrix::getDeterm()
 {
     return procDeterm(matrix, sizeMatrix);
 }
@@ -107,7 +107,7 @@ unsigned char Matrix::size()
 }
 
 // Возвращение элемента матрицы
-long *Matrix::operator[](unsigned int _row)
+double *Matrix::operator[](unsigned int _row)
 {
     if(0 <= _row || _row < sizeMatrix)
         return matrix[_row];

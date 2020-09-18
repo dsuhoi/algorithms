@@ -13,21 +13,21 @@
 class Matrix {
 private:
     // Указатель на указатели на элементы матрицы
-    long **matrix;
+    double **matrix;
     // Размерность матрицы
     unsigned int sizeMatrix;
     
     // Вычисление подматрицы
-    long **getSubMatrix(long **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y);
+    double **getSubMatrix(double **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y);
     // Вычисление определителя
-    long long procDeterm(long **_matrix, unsigned int size);
+    double procDeterm(double **_matrix, unsigned int size);
 public:
     // Конструктор матрицы
     Matrix(unsigned int _size = 3);
     // Деструктор матрицы
     ~Matrix();
     // Фукнция получения определителя
-    long long getDeterm();
+    double getDeterm();
     // Получение размера матрицы
     unsigned char size();
     // Вывод матрицы
@@ -39,7 +39,7 @@ public:
     // Поменять строки и столбцы матрицы местами
     void replace();
     // Возвращение строки матрицы
-    long *operator[](unsigned int _row);
+    double *operator[](unsigned int _row);
     // Перегрузка оператора потокового вывода
     friend std::ostream &operator<<(std::ostream &out, Matrix matrix);
 };
