@@ -14,6 +14,18 @@ Matrix::Matrix(unsigned int _size) : sizeMatrix(_size)
     }
 }
 
+// Конструктор матрицы по двумерному массиву
+Matrix::Matrix(double **_array, unsigned int _size) : sizeMatrix(_size)
+{
+    matrix = new double*[sizeMatrix];
+    matrix[0] = new double[sizeMatrix * sizeMatrix];
+    for(unsigned int i = 0; i < sizeMatrix; i++) {
+        matrix[i] = matrix[0] + sizeMatrix * i;
+        for(unsigned int j = 0; j < sizeMatrix; j++)
+            matrix[i][j] = _array[i][j];
+    }
+}
+
 // Деструктор матрицы
 Matrix::~Matrix()
 {

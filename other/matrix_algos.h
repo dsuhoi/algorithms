@@ -24,6 +24,8 @@ private:
 public:
     // Конструктор матрицы
     Matrix(unsigned int _size = 3);
+    // Конструктор матрицы по двумерному массиву
+    Matrix(double **_array, unsigned int _size);
     // Деструктор матрицы
     ~Matrix();
     // Фукнция получения определителя
