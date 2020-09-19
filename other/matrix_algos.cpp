@@ -95,8 +95,8 @@ void Matrix::random(const long range, unsigned int _rand)
             matrix[i][j] = rand() % range;
 }
 
-// Поменять строки и столбцы матрицы местами
-void Matrix::replace()
+// Транспонирование матрицы
+void Matrix::transpose()
 {
     for(unsigned int i = 0; i < sizeMatrix; i++)
         for(unsigned int j = 0; j < sizeMatrix; j++) {

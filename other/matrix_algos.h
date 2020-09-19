@@ -38,8 +38,8 @@ public:
     void scan();
     // Заполнение матрицы случайными числами
     void random(const long range = 1000, unsigned int _rand = time(NULL));
-    // Поменять строки и столбцы матрицы местами
-    void replace();
+    // Транспонирование матрицы
+    void transpose();
     // Возвращение строки матрицы
     double *operator[](unsigned int _row);
     // Перегрузка оператора потокового вывода
