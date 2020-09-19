@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <cstring>
+#include <cmath>
 #include "matrix_algos.h"
 
 
@@ -99,11 +100,12 @@ void Matrix::random(const long range, unsigned int _rand)
 void Matrix::transpose()
 {
     for(unsigned int i = 0; i < sizeMatrix; i++)
-        for(unsigned int j = 0; j < sizeMatrix; j++) {
-            double tmp = matrix[i][j];
-            matrix[i][j] = matrix[j][i];
-            matrix[j][i] = tmp;
-        }
+        for(unsigned int j = 0; j < sizeMatrix; j++)
+            if(j > i) {
+                double tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
 }
 
 // Фукнция получения определителя
