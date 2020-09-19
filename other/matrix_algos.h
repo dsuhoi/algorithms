@@ -40,6 +40,8 @@ public:
     void random(const long range = 1000, unsigned int _rand = time(NULL));
     // Транспонирование матрицы
     void transpose();
+    // Получение обратной матрицы
+    void inverse();
     // Возвращение строки матрицы
     double *operator[](unsigned int _row);
     // Перегрузка оператора потокового вывода

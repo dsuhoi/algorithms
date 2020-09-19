@@ -108,6 +108,37 @@ void Matrix::transpose()
             }
 }
 
+// Получение обратной матрицы
+void Matrix::inverse()
+{
+    double determ = getDeterm();
+    
+    if(determ == 0)
+        return;
+    
+    double **invMatrix = new double*[sizeMatrix];
+    invMatrix[0] = new double[sizeMatrix * sizeMatrix];
+    for(unsigned int i = 0; i < sizeMatrix; i++) {
+        invMatrix[i] = invMatrix[0] + sizeMatrix * i;
+        for(unsigned int j = 0; j < sizeMatrix; j++) {
+            double **subMatrix = getSubMatrix(matrix, sizeMatrix, j, i);
+            invMatrix[i][j] = procDeterm(subMatrix, sizeMatrix - 1) * 
+                ((((sizeMatrix * i + j) % 2) == 1) ? -1 : 1) / determ;
+            delete [] subMatrix[0];
+            delete [] subMatrix;
+        }
+    }
+    
+    for(unsigned int i = 0; i < sizeMatrix; i++)
+        for(unsigned int j = 0; j < sizeMatrix; j++)
+            matrix[i][j] = invMatrix[i][j];
+    
+    delete [] invMatrix[0];
+    delete [] invMatrix;
+    
+    transpose();
+}
+
 // Фукнция получения определителя
 double Matrix::getDeterm()
 {
