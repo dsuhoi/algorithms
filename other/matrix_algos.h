@@ -44,8 +44,6 @@ public:
     void inverse();
     // Возвращение строки матрицы
     double *operator[](unsigned int _row);
-    // Перегрузка оператора потокового вывода
-    friend std::ostream &operator<<(std::ostream &out, Matrix matrix);
 };
 
 #endif

@@ -157,14 +157,3 @@ double *Matrix::operator[](unsigned int _row)
         return matrix[_row];
     return nullptr;
 }
-
-// Перегрузка оператора потокового вывода
-std::ostream &operator<<(std::ostream &out, Matrix matrix)
-{
-    for(unsigned int i = 0; i < matrix.sizeMatrix; i++) {
-        for(unsigned int j = 0; j < matrix.sizeMatrix; j++)
-            out << std::setw(5) << matrix.matrix[i][j] << ' ';
-        out << std::endl;
-    }
-    return out;
-}
