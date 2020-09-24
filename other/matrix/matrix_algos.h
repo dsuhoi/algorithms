@@ -37,7 +37,7 @@ public:
     // Ввод матрицы
     void scan();
     // Заполнение матрицы случайными числами
-    void random(const long range = 1000, unsigned int _rand = time(NULL));
+    void random(const long range = 1000);
     // Транспонирование матрицы
     void transpose();
     // Получение обратной матрицы

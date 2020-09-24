@@ -88,9 +88,8 @@ void Matrix::scan()
 }
 
 // Заполнение матрицы случайными числами
-void Matrix::random(const long range, unsigned int _rand)
+void Matrix::random(const long range)
 {
-    srand(_rand);
     for(unsigned int i = 0; i < sizeMatrix; i++)
         for(unsigned int j = 0; j < sizeMatrix; j++)
             matrix[i][j] = rand() % range;
@@ -157,3 +156,4 @@ double *Matrix::operator[](unsigned int _row)
         return matrix[_row];
     return nullptr;
 }
+
