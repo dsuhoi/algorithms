@@ -168,3 +168,15 @@ Matrix &Matrix::operator+=(Matrix &matr)
             this->matrix[i][j] += matr.matrix[i][j];
     return *this;
 }
+
+// Вычитание матриц
+Matrix &Matrix::operator-=(Matrix &matr)
+{
+    if(this->sizeMatrix != matr.sizeMatrix)
+        return *this;
+    unsigned int size = this->sizeMatrix;
+    for(unsigned int i = 0; i < size; i++)
+        for(unsigned int j = 0; j < size; j++)
+            this->matrix[i][j] -= matr.matrix[i][j];
+    return *this;
+}
