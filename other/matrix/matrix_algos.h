@@ -44,10 +44,6 @@ public:
     void inverse();
     // Возвращение строки матрицы
     double *operator[](unsigned int _row);
-    // Сложение матриц
-    Matrix &operator+=(Matrix &matr);
-    // Вычитание матриц
-    Matrix &operator-=(Matrix &matr);
 };
 
 #endif
