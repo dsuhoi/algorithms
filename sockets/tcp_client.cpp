@@ -110,7 +110,7 @@ inline RESULT connection(int *sock)
 }
 
 
-int main()
+int main(int argc, char **argv)
 {
     RESULT result;
     const int host = 5558;
