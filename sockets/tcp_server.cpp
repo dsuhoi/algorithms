@@ -126,6 +126,7 @@ inline RESULT connection(int *listener)
 int main(int argc, char **argv)
 {
     RESULT result;
+    // Номер порта
     const int host = 5558;
     // Дескриптор
     int listener;

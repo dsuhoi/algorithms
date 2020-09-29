@@ -113,6 +113,7 @@ inline RESULT connection(int *sock)
 int main(int argc, char **argv)
 {
     RESULT result;
+    // Номер порта
     const int host = 5558;
     // Дескриптор
     int sock;
