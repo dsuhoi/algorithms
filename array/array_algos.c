@@ -18,7 +18,6 @@ TBase *initArr(const TCount _len)
     
     #ifdef RANDOM_RANGE
         // Заполнение случайными числами
-        srand(time(NULL));
         for(size_t i = 0; i < _len; i++)
             arr[i] = rand() % RANDOM_RANGE;
     #else
@@ -46,7 +45,6 @@ TBase **initArr2(const TCount _row, const TCount _column)
         
     #ifdef RANDOM_RANGE
         // Заполнение случайными числами
-        srand(time(NULL));
         for(size_t column = 0; column < _column; column++)
             arr[row][column] = rand() % RANDOM_RANGE;
     #else

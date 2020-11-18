@@ -51,7 +51,6 @@ T *initArr(const unsigned int _len)
     
     #ifdef RANDOM_RANGE
         // Заполнение случайными числами
-        srand(time(NULL));
         for(size_t i = 0; i < _len; i++)
             arr[i] = rand() % RANDOM_RANGE;
     #else
@@ -86,7 +85,6 @@ T **initArr2(const unsigned int _row, const unsigned int _column)
         
     #ifdef RANDOM_RANGE
         // Заполнение случайными числами
-        srand(time(NULL));
         for(size_t column = 0; column < _column; column++)
             arr[row][column] = rand() % RANDOM_RANGE;
     #else
