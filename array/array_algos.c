@@ -186,7 +186,7 @@ char *_strtok(char *src, char *delim)
     // Начало нового слова становится не определено
     size_t left = EOF;
     for(; index <= len; index++) {
-        // Если попался символ разделитель, то
+        // Если попался символ разделитель, то...
         if(isdelim(buf[index])) {
             // Если это конец слова, то берём случайные две буквы
             if(left >= 0 && (index-1) >= left) {
@@ -196,6 +196,12 @@ char *_strtok(char *src, char *delim)
             // Если после символа(ов) разделителя следует другие символы, то мы отмечаем индекс начала слова
         } else if(left == EOF)
             left = index;
+    }
+    
+    // Освобождение памяти
+    if(buf != NULL) {
+        free(buf);
+        buf = NULL;
     }
     
     return NULL;

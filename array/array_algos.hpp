@@ -13,6 +13,7 @@
 #define __ARRAY_LIB_HPP__
 
 #include <iostream>
+#include <cstring>
 #include <ctime>
 
 
@@ -199,29 +200,29 @@ void swap(T *a, T *b)
     *b = oldElement;
 }
 
+
 // Лексический анализатор (аналог strtok)
 char *_strtok(char *src, char *delim)
 {
-    // Функция сравнение символов разделителей
-    int isdelim(char c)
-    {
-        for(int i = 0; i <= strlen(delim); i++)
+    // Лямбда-функция сравнение символов разделителей
+    auto isdelim = [&delim](char c) -> bool {
+        for(size_t i = 0; i <= strlen(delim); i++)
             if(c == delim[i])
-                return 1;
-        return 0;
-    }
+                return true;
+        return false;
+    };
     
     static char *buf = NULL;
     static size_t index, len;
-    if(src != NULL) {
+    if(src != nullptr) {
         // Освобождение памяти с прошлых итераций функции
-        if(buf != NULL) {
-            free(buf);
-            buf = NULL;
+        if(buf != nullptr) {
+            delete buf;
+            buf = nullptr;
         }
         // Выделение памяти под буфер, копирование строки в буфер
         len = strlen(src);
-        buf = malloc(len * sizeof(char));
+        buf = new char[len];
         strcpy(buf, src);
         index = 0;
     }
@@ -237,11 +238,17 @@ char *_strtok(char *src, char *delim)
                 return &buf[left];
             }
             // Если после символа(ов) разделителя следует другие символы, то мы отмечаем индекс начала слова
-        } else if(left == EOF)
+        } else if(static_cast<int>(left) == EOF)
             left = index;
     }
     
-    return NULL;
+    // Освобождение памяти
+    if(buf != nullptr) {
+        delete buf;
+        buf = nullptr;
+    }
+    
+    return nullptr;
 }
 
 #endif
