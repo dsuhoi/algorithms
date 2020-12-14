@@ -76,7 +76,7 @@ TBase **scanArr2(TCount *p_row, TCount *p_column);
 // Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
 // элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
 // Метод Ч.А.Р. Хоара (1962г)
-void quickSortArr(TBase *arr, const TCount _left, const TCount _right, const TBool sortVector);
+void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase));
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 void swapArr(TBase *arr, const TCount indexA, const TCount indexB);

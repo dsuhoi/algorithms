@@ -129,7 +129,7 @@ TBase **scanArr2(TCount *p_row, TCount *p_column)
 // Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
 // элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
 // Метод Ч.А.Р. Хоара (1962г)
-void quickSortArr(TBase *arr, const TCount _left, const TCount _right, const TBool sortVector)
+void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase))
 {
     // Условие выхода из рекурсии
     if(_left >= _right)
@@ -140,15 +140,13 @@ void quickSortArr(TBase *arr, const TCount _left, const TCount _right, const TBo
     TCount lastLeft = _left;
     // Сортировка с учётом направления sortVector
     for(size_t index = _left+1; index<=_right; index++)
-        if( (arr[index] < arr[_left] && sortVector == True) ||
-            (arr[index] > arr[_left] && sortVector == False) ) {
+        if(comp(arr[index], arr[_left]) > 0)
             swapArr(arr, index, ++lastLeft);
-        }
     // Перемещение опорного элемента за сортируемую область
     swapArr(arr, _left, lastLeft);
     // Рекурсивный вызов сортировки элементов слудующих частей массива
-    quickSortArr(arr, _left, lastLeft - 1, sortVector);
-    quickSortArr(arr, lastLeft + 1, _right, sortVector);
+    quickSortArr(arr, _left, lastLeft - 1, comp);
+    quickSortArr(arr, lastLeft + 1, _right, comp);
 }
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
