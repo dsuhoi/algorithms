@@ -81,4 +81,7 @@ void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*com
 // Замена местами элементов под индексами indexA и indexB массива Arr
 void swap(TBase *a, TBase *b);
 
+// Лексический анализатор (аналог strtok)
+char *_strtok(char *src, char *delim);
+
 #endif

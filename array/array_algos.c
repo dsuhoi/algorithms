@@ -157,3 +157,46 @@ void swap(TBase *a, TBase *b)
     *b = oldElement;
 }
 
+char *_strtok(char *src, char *delim)
+{
+    // Функция сравнение символов разделителей
+    int isdelim(char c)
+    {
+        for(int i = 0; i <= strlen(delim); i++)
+            if(c == delim[i])
+                return 1;
+        return 0;
+    }
+    
+    static char *buf = NULL;
+    static size_t index, len;
+    if(src != NULL) {
+        // Освобождение памяти с прошлых итераций функции
+        if(buf != NULL) {
+            free(buf);
+            buf = NULL;
+        }
+        // Выделение памяти под буфер, копирование строки в буфер
+        len = strlen(src);
+        buf = malloc(len * sizeof(char));
+        strcpy(buf, src);
+        index = 0;
+    }
+    
+    // Начало нового слова становится не определено
+    size_t left = EOF;
+    for(; index <= len; index++) {
+        // Если попался символ разделитель, то
+        if(isdelim(buf[index])) {
+            // Если это конец слова, то берём случайные две буквы
+            if(left >= 0 && (index-1) >= left) {
+                buf[index++] = 0;
+                return &buf[left];
+            }
+            // Если после символа(ов) разделителя следует другие символы, то мы отмечаем индекс начала слова
+        } else if(left == EOF)
+            left = index;
+    }
+    
+    return NULL;
+}
