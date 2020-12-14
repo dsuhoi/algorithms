@@ -79,6 +79,6 @@ TBase **scanArr2(TCount *p_row, TCount *p_column);
 void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase));
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
-void swapArr(TBase *arr, const TCount indexA, const TCount indexB);
+void swap(TBase *a, TBase *b);
 
 #endif

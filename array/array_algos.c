@@ -135,25 +135,25 @@ void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*com
     if(_left >= _right)
         return;
     // Перемещение опорного элемента в левый край массива
-    swapArr(arr, _left, (_left + _right)/2);
+    swap(&arr[_left], &arr[(_left + _right)/2]);
     // Сохранение индекса крайнего левого (опорного) элемента
     TCount lastLeft = _left;
     // Сортировка с учётом направления sortVector
-    for(size_t index = _left+1; index<=_right; index++)
+    for(size_t index = _left + 1; index <= _right; index++)
         if(comp(arr[index], arr[_left]) > 0)
-            swapArr(arr, index, ++lastLeft);
+            swap(&arr[index], &arr[++lastLeft]);
     // Перемещение опорного элемента за сортируемую область
-    swapArr(arr, _left, lastLeft);
+    swap(&arr[_left], &arr[lastLeft]);
     // Рекурсивный вызов сортировки элементов слудующих частей массива
     quickSortArr(arr, _left, lastLeft - 1, comp);
     quickSortArr(arr, lastLeft + 1, _right, comp);
 }
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
-void swapArr(TBase *arr, const TCount indexA, const TCount indexB)
+void swap(TBase *a, TBase *b)
 {
-    TBase oldElement = arr[indexB];
-    arr[indexB] = arr[indexA];
-    arr[indexA] = oldElement;
+    TBase oldElement = *a;
+    *a = *b;
+    *b = oldElement;
 }
 
