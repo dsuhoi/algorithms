@@ -170,34 +170,33 @@ T **scanArr2(unsigned int &p_row, unsigned int &p_column)
 // элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
 // Метод Ч.А.Р. Хоара (1962г)
 template <typename T>
-void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, bool sortVector)
+void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, int (*comp)(const T, const T))
 {
     // Условие выхода из рекурсии
     if(_left>=_right)
         return;
     // Перемещение опорного элемента в левый край массива
-    swapArr(arr, _left, (_left + _right)/2);
+    swap(&arr[_left], &arr[(_left + _right)/2]);
     // Сохранение индекса крайнего левого (опорного) элемента
     unsigned int lastLeft = _left;
     // Сортировка с учётом направления sortVector
     for(size_t index = _left+1; index<=_right; index++)
-        if( (arr[index]<arr[_left] && sortVector==true) ||
-            (arr[index]>arr[_left] && sortVector==false) )
-            swapArr(arr, index, ++lastLeft);
+        if(comp(arr[index], arr[_left]) > 0)
+            swap(&arr[index], &arr[++lastLeft]);
     // Перемещение опорного элемента за сортируемую область
-    swapArr(arr, _left, lastLeft);
+    swap(&arr[_left], &arr[lastLeft]);
     // Рекурсивный вызов сортировки элементов слудующих частей массива
-    quickSortArr(arr, _left, lastLeft-1, sortVector);
-    quickSortArr(arr, lastLeft+1, _right, sortVector);
+    quickSortArr(arr, _left, lastLeft-1, comp);
+    quickSortArr(arr, lastLeft+1, _right, comp);
 }
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 template <typename T>
-void swapArr(T *arr, const unsigned int indexA, const unsigned int indexB)
+void swap(T *a, T *b)
 {
-    T oldElement = arr[indexB];
-    arr[indexB] = arr[indexA];
-    arr[indexA] = oldElement;
+    T oldElement = *a;
+    *a = *b;
+    *b = oldElement;
 }
 
 #endif
