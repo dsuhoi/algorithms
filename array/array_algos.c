@@ -220,3 +220,27 @@ char *_strtok(char *src, char *delim)
     
     return NULL;
 }
+
+// Функция смены размерности матрицы arr с old_n X old_m на new_n X new_m
+int resizeArr2(TBase ***arr, const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m)
+{
+    if(new_m * new_n != old_m * old_n)
+        return 1;
+    
+    TBase *buf = malloc(old_n * old_m * sizeof(TBase));
+    for(size_t i = 0; i < old_n; i++)
+        for(size_t j = 0; j < old_m; j++)
+            buf[old_m*i + j] = (*arr)[i][j];
+    free(*arr);
+    
+    (*arr) = malloc(new_n * sizeof(TBase*) + new_n * new_m * sizeof(TBase));
+    (*arr)[0] = (TBase*)((*arr) + new_n);
+    for(size_t i = 0; i < new_n; i++) {
+        (*arr)[i] = *(arr)[0] + new_m * i;
+        for(size_t j = 0; j < new_m; j++)
+            (*arr)[i][j] = buf[new_m*i + j];
+    }
+    
+    free(buf);
+    return 0;
+}

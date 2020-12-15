@@ -90,4 +90,8 @@ void _strcpy(char *out, char *in);
 // Лексический анализатор (аналог strtok)
 char *_strtok(char *src, char *delim);
 
+// Функция смены размерности матрицы arr с old_n X old_m на new_n X new_m
+int resizeArr2(TBase ***arr, const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m);
+
+
 #endif
