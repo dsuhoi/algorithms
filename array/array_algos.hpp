@@ -200,6 +200,13 @@ void swap(T *a, T *b)
     *b = oldElement;
 }
 
+// Получение длины строки
+size_t _strlen(char *s)
+{
+    size_t len = 0;
+    while(s[len++] != 0);
+    return len;
+}
 
 // Лексический анализатор (аналог strtok)
 char *_strtok(char *src, char *delim)

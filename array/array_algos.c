@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 #include "array_algos.h"
 
@@ -157,6 +156,15 @@ void swap(TBase *a, TBase *b)
     *b = oldElement;
 }
 
+// Получение длины строки
+size_t _strlen(char *s)
+{
+    size_t len = 0;
+    while(s[len++] != 0);
+    return len;
+}
+
+// Лексический анализатор (аналог strtok)
 char *_strtok(char *src, char *delim)
 {
     // Функция сравнение символов разделителей
