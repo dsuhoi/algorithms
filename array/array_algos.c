@@ -164,6 +164,12 @@ size_t _strlen(char *s)
     return len;
 }
 
+// Копирование строк
+void _strcpy(char *out, char *in)
+{
+    while((*(out++) = *(in++)) != 0);
+}
+
 // Лексический анализатор (аналог strtok)
 char *_strtok(char *src, char *delim)
 {

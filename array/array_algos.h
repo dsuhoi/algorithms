@@ -84,6 +84,9 @@ void swap(TBase *a, TBase *b);
 // Получение длины строки
 size_t _strlen(char *s);
 
+// Копирование строк
+void _strcpy(char *out, char *in);
+
 // Лексический анализатор (аналог strtok)
 char *_strtok(char *src, char *delim);
 
