@@ -176,7 +176,7 @@ char *_strtok(char *src, char *delim)
     // Функция сравнение символов разделителей
     int isdelim(char c)
     {
-        for(int i = 0; i <= _strlen(delim); i++)
+        for(size_t i = 0; i <= _strlen(delim); i++)
             if(c == delim[i])
                 return 1;
         return 0;
