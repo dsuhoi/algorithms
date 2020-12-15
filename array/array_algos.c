@@ -176,7 +176,7 @@ char *_strtok(char *src, char *delim)
     // Функция сравнение символов разделителей
     int isdelim(char c)
     {
-        for(int i = 0; i <= strlen(delim); i++)
+        for(int i = 0; i <= _strlen(delim); i++)
             if(c == delim[i])
                 return 1;
         return 0;
@@ -191,9 +191,9 @@ char *_strtok(char *src, char *delim)
             buf = NULL;
         }
         // Выделение памяти под буфер, копирование строки в буфер
-        len = strlen(src);
+        len = _strlen(src);
         buf = malloc(len * sizeof(char));
-        strcpy(buf, src);
+        _strcpy(buf, src);
         index = 0;
     }
     

@@ -13,7 +13,6 @@
 #define __ARRAY_LIB_HPP__
 
 #include <iostream>
-#include <cstring>
 #include <ctime>
 
 
@@ -219,7 +218,7 @@ char *_strtok(char *src, char *delim)
 {
     // Лямбда-функция сравнение символов разделителей
     auto isdelim = [&delim](char c) -> bool {
-        for(size_t i = 0; i <= strlen(delim); i++)
+        for(size_t i = 0; i <= _strlen(delim); i++)
             if(c == delim[i])
                 return true;
         return false;
@@ -234,9 +233,9 @@ char *_strtok(char *src, char *delim)
             buf = nullptr;
         }
         // Выделение памяти под буфер, копирование строки в буфер
-        len = strlen(src);
+        len = _strlen(src);
         buf = new char[len];
-        strcpy(buf, src);
+        _strcpy(buf, src);
         index = 0;
     }
     
