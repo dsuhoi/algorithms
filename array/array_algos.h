@@ -68,14 +68,11 @@ void printArr2(TBase **arr, const TCount _row, const TCount _column);
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
 TBase *scanArr(TCount *p_len);
 
-// Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
-// и выделение памяти под него
+// Ввод элементов массива и выделение памяти под него
 TBase **scanArr2(TCount *p_row, TCount *p_column);
 
 
-// Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
-// элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
-// Метод Ч.А.Р. Хоара (1962г)
+// Сортировка массива методом Ч.А.Р. Хоара (1962г)
 void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase));
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
@@ -91,7 +88,7 @@ void _strcpy(char *out, char *in);
 char *_strtok(char *src, char *delim);
 
 // Функция смены размерности матрицы arr с old_n X old_m на new_n X new_m
-int resizeArr2(TBase ***arr, const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m);
+int resizeArr2(TBase ***arr, const TCount old_n, const TCount old_m, const TCount new_n, const TCount new_m);
 
 
 #endif

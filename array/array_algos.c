@@ -10,7 +10,7 @@
 // Выделение памяти под одномерный массив длины _len и возвращение указателя на начало массива
 TBase *initArr(const TCount _len)
 {
-    if((_len < 1) || (MAX_ARR_SIZE < _len))
+    if(_len < 1)
         return NULL;
     
     TBase *arr = malloc(_len*sizeof(TBase));
@@ -30,7 +30,7 @@ TBase *initArr(const TCount _len)
 // Выделение памяти под двумерный массив (с row кол-вом рядов и column кол-вом слобцов) и возвращение указателя на начало массива
 TBase **initArr2(const TCount _row, const TCount _column)
 {
-    if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column)))
+    if((_row * _column) < 1)
         return NULL;
     
     // Выделение памяти под элементы и указатели на них
@@ -56,7 +56,7 @@ TBase **initArr2(const TCount _row, const TCount _column)
 }
 
 
-// Вывод _len элементов массива Arr
+// Вывод _len элементов массива arr
 void printArr(TBase *arr, const TCount _len)
 {
     for(size_t i = 0; i < _len; i++) {
@@ -66,7 +66,7 @@ void printArr(TBase *arr, const TCount _len)
     putchar(CARR_CHR);  // Вывод символа перевода каретки
 }
 
-// Вывод row строк и _column столбцов элементов массива Arr
+// Вывод row строк и _column столбцов элементов массива arr
 void printArr2(TBase **arr, const TCount _row, const TCount _column)
 {
     for(size_t row = 0; row < _row; row++) {
@@ -86,7 +86,7 @@ TBase *scanArr(TCount *p_len)
     // Ввод длины массива и проверка вводимых данных
     do {
         scanf(FORMAT_COMMAND_CNT, p_len);
-    } while(*p_len < 0 || MAX_ARR_SIZE < *p_len);
+    } while(*p_len < 0);
     // Выделение памяти под массив
     TBase *arr = initArr(*p_len);
     // Ввод элементов
@@ -105,12 +105,12 @@ TBase **scanArr2(TCount *p_row, TCount *p_column)
     printf("Enter the number of rows in the array: ");
     do {
         scanf(FORMAT_COMMAND_CNT, p_row);
-    } while(*p_row < 0 || MAX_ARR_SIZE < *p_row);
+    } while(*p_row < 0);
     
     printf("Enter the number of rows in the array: ");
     do {
         scanf(FORMAT_COMMAND_CNT, p_column);
-    } while(*p_column < 0 || MAX_ARR_SIZE < *p_column);
+    } while(*p_column < 0);
     
     TBase **arr = initArr2(*p_row, *p_column);
     
@@ -125,9 +125,9 @@ TBase **scanArr2(TCount *p_row, TCount *p_column)
 }
 
 
-// Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
-// элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
-// Метод Ч.А.Р. Хоара (1962г)
+/* Сортировка по функции comp элементов массива arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
+ * Метод Ч.А.Р. Хоара (1962г)
+ */
 void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase))
 {
     // Условие выхода из рекурсии
@@ -137,7 +137,7 @@ void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*com
     swap(&arr[_left], &arr[(_left + _right)/2]);
     // Сохранение индекса крайнего левого (опорного) элемента
     TCount lastLeft = _left;
-    // Сортировка с учётом направления sortVector
+    // Сортировка с учётом comp
     for(size_t index = _left + 1; index <= _right; index++)
         if(comp(arr[index], arr[_left]) > 0)
             swap(&arr[index], &arr[++lastLeft]);
@@ -147,6 +147,17 @@ void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*com
     quickSortArr(arr, _left, lastLeft - 1, comp);
     quickSortArr(arr, lastLeft + 1, _right, comp);
 }
+
+
+// Сортировка Шелла. Массив arr с длиной len сортируется по функции comp
+void shellSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase))
+{
+    for(size_t dist = len/2; dist > 0; dist /= 2)
+        for(size_t i = 0; i < len - dist; i++)
+            for(long j = i; j >= 0 && comp(arr[j], arr[j + dist]) > 0; j -= dist)
+                swap(&arr[j], &arr[j + dist]);
+}
+
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 void swap(TBase *a, TBase *b)
@@ -222,22 +233,22 @@ char *_strtok(char *src, char *delim)
 }
 
 // Функция смены размерности матрицы arr с old_n X old_m на new_n X new_m
-int resizeArr2(TBase ***arr, const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m)
+int resizeArr2(TBase ***arr, const TCount old_n, const TCount old_m, const TCount new_n, const TCount new_m)
 {
     if(new_m * new_n != old_m * old_n)
         return 1;
     
     TBase *buf = malloc(old_n * old_m * sizeof(TBase));
-    for(size_t i = 0; i < old_n; i++)
-        for(size_t j = 0; j < old_m; j++)
+    for(TCount i = 0; i < old_n; i++)
+        for(TCount j = 0; j < old_m; j++)
             buf[old_m*i + j] = (*arr)[i][j];
     free(*arr);
     
     (*arr) = malloc(new_n * sizeof(TBase*) + new_n * new_m * sizeof(TBase));
     (*arr)[0] = (TBase*)((*arr) + new_n);
-    for(size_t i = 0; i < new_n; i++) {
+    for(TCount i = 0; i < new_n; i++) {
         (*arr)[i] = *(arr)[0] + new_m * i;
-        for(size_t j = 0; j < new_m; j++)
+        for(TCount j = 0; j < new_m; j++)
             (*arr)[i][j] = buf[new_m*i + j];
     }
     

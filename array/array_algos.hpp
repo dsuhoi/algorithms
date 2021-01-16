@@ -166,29 +166,41 @@ T **scanArr2(unsigned int &p_row, unsigned int &p_column)
 }
 
 
-// Сортировка по направлению sortVector (1 - по увеличению, 0 - по уменьшению) 
-// элементов массива Arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
-// Метод Ч.А.Р. Хоара (1962г)
+/* Сортировка по функции comp элементов массива arr в диапазоне [_left; _right] (вариант замены sort из стандартной библиотеки)
+ * Метод Ч.А.Р. Хоара (1962г)
+ */
 template <typename T>
 void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, int (*comp)(const T, const T))
 {
     // Условие выхода из рекурсии
-    if(_left>=_right)
+    if(_left >= _right)
         return;
     // Перемещение опорного элемента в левый край массива
     swap(&arr[_left], &arr[(_left + _right)/2]);
     // Сохранение индекса крайнего левого (опорного) элемента
     unsigned int lastLeft = _left;
-    // Сортировка с учётом направления sortVector
-    for(size_t index = _left+1; index<=_right; index++)
+    // Сортировка с учётом comp
+    for(size_t index = _left + 1; index <= _right; index++)
         if(comp(arr[index], arr[_left]) > 0)
             swap(&arr[index], &arr[++lastLeft]);
     // Перемещение опорного элемента за сортируемую область
     swap(&arr[_left], &arr[lastLeft]);
     // Рекурсивный вызов сортировки элементов слудующих частей массива
-    quickSortArr(arr, _left, lastLeft-1, comp);
-    quickSortArr(arr, lastLeft+1, _right, comp);
+    quickSortArr(arr, _left, lastLeft - 1, comp);
+    quickSortArr(arr, lastLeft + 1, _right, comp);
 }
+
+
+// Сортировка Шелла. Массив arr с длиной len сортируется по функции comp
+template <typename T>
+void shellSortArr(T *arr, const unsigned int len, int (*comp)(const T, const T))
+{
+    for(size_t dist = len/2; dist > 0; dist /= 2)
+        for(size_t i = 0; i < len - dist; i++)
+            for(long j = i; j >= 0 && comp(arr[j], arr[j + dist]) > 0; j -= dist)
+                swap(&arr[j], &arr[j + dist]);
+}
+
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 template <typename T>
