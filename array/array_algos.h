@@ -75,6 +75,13 @@ TBase **scanArr2(TCount *p_row, TCount *p_column);
 // Сортировка массива методом Ч.А.Р. Хоара (1962г)
 void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase));
 
+// Сортировка Шелла
+void shellSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase));
+
+// Сортировка слиянием
+void mergeSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase));
+
+
 // Замена местами элементов под индексами indexA и indexB массива Arr
 void swap(TBase *a, TBase *b);
 

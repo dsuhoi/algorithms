@@ -158,6 +158,24 @@ void shellSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const T
 				swap(&arr[j], &arr[j + dist]);
 }
 
+// Сортировка слиянием. Массив arr с длиной len сортируется по функции comp
+void mergeSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase))
+{
+	if(len < 2)
+		return;
+	size_t middle = len/2;
+	mergeSort(arr, middle, comp);
+	mergeSort(&arr[middle], len/2, comp);
+	int *buf = malloc(len * sizeof(int));
+	for(size_t left = 0, right = middle, i = 0; i < len; i++)
+		if((right >= len) || (left < middle && arr[left] > arr[right]))
+			buf[i] = arr[left++];
+		else
+			buf[i] = arr[right++];
+	for(size_t i = 0; i < len; i++)
+		arr[i] = buf[i];
+	free(buf);
+}
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 void swap(TBase *a, TBase *b)
