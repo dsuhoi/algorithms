@@ -212,7 +212,7 @@ void mergeSortArr(T *arr, const size_t len, int (*comp)(const T, const T))
 	mergeSort(&arr[middle], len/2, comp);
 	int *buf = new int[len];
 	for(size_t left = 0, right = middle, i = 0; i < len; i++)
-		if((right >= len) || (left < middle && arr[left] > arr[right]))
+		if((right >= len) || (left < middle && comp(arr[left], arr[right])))
 			buf[i] = arr[left++];
 		else
 			buf[i] = arr[right++];

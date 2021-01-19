@@ -168,7 +168,7 @@ void mergeSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const T
 	mergeSort(&arr[middle], len/2, comp);
 	int *buf = malloc(len * sizeof(int));
 	for(size_t left = 0, right = middle, i = 0; i < len; i++)
-		if((right >= len) || (left < middle && arr[left] > arr[right]))
+		if((right >= len) || (left < middle && comp(arr[left], arr[right])))
 			buf[i] = arr[left++];
 		else
 			buf[i] = arr[right++];
