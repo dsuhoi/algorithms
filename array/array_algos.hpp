@@ -201,6 +201,26 @@ void shellSortArr(T *arr, const unsigned int len, int (*comp)(const T, const T))
 				swap(&arr[j], &arr[j + dist]);
 }
 
+// Сортировка слиянием. Массив arr с длиной len сортируется по функции comp
+template <typename T>
+void mergeSortArr(T *arr, const size_t len, int (*comp)(const T, const T))
+{
+	if(len < 2)
+		return;
+	size_t middle = len/2;
+	mergeSort(arr, middle, comp);
+	mergeSort(&arr[middle], len/2, comp);
+	int *buf = new int[len];
+	for(size_t left = 0, right = middle, i = 0; i < len; i++)
+		if((right >= len) || (left < middle && arr[left] > arr[right]))
+			buf[i] = arr[left++];
+		else
+			buf[i] = arr[right++];
+	for(size_t i = 0; i < len; i++)
+		arr[i] = buf[i];
+	delete [] buf;
+}
+
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 template <typename T>
