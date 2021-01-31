@@ -45,8 +45,8 @@ typedef int TCount; // переменная для дополнительных 
 
 // Структура элементов списка
 typedef struct ListNode {
-	struct ListNode *p_nextNode;
-	TBase value; 
+    struct ListNode *p_nextNode;
+    TBase value; 
 } ListNode;
 
 

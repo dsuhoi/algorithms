@@ -118,7 +118,7 @@ ListNode<T>::ListIterator::ListIterator(Node *_node) : currentNode(_node) {}
 template <typename T>
 bool ListNode<T>::ListIterator::operator ==(const ListIterator &iter)
 {
-	if(this == &iter)
+	if (this == &iter)
 		return true;
 	else
 		return currentNode == iter.currentNode;
@@ -134,7 +134,7 @@ bool ListNode<T>::ListIterator::operator !=(const ListIterator &iter)
 template <typename T>
 T ListNode<T>::ListIterator::operator *()
 {
-	if(currentNode != nullptr)
+	if (currentNode != nullptr)
 		return currentNode->value;
 	else
 		return T();
@@ -144,7 +144,7 @@ T ListNode<T>::ListIterator::operator *()
 template <typename T>
 void ListNode<T>::ListIterator::operator ++()
 {
-	if(currentNode != nullptr)
+	if (currentNode != nullptr)
 		currentNode = currentNode->p_nextNode;
 }
 
@@ -173,7 +173,7 @@ ListNode<T>::ListNode() : m_headNode(nullptr) {}
 template <typename T>
 ListNode<T>::ListNode(const unsigned int numNode) : m_headNode(nullptr)
 {
-	for(size_t i = 0; i < numNode; i++)
+	for (size_t i = 0; i < numNode; ++i)
 		push(0);
 }
 
@@ -184,7 +184,7 @@ ListNode<T>::ListNode(const unsigned int numNode, const unsigned int randomRange
 {
 	srand(time(NULL));
 	
-	for(size_t i = 0; i < numNode; i++)
+	for (size_t i = 0; i < numNode; ++i)
 		push(rand() % randomRange);
 }
 
@@ -192,7 +192,7 @@ ListNode<T>::ListNode(const unsigned int numNode, const unsigned int randomRange
 template <typename T>
 ListNode<T>::~ListNode()
 {
-	while(m_headNode != nullptr)
+	while (m_headNode != nullptr)
 		pop();
 }
 
@@ -202,7 +202,7 @@ template <typename T>
 void ListNode<T>::push(T newValue)
 {
 	// Выделение памяти под новый узел
-	if(Node *newNode = new Node(newValue)) {
+	if (Node *newNode = new Node(newValue)) {
 		// Смена указателя на верхний узел
 		newNode->p_nextNode = m_headNode;
 		// Перестановка указателя на новый верхний узел
@@ -215,12 +215,12 @@ template <typename T>
 void ListNode<T>::pushBack(T newValue)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	if(Node *newNode = new Node(newValue)) {
+	if (Node *newNode = new Node(newValue)) {
 		newNode->p_nextNode = nullptr;
 		// Получение указателя на последний узел
 		ListNode *lastNode = m_headNode;
 		// Нахождение последнего элемента списка
-		while(lastNode->p_nextNode!=nullptr)
+		while (lastNode->p_nextNode!=nullptr)
 			lastNode = lastNode->p_nextNode;
 		// Присвоение указателя
 		lastNode->p_nextNode = newNode;
@@ -233,7 +233,7 @@ template <typename T>
 T ListNode<T>::pop()
 {
 	// Проверка на наличие узлов в списке
-	if(m_headNode == nullptr)
+	if (m_headNode == nullptr)
 		return T();
 	// Создание указателя на вершину списка
 	ListNode *lastNode = m_headNode;
@@ -250,16 +250,16 @@ template <typename T>
 T ListNode<T>::popBack()
 {
 	// Проверка на наличие узлов в списке
-	if(m_headNode == nullptr)
+	if (m_headNode == nullptr)
 		return T();
 	// Проверка на наличие одного узла в списке и его удаление
-	if(m_headNode->p_nextNode == nullptr) {
+	if (m_headNode->p_nextNode == nullptr) {
 		free(m_headNode);
 		m_headNode = nullptr;
 		return T();
 	}
 	// Нахождение указателя на предпоследний узел
-	while(m_headNode->p_nextNode->p_nextNode != nullptr)
+	while (m_headNode->p_nextNode->p_nextNode != nullptr)
 		m_headNode = m_headNode->p_nextNode;
 	// Создание указателя на предпоследний узел
 	ListNode *lastNode = m_headNode;
@@ -280,13 +280,13 @@ void ListNode<T>::insert(T newValue, const unsigned int index)
 	// Получение указателя на узел до индекса
 	ListNode *prevNode = m_headNode;
 	size_t cnt = 0;
-	while(cnt < index && prevNode != nullptr) {
+	while (cnt < index && prevNode != nullptr) {
 		prevNode = prevNode->p_nextNode;
 		++cnt;
 	}
 	
 	// Создание нового узла
-	if(ListNode *newNode = new ListNode(newValue)) {
+	if (ListNode *newNode = new ListNode(newValue)) {
 		// Вставка узла в нужную позицию
 		newNode->p_nextNode = prevNode->p_nextNode;
 		prevNode->p_nextNode = newNode;
@@ -301,7 +301,7 @@ T ListNode<T>::getNode(const unsigned int index)
 	ListNode *indexNode = m_headNode;
 	size_t cnt = 0;
 	// Получение указателя на искомый узел
-	while((cnt++) < index && indexNode != nullptr)
+	while ((cnt++) < index && indexNode != nullptr)
 		indexNode = indexNode->p_nextNode;
 	// Возвращение значения узла
 	return indexNode->value;
@@ -314,7 +314,7 @@ void ListNode<T>::print()
 {
 	// Получение размера списка
 	unsigned int listSize = size();
-	for(size_t index = 0 ; index < listSize; index++)
+	for (size_t index = 0 ; index < listSize; ++index)
 		// Вывод элемента и символа разделителя
 		std::cout << getNode(index) << DELIM_CHR;
 	std::cout << std::endl; // Вывод символа перевода каретки
@@ -329,7 +329,7 @@ void ListNode<T>::scan()
 	std::cout << "Enter the number of nodes in the list: ";
 	do {
 		std::cin >> sizeList;
-	} while(sizeList < 0 || MAX_LIST_SIZE < sizeList);
+	} while (sizeList < 0 || MAX_LIST_SIZE < sizeList);
 	
 	T value = 0;
 	std::cout << "Enter the value [0] list node: ";
@@ -337,7 +337,7 @@ void ListNode<T>::scan()
 	// Первый узел списка
 	PushBack(value);
 	// Заполнение списка
-	for(size_t i = 1; i < sizeList; i++) {
+	for (size_t i = 1; i < sizeList; ++i) {
 		std::cout << "Enter the value [" << i << "] list node: ";
 		std::cin >> value;
 		PushBackList(value);
@@ -351,7 +351,7 @@ size_t ListNode<T>::size()
 	size_t sizeList = 0;
 	ListNode *listCounter = m_headNode;
 	// Подсчёт узлов до конца списка
-	while(listCounter != nullptr) {
+	while (listCounter != nullptr) {
 		++sizeList;
 		listCounter = listCounter->p_nextNode;
 	}
@@ -368,7 +368,7 @@ T *ListNode<T>::listToArray(unsigned int &arrayLen)
 	// Выделение памяти под массив
 	T *arr = new T[arrayLen];
 	// Заполнение массива
-	for(size_t i = 0; i < arrayLen; i++)
+	for (size_t i = 0; i < arrayLen; ++i)
 		// Получение значения из узла под индексом i
 		arr[i] = GetList(m_headNode, i)->value;
 	// Возвращение указателя на массив

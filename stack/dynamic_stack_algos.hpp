@@ -74,7 +74,7 @@ template <typename T>
 void DynStackNode<T>::push(T newValue)
 {
 	T *tempData = new T[index + 2];
-	for(size_t i = 0; i <= index; i++)
+	for (size_t i = 0; i <= index; ++i)
 		tempData[i] = stackData[i];
 	delete [] stackData;
 	stackData = tempData;
@@ -85,11 +85,11 @@ void DynStackNode<T>::push(T newValue)
 template <typename T>
 T DynStackNode<T>::pop()
 {
-	if(index < 0)
+	if (index < 0)
 		return T();
 	T value = stackData[index];
 	T *tempStack = new T[index];
-	for(size_t i = 0; i < index; i++)
+	for (size_t i = 0; i < index; ++i)
 		tempStack[i] = stackData[i];
 	delete [] stackData;
 	--index;
@@ -108,7 +108,7 @@ T DynStackNode<T>::top()
 template <typename T>
 void DynStackNode<T>::clear()
 {
-	while(index >= 0)
+	while (index >= 0)
 		pop();
 }
 
@@ -123,7 +123,7 @@ size_t DynStackNode<T>::size()
 template <typename T>
 void DynStackNode<T>::print()
 {
-	for(size_t _index = 0; _index <= index; _index++)
+	for (size_t _index = 0; _index <= index; ++_index)
 		std::cout << stackData[_index] << ' ';
 	std::cout << std::endl;
 }
@@ -137,9 +137,9 @@ void DynStackNode<T>::scan()
 	
 	do {
 		std::cin >> stackSize;
-	} while(stackSize < 1);
+	} while (stackSize < 1);
 	
-	for(size_t _index = 0; _index < stackSize; _index++) {
+	for (size_t _index = 0; _index < stackSize; ++_index) {
 		std::cout << "Enter the value [" << _index << "] stack element: ";
 		T input;
 		std::cin >> input;

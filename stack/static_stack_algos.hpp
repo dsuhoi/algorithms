@@ -61,7 +61,7 @@ StatStackNode<T, MAX_STACK_SIZE>::StatStackNode() : index(0) {}
 template <typename T, size_t MAX_STACK_SIZE>
 void StatStackNode<T, MAX_STACK_SIZE>::push(T newValue)
 {
-	if(index < MAX_STACK_SIZE - 1)
+	if (index < MAX_STACK_SIZE - 1)
 		stackData[index++] = newValue;
 }
 
@@ -69,7 +69,7 @@ void StatStackNode<T, MAX_STACK_SIZE>::push(T newValue)
 template <typename T, size_t MAX_STACK_SIZE>
 T StatStackNode<T, MAX_STACK_SIZE>::pop()
 {
-	if(index < 0)
+	if (index < 0)
 		return T();
 
 	T value = stackData[index];
@@ -89,7 +89,7 @@ T StatStackNode<T, MAX_STACK_SIZE>::top()
 template <typename T, size_t MAX_STACK_SIZE>
 void StatStackNode<T, MAX_STACK_SIZE>::clear()
 {
-	while(index >= 0)
+	while (index >= 0)
 		pop();
 }
 
@@ -119,7 +119,7 @@ T *StatStackNode<T, MAX_STACK_SIZE>::stackToArray(unsigned int &arrayLen)
 template <typename T, size_t MAX_STACK_SIZE>
 void StatStackNode<T, MAX_STACK_SIZE>::print()
 {
-	for(size_t _index = 0; _index <= index; _index++)
+	for (size_t _index = 0; _index <= index; ++_index)
 		std::cout << stackData[_index] << ' ';
 	std::cout << std::endl;
 }
@@ -128,7 +128,7 @@ void StatStackNode<T, MAX_STACK_SIZE>::print()
 template <typename T, size_t MAX_STACK_SIZE>
 void StatStackNode<T, MAX_STACK_SIZE>::scan()
 {
-	for(size_t _index = 0; _index < MAX_STACK_SIZE; _index++) {
+	for (size_t _index = 0; _index < MAX_STACK_SIZE; ++_index) {
 		std::cout << "Enter the value [" << _index << "] stack element: ";
 		std::cin >> stackData[_index];
 	}

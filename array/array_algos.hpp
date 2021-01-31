@@ -51,7 +51,7 @@ T *initArr(const unsigned int _len)
 	
 	#ifdef RANDOM_RANGE
 		// Заполнение случайными числами
-		for(size_t i = 0; i < _len; i++)
+		for (size_t i = 0; i < _len; ++i)
 			arr[i] = rand() % RANDOM_RANGE;
 	#else
 		// Обнуление элементов массива
@@ -79,17 +79,17 @@ T **initArr2(const unsigned int _row, const unsigned int _column)
 	// Установка первого указателя
 	arr[0] = new T [_row * _column];
 	
-	for(size_t row = 0; row < _row; row++) {
+	for (size_t i = 0; i < _row; ++i) {
 		// Установка следующих указателей
-		arr[row] = arr[0] + _column*row;
+		arr[i] = arr[0] + _column*i;
 		
 	#ifdef RANDOM_RANGE
 		// Заполнение случайными числами
-		for(size_t column = 0; column < _column; column++)
-			arr[row][column] = rand() % RANDOM_RANGE;
+		for (size_t j = 0; j < _column; ++j)
+			arr[i][j] = rand() % RANDOM_RANGE;
 	#else
 		// Обнуление элементов массива
-		memset(arr[row], 0, _column);
+		memset(arr[i], 0, _column);
 	#endif
 	}
 	
@@ -101,7 +101,7 @@ T **initArr2(const unsigned int _row, const unsigned int _column)
 template <typename T>
 void printArr(T *arr, const unsigned int _len)
 {
-	for(size_t i = 0; i < _len; i++)
+	for (size_t i = 0; i < _len; ++i)
 		std::cout << arr[i] << DELIM_CHR;   // Вывод элемента и символа разделителя
 	std::cout << std::endl;                 // Вывод символа перевода каретки
 }
@@ -110,9 +110,9 @@ void printArr(T *arr, const unsigned int _len)
 template <typename T>
 void printArr2(T **arr, const unsigned int _row, const unsigned int _column)
 {
-	for(size_t row = 0; row < _row; row++) {
-		for(size_t column = 0; column < _column; column++)
-			std::cout << arr[row][column] << DELIM_CHR; // Вывод элемента и символа разделителя
+	for (size_t i = 0; i < _row; ++i) {
+		for (size_t j = 0; j < _column; ++j)
+			std::cout << arr[i][j] << DELIM_CHR; // Вывод элемента и символа разделителя
 		std::cout << std::endl;                         // Вывод символа перевода каретки
 	}
 }
@@ -126,11 +126,11 @@ T *scanArr(unsigned int &p_len)
 	// Ввод длины массива и проверка вводимых данных
 	do {
 		std::cin >> p_len;
-	} while(p_len < 0 || MAX_ARR_SIZE < p_len);
+	} while (p_len < 0 || MAX_ARR_SIZE < p_len);
 	// Выделение памяти под массив
 	T *arr = initArr<T>(p_len);
 	// Ввод элементов
-	for(size_t i = 0; i < p_len; i++) {
+	for (size_t i = 0; i < p_len; ++i) {
 		std::cout << "Enter the value [" << i << "] element: ";
 		std::cin >> arr[i];
 	}
@@ -146,19 +146,19 @@ T **scanArr2(unsigned int &p_row, unsigned int &p_column)
 	std::cout << "Enter the number of rows in the array: ";
 	do {
 		std::cin >> p_row;
-	} while(p_row < 0 || MAX_ARR_SIZE < p_row);
+	} while (p_row < 0 || MAX_ARR_SIZE < p_row);
 	
 	std::cout << "Enter the number of rows in the array: ";
 	do {
 		std::cin >> p_column;
-	} while(p_column < 0 || MAX_ARR_SIZE < p_column);
+	} while (p_column < 0 || MAX_ARR_SIZE < p_column);
 	
 	T **arr = initArr2<T>(p_row, p_column);
 	
-	for(size_t row = 0; row < p_row; row++) {
-		for(size_t column = 0; column < p_column; column++) {
-			std::cout << "Enter the value [" << row << "][" << column << "] element: "; // Ввод элемента
-			std::cin >> arr[row][column];
+	for (size_t i = 0; i < p_row; ++i) {
+		for (size_t j = 0; j < p_column; ++j) {
+			std::cout << "Enter the value [" << i << "][" << j << "] element: "; // Ввод элемента
+			std::cin >> arr[i][j];
 		}
 		std::cout << std::endl; // Вывод символа перевода каретки
 	}
@@ -180,7 +180,7 @@ void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, i
 	// Сохранение индекса крайнего левого (опорного) элемента
 	unsigned int lastLeft = _left;
 	// Сортировка с учётом comp
-	for(size_t index = _left + 1; index <= _right; index++)
+	for (size_t index = _left + 1; index <= _right; ++index)
 		if(comp(arr[index], arr[_left]) > 0)
 			swap(&arr[index], &arr[++lastLeft]);
 	// Перемещение опорного элемента за сортируемую область
@@ -195,9 +195,9 @@ void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, i
 template <typename T>
 void shellSortArr(T *arr, const unsigned int len, int (*comp)(const T, const T))
 {
-	for(size_t dist = len/2; dist > 0; dist /= 2)
-		for(size_t i = 0; i < len - dist; i++)
-			for(long j = i; j >= 0 && comp(arr[j], arr[j + dist]) > 0; j -= dist)
+	for (size_t dist = len/2; dist > 0; dist /= 2)
+		for (size_t i = 0; i < len - dist; ++i)
+			for (long j = i; j >= 0 && comp(arr[j], arr[j + dist]) > 0; j -= dist)
 				swap(&arr[j], &arr[j + dist]);
 }
 
@@ -211,12 +211,12 @@ void mergeSortArr(T *arr, const size_t len, int (*comp)(const T, const T))
 	mergeSort(arr, middle, comp);
 	mergeSort(&arr[middle], len/2, comp);
 	int *buf = new int[len];
-	for(size_t left = 0, right = middle, i = 0; i < len; i++)
+	for (size_t left = 0, right = middle, i = 0; i < len; ++i)
 		if((right >= len) || (left < middle && comp(arr[left], arr[right])))
 			buf[i] = arr[left++];
 		else
 			buf[i] = arr[right++];
-	for(size_t i = 0; i < len; i++)
+	for (size_t i = 0; i < len; ++i)
 		arr[i] = buf[i];
 	delete [] buf;
 }
@@ -235,14 +235,14 @@ void swap(T *a, T *b)
 size_t _strlen(char *s)
 {
 	size_t len = 0;
-	while(s[len++] != 0);
+	while (s[len++] != 0);
 	return len;
 }
 
 // Копирование строк
 void _strcpy(char *out, char *in)
 {
-	while((*(out++) = *(in++)) != 0);
+	while ((*(out++) = *(in++)) != 0);
 }
 
 // Лексический анализатор (аналог strtok)
@@ -250,17 +250,17 @@ char *_strtok(char *src, char *delim)
 {
 	// Лямбда-функция сравнение символов разделителей
 	auto isdelim = [&delim](char c) -> bool {
-		for(size_t i = 0; i <= _strlen(delim); i++)
-			if(c == delim[i])
+		for (size_t i = 0; i <= _strlen(delim); ++i)
+			if (c == delim[i])
 				return true;
 		return false;
 	};
 	
 	static char *buf = NULL;
 	static size_t index, len;
-	if(src != nullptr) {
+	if (src != nullptr) {
 		// Освобождение памяти с прошлых итераций функции
-		if(buf != nullptr) {
+		if (buf != nullptr) {
 			delete buf;
 			buf = nullptr;
 		}
@@ -273,21 +273,21 @@ char *_strtok(char *src, char *delim)
 	
 	// Начало нового слова становится не определено
 	size_t left = EOF;
-	for(; index <= len; index++) {
+	for (; index <= len; ++index) {
 		// Если попался символ разделитель, то
-		if(isdelim(buf[index])) {
+		if (isdelim(buf[index])) {
 			// Если это конец слова, то берём случайные две буквы
-			if(left >= 0 && (index-1) >= left) {
+			if (left >= 0 && (index-1) >= left) {
 				buf[index++] = 0;
 				return &buf[left];
 			}
 			// Если после символа(ов) разделителя следует другие символы, то мы отмечаем индекс начала слова
-		} else if(static_cast<int>(left) == EOF)
+		} else if (static_cast<int>(left) == EOF)
 			left = index;
 	}
 	
 	// Освобождение памяти
-	if(buf != nullptr) {
+	if (buf != nullptr) {
 		delete buf;
 		buf = nullptr;
 	}
@@ -299,21 +299,21 @@ char *_strtok(char *src, char *delim)
 template <typename T>
 int resizeArr2(T **(&arr), const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m)
 {
-	if(new_m * new_n != old_m * old_n)
+	if (new_m * new_n != old_m * old_n)
 		return 1;
 	
 	T *buf = new T[old_n * old_m]; //malloc(old_n * old_m * sizeof(T));
-	for(size_t i = 0; i < old_n; i++)
-		for(size_t j = 0; j < old_m; j++)
+	for (size_t i = 0; i < old_n; ++i)
+		for (size_t j = 0; j < old_m; ++j)
 			buf[old_m*i + j] = arr[i][j];
 	delete arr[0];
 	delete arr;
 	
 	arr = new T*[new_n];
 	arr[0] = new T[new_n * new_m];
-	for(size_t i = 0; i < new_n; i++) {
+	for (size_t i = 0; i < new_n; ++i) {
 		arr[i] = arr[0] + new_m * i;
-		for(size_t j = 0; j < new_m; j++)
+		for (size_t j = 0; j < new_m; ++j)
 			arr[i][j] = buf[new_m*i + j];
 	}
 	
