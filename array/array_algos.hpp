@@ -224,11 +224,11 @@ void mergeSortArr(T *arr, const size_t len, int (*comp)(const T, const T))
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
 template <typename T>
-void swap(T *a, T *b)
+void swap(T &a, T &b)
 {
-	T oldElement = *a;
-	*a = *b;
-	*b = oldElement;
+	T oldElement = std::move(a);
+	a = std::move(b);
+	b = std::move(oldElement);
 }
 
 // Получение длины строки

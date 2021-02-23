@@ -1,6 +1,6 @@
 /*
  * static_stack_algos.hpp
- * 
+ *
  * Copyright 2020 DSuhoi
  * Библиотека для работы со статическим стеком
  * (C++ library)
@@ -17,7 +17,7 @@
 // Класс статического стека
 //***************************
 template <typename T, size_t MAX_STACK_SIZE>
-class StatStackNode : DataInterface<T> {
+class StatStackNode : public DataInterface<T> {
 private:
 	// Стек
 	T stackData[MAX_STACK_SIZE];
@@ -26,24 +26,24 @@ private:
 public:
 	// Конструктор
 	StatStackNode();
-	
+
 	// Создание нового элемента стека
 	void push(T newValue) override;
 	// Удаление элемента из стека
 	T pop() override;
 	// Вернуть значение последнего элемента
 	T top() override;
-	
+
 	// Очистка всего стека
 	void clear() override;
 	// Вернуть размер стека
 	size_t size() override;
-	
+
 	// Вывод стека
 	void print() override;
 	// Ввод стека
 	void scan() override;
-	
+
 	// Создание массива из элементов стека
 	T *stackToArray(unsigned int &arrayLen);
 };

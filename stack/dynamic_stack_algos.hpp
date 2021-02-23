@@ -1,6 +1,6 @@
 /*
  * dynamic_stack_algos.hpp
- * 
+ *
  * Copyright 2020 DSuhoi
  * Библиотека для работы с динамическим стеком
  * (C++ library)
@@ -17,13 +17,13 @@
 // Класс динамического стека
 //***************************
 template <typename T>
-class DynStackNode : DataInterface<T>{
+class DynStackNode : public DataInterface<T>{
 private:
 	// Стек
 	T *stackData;
 	// Позиция последнего элемента в стеке
 	size_t index;
-	
+
 public:
 	// Конструктор
 	DynStackNode();
@@ -35,17 +35,17 @@ public:
 	T pop() override;
 	// Вернуть значение последнего элемента
 	T top() override;
-	
+
 	// Очистка всего стека
 	void clear() override;
 	// Вернуть размер стека
 	size_t size() override;
-	
+
 	// Вывод стека
 	void print() override;
 	// Ввод стека
 	void scan() override;
-	
+
 	// Создание массива из элементов стека
 	T *stackToArray(unsigned int &arrayLen);
 };
@@ -134,11 +134,11 @@ void DynStackNode<T>::scan()
 {
 	std::cout << "Enter the number of stack elements: ";
 	size_t stackSize;
-	
+
 	do {
 		std::cin >> stackSize;
 	} while (stackSize < 1);
-	
+
 	for (size_t _index = 0; _index < stackSize; ++_index) {
 		std::cout << "Enter the value [" << _index << "] stack element: ";
 		T input;

@@ -1,8 +1,8 @@
 /*
  * list_algos.hpp
- * 
+ *
  * Copyright 2020 DSuhoi
- * 
+ *
  * Библиотека класса односвязного списка.
  * Методы ввода, вывода, заполнения, поиска и т.п.
  * (C++ library)
@@ -32,7 +32,7 @@
 //****************************
 
 template <typename T>
-class ListNode : DataInterface<T> {
+class ListNode : public DataInterface<T> {
 private:
 	// Структура узла
 	struct Node {
@@ -72,37 +72,37 @@ public:
 	ListNode(const unsigned int numNode, const unsigned int randomRange = 1000);
 	// Деструктор списка
 	~ListNode();
-	
+
 	// Добавить newValue узел в начало списка
 	void push(T newValue) override;
 	// Добавить newValue узел в конец списка
 	void pushBack(T newValue) override;
-	
+
 	// Удалить первый узел
 	T pop() override;
 	// Удалить последний узел
 	T popBack() override;
-	
+
 	// Вставить newValue узел в позицию index
 	void insert(T newValue, const unsigned int index);
-	
+
 	// Получить значение узла в позиции index
 	T getNode(const unsigned int index);
 	// Получить количество узлов в списке
 	size_t size() override;
-	
+
 	// Вывод всех элементов списка
 	void print() override;
 	// Ввод элементов списка
 	void scan() override;
-	
+
 	friend std::ofstream &operator<<(std::ofstream &out, ListNode<T> &list);
-	
+
 	// Возвращение итератора начала списка
 	ListIterator begin();
 	// Возвращение итератора конца списка
 	ListIterator end();
-	
+
 	// Создание массива (со ссылкой на длину arrayLen) из элементов списка
 	T *listToArray(unsigned int &arrayLen);
 };
@@ -183,7 +183,7 @@ template <typename T>
 ListNode<T>::ListNode(const unsigned int numNode, const unsigned int randomRange) : m_headNode(nullptr)
 {
 	srand(time(NULL));
-	
+
 	for (size_t i = 0; i < numNode; ++i)
 		push(rand() % randomRange);
 }
@@ -284,7 +284,7 @@ void ListNode<T>::insert(T newValue, const unsigned int index)
 		prevNode = prevNode->p_nextNode;
 		++cnt;
 	}
-	
+
 	// Создание нового узла
 	if (ListNode *newNode = new ListNode(newValue)) {
 		// Вставка узла в нужную позицию
@@ -330,7 +330,7 @@ void ListNode<T>::scan()
 	do {
 		std::cin >> sizeList;
 	} while (sizeList < 0 || MAX_LIST_SIZE < sizeList);
-	
+
 	T value = 0;
 	std::cout << "Enter the value [0] list node: ";
 	std::cin >> value;
