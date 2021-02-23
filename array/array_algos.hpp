@@ -19,16 +19,16 @@
 //*********************************
 // Основные константы
 //*********************************
-#define DELIM_CHR ' '           // Символ разделитель
+constexpr auto DELIM_CHR = ' ';           // Символ разделитель
 
 
 //********************************************
 // Основные константы для работы с массивами
 //********************************************
-#define MAX_ARR_SIZE 1000       // Максимальная длина массива
+constexpr auto MAX_ARR_SIZE = 1000;       // Максимальная длина массива
 // Для заполнения массивов случайными числами раскомментируйте флаг
 // и укажите диапазон для чисел RANDOM_RANGE
-#define RANDOM_RANGE 100
+constexpr auto RANDOM_RANGE = 100;
 
 
 //*****************************************
@@ -176,15 +176,15 @@ void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, i
 	if(_left >= _right)
 		return;
 	// Перемещение опорного элемента в левый край массива
-	swap(&arr[_left], &arr[(_left + _right)/2]);
+	swap(arr[_left], arr[(_left + _right)/2]);
 	// Сохранение индекса крайнего левого (опорного) элемента
 	unsigned int lastLeft = _left;
 	// Сортировка с учётом comp
 	for (size_t index = _left + 1; index <= _right; ++index)
 		if(comp(arr[index], arr[_left]) > 0)
-			swap(&arr[index], &arr[++lastLeft]);
+			swap(arr[index], arr[++lastLeft]);
 	// Перемещение опорного элемента за сортируемую область
-	swap(&arr[_left], &arr[lastLeft]);
+	swap(arr[_left], arr[lastLeft]);
 	// Рекурсивный вызов сортировки элементов слудующих частей массива
 	quickSortArr(arr, _left, lastLeft - 1, comp);
 	quickSortArr(arr, lastLeft + 1, _right, comp);
@@ -198,7 +198,7 @@ void shellSortArr(T *arr, const unsigned int len, int (*comp)(const T, const T))
 	for (size_t dist = len/2; dist > 0; dist /= 2)
 		for (size_t i = 0; i < len - dist; ++i)
 			for (long j = i; j >= 0 && comp(arr[j], arr[j + dist]) > 0; j -= dist)
-				swap(&arr[j], &arr[j + dist]);
+				swap(arr[j], arr[j + dist]);
 }
 
 // Сортировка слиянием. Массив arr с длиной len сортируется по функции comp
@@ -222,7 +222,7 @@ void mergeSortArr(T *arr, const size_t len, int (*comp)(const T, const T))
 }
 
 
-// Замена местами элементов под индексами indexA и indexB массива Arr
+// Замена местами элементов
 template <typename T>
 void swap(T &a, T &b)
 {
