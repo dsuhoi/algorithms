@@ -23,7 +23,7 @@ enum RESULT {
 };
 
 
-inline RESULT initClient(int *sock, const int host)
+inline RESULT init_client(int *sock, const int host)
 {
     /*
      * AF_UNIX для передачи данных используется файловая система ввода/вывода Unix.
@@ -117,7 +117,7 @@ int main(int argc, char **argv)
     const int host = 5558;
     // Дескриптор
     int sock;
-    if ((result = initClient(&sock, host)) != NO_ERROR)
+    if ((result = init_client(&sock, host)) != NO_ERROR)
         return result;
         
     if ((result = connection(&sock)) != NO_ERROR)

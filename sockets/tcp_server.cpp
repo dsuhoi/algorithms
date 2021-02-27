@@ -23,7 +23,7 @@ enum RESULT {
 };
 
 
-inline RESULT initServer(int *listener, const int host)
+inline RESULT init_server(int *listener, const int host)
 {
     /*
      * AF_UNIX для передачи данных используется файловая система ввода/вывода Unix.
@@ -130,7 +130,7 @@ int main(int argc, char **argv)
     const int host = 5558;
     // Дескриптор
     int listener;
-    if ((result = initServer(&listener, host)) != NO_ERROR)
+    if ((result = init_server(&listener, host)) != NO_ERROR)
         return result;
     
     if ((result = connection(&listener)) != NO_ERROR)
