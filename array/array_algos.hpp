@@ -42,7 +42,7 @@ constexpr auto RANDOM_RANGE = 100;
  * delete [] arr;
  */
 template <typename T>
-T *initArr(const unsigned int _len)
+T *init_arr(const unsigned int _len)
 {
 	if((_len < 1) || (MAX_ARR_SIZE < _len))
 		return nullptr;
@@ -69,7 +69,7 @@ T *initArr(const unsigned int _len)
  * delete [] arr;
  */
 template <typename T>
-T **initArr2(const unsigned int _row, const unsigned int _column)
+T **init_arr2(const unsigned int _row, const unsigned int _column)
 {
 	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column)))
 		return nullptr;
@@ -99,7 +99,7 @@ T **initArr2(const unsigned int _row, const unsigned int _column)
 
 // Вывод _len элементов массива Arr
 template <typename T>
-void printArr(T *arr, const unsigned int _len)
+void print_arr(T *arr, const unsigned int _len)
 {
 	for (size_t i = 0; i < _len; ++i)
 		std::cout << arr[i] << DELIM_CHR;   // Вывод элемента и символа разделителя
@@ -108,7 +108,7 @@ void printArr(T *arr, const unsigned int _len)
 
 // Вывод _row строк и _column столбцов элементов массива Arr
 template <typename T>
-void printArr2(T **arr, const unsigned int _row, const unsigned int _column)
+void print_arr2(T **arr, const unsigned int _row, const unsigned int _column)
 {
 	for (size_t i = 0; i < _row; ++i) {
 		for (size_t j = 0; j < _column; ++j)
@@ -120,7 +120,7 @@ void printArr2(T **arr, const unsigned int _row, const unsigned int _column)
 
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
 template <typename T>
-T *scanArr(unsigned int &p_len)
+T *scan_arr(unsigned int &p_len)
 {
 	std::cout << "Enter the length of the array: ";
 	// Ввод длины массива и проверка вводимых данных
@@ -128,7 +128,7 @@ T *scanArr(unsigned int &p_len)
 		std::cin >> p_len;
 	} while (p_len < 0 || MAX_ARR_SIZE < p_len);
 	// Выделение памяти под массив
-	T *arr = initArr<T>(p_len);
+	T *arr = init_arr<T>(p_len);
 	// Ввод элементов
 	for (size_t i = 0; i < p_len; ++i) {
 		std::cout << "Enter the value [" << i << "] element: ";
@@ -140,7 +140,7 @@ T *scanArr(unsigned int &p_len)
 // Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
 // и выделение памяти под него
 template <typename T>
-T **scanArr2(unsigned int &p_row, unsigned int &p_column)
+T **scan_arr2(unsigned int &p_row, unsigned int &p_column)
 {
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	std::cout << "Enter the number of rows in the array: ";
@@ -153,7 +153,7 @@ T **scanArr2(unsigned int &p_row, unsigned int &p_column)
 		std::cin >> p_column;
 	} while (p_column < 0 || MAX_ARR_SIZE < p_column);
 	
-	T **arr = initArr2<T>(p_row, p_column);
+	T **arr = init_arr2<T>(p_row, p_column);
 	
 	for (size_t i = 0; i < p_row; ++i) {
 		for (size_t j = 0; j < p_column; ++j) {
@@ -170,7 +170,7 @@ T **scanArr2(unsigned int &p_row, unsigned int &p_column)
  * Метод Ч.А.Р. Хоара (1962г)
  */
 template <typename T>
-void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, int (*comp)(const T, const T))
+void quick_sort(T *arr, const unsigned int _left, const unsigned int _right, int (*comp)(const T, const T))
 {
 	// Условие выхода из рекурсии
 	if(_left >= _right)
@@ -178,22 +178,22 @@ void quickSortArr(T *arr, const unsigned int _left, const unsigned int _right, i
 	// Перемещение опорного элемента в левый край массива
 	swap(arr[_left], arr[(_left + _right)/2]);
 	// Сохранение индекса крайнего левого (опорного) элемента
-	unsigned int lastLeft = _left;
+	unsigned int last_left = _left;
 	// Сортировка с учётом comp
 	for (size_t index = _left + 1; index <= _right; ++index)
 		if(comp(arr[index], arr[_left]) > 0)
-			swap(arr[index], arr[++lastLeft]);
+			swap(arr[index], arr[++last_left]);
 	// Перемещение опорного элемента за сортируемую область
-	swap(arr[_left], arr[lastLeft]);
+	swap(arr[_left], arr[last_left]);
 	// Рекурсивный вызов сортировки элементов слудующих частей массива
-	quickSortArr(arr, _left, lastLeft - 1, comp);
-	quickSortArr(arr, lastLeft + 1, _right, comp);
+	quick_sort(arr, _left, last_left - 1, comp);
+	quick_sort(arr, last_left + 1, _right, comp);
 }
 
 
 // Сортировка Шелла. Массив arr с длиной len сортируется по функции comp
 template <typename T>
-void shellSortArr(T *arr, const unsigned int len, int (*comp)(const T, const T))
+void shell_sort(T *arr, const unsigned int len, int (*comp)(const T, const T))
 {
 	for (size_t dist = len/2; dist > 0; dist /= 2)
 		for (size_t i = 0; i < len - dist; ++i)
@@ -203,13 +203,13 @@ void shellSortArr(T *arr, const unsigned int len, int (*comp)(const T, const T))
 
 // Сортировка слиянием. Массив arr с длиной len сортируется по функции comp
 template <typename T>
-void mergeSortArr(T *arr, const size_t len, int (*comp)(const T, const T))
+void merge_sort(T *arr, const size_t len, int (*comp)(const T, const T))
 {
 	if(len < 2)
 		return;
 	size_t middle = len/2;
-	mergeSort(arr, middle, comp);
-	mergeSort(&arr[middle], len/2, comp);
+	merge_sort(arr, middle, comp);
+	merge_sort(&arr[middle], len/2, comp);
 	int *buf = new int[len];
 	for (size_t left = 0, right = middle, i = 0; i < len; ++i)
 		if((right >= len) || (left < middle && comp(arr[left], arr[right])))
@@ -226,9 +226,9 @@ void mergeSortArr(T *arr, const size_t len, int (*comp)(const T, const T))
 template <typename T>
 void swap(T &a, T &b)
 {
-	T oldElement = std::move(a);
+	T old_element = std::move(a);
 	a = std::move(b);
-	b = std::move(oldElement);
+	b = std::move(old_element);
 }
 
 // Получение длины строки
@@ -297,7 +297,7 @@ char *_strtok(char *src, char *delim)
 
 // Функция смены размерности матрицы arr с old_n X old_m на new_n X new_m
 template <typename T>
-int resizeArr2(T **(&arr), const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m)
+int resize_arr2(T **(&arr), const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m)
 {
 	if (new_m * new_n != old_m * old_n)
 		return 1;

@@ -49,37 +49,37 @@ typedef int TBool;  // Логический тип данных
 
 // Выделение памяти под одномерный массив длины _len
 // и возвращение указателя на начало массива
-TBase *initArr(const TCount _len);
+TBase *init_arr(const TCount _len);
 
 // Выделение памяти под двумерный массив (с _row кол-вом рядов и _column кол-вом слобцов)
 // и возвращение указателя на начало массива
-TBase **initArr2(const TCount _row, const TCount _column);
+TBase **init_arr2(const TCount _row, const TCount _column);
 
 /* TBase*** Arr3Create(TCount _row, TCount _column, TCount _height);    // пока не нужен */
 
 
 // Вывод _len элементов массива Arr
-void printArr(TBase *arr, const TCount _len);
+void print_arr(TBase *arr, const TCount _len);
 
 // Вывод _row строк и _column столбцов элементов массива Arr
-void printArr2(TBase **arr, const TCount _row, const TCount _column);
+void print_arr2(TBase **arr, const TCount _row, const TCount _column);
 
 
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
-TBase *scanArr(TCount *p_len);
+TBase *scan_arr(TCount *p_len);
 
 // Ввод элементов массива и выделение памяти под него
-TBase **scanArr2(TCount *p_row, TCount *p_column);
+TBase **scan_arr2(TCount *p_row, TCount *p_column);
 
 
 // Сортировка массива методом Ч.А.Р. Хоара (1962г)
-void quickSortArr(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase));
+void quick_sort(TBase *arr, const TCount _left, const TCount _right, int (*comp)(const TBase, const TBase));
 
 // Сортировка Шелла
-void shellSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase));
+void shell_sort(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase));
 
 // Сортировка слиянием
-void mergeSortArr(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase));
+void merge_sort(TBase *arr, const TCount len, int (*comp)(const TBase, const TBase));
 
 
 // Замена местами элементов под индексами indexA и indexB массива Arr
@@ -95,7 +95,7 @@ void _strcpy(char *out, char *in);
 char *_strtok(char *src, char *delim);
 
 // Функция смены размерности матрицы arr с old_n X old_m на new_n X new_m
-int resizeArr2(TBase ***arr, const TCount old_n, const TCount old_m, const TCount new_n, const TCount new_m);
+int resize_arr2(TBase ***arr, const TCount old_n, const TCount old_m, const TCount new_n, const TCount new_m);
 
 
 #endif

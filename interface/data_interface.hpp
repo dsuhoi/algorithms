@@ -13,14 +13,15 @@
 // Интерфейс структур данных
 //****************************
 template <typename T>
-class DataInterface {
+class Data_interface
+{
 public:
 	// Установка новых элементов в структуру
 	virtual void push(T newValue) = 0;
-	virtual void pushBack(T newValue) = 0;
+	virtual void push_back(T newValue) = 0;
 	// Удаление элементов из структуры
 	virtual T pop() = 0;
-	virtual T popBack() = 0;
+	virtual T pop_back() = 0;
 	// Вывод последнего элемента
 	virtual T top() = 0;
 	// Очистка структуры
