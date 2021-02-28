@@ -11,24 +11,25 @@
 
 #include <iostream>
 #include <cstring>
-#include "../Interface/data_interface.hpp"
+#include "../interface/data_interface.hpp"
 
 //***************************
 // Класс динамического стека
 //***************************
 template <typename T>
-class DynStackNode : public DataInterface<T>{
+class Dyn_stack_node : public Data_interface<T>
+{
 private:
 	// Стек
-	T *stackData;
+	T *stack_data;
 	// Позиция последнего элемента в стеке
 	size_t index;
 
 public:
 	// Конструктор
-	DynStackNode();
+	Dyn_stack_node();
 	// Деструктор
-	~DynStackNode();
+	~Dyn_stack_node();
 	// Создание нового элемента стека
 	void push(T newValue) override;
 	// Удаление элемента из стека
@@ -47,7 +48,7 @@ public:
 	void scan() override;
 
 	// Создание массива из элементов стека
-	T *stackToArray(unsigned int &arrayLen);
+	T *stack_to_array(unsigned int &array_len);
 };
 
 //*************************************
@@ -56,42 +57,42 @@ public:
 
 // Конструктор
 template <typename T>
-DynStackNode<T>::DynStackNode()
+Dyn_stack_node<T>::Dyn_stack_node()
 {
-	stackData = nullptr;
+	stack_data = nullptr;
 	index = 0;
 }
 
 // Деструктор
 template <typename T>
-DynStackNode<T>::~DynStackNode()
+Dyn_stack_node<T>::~Dyn_stack_node()
 {
-	delete [] stackData;
+	delete [] stack_data;
 }
 
 // Создание нового элемента стека
 template <typename T>
-void DynStackNode<T>::push(T newValue)
+void Dyn_stack_node<T>::push(T newValue)
 {
-	T *tempData = new T[index + 2];
+	T *temp_data = new T[index + 2];
 	for (size_t i = 0; i <= index; ++i)
-		tempData[i] = stackData[i];
-	delete [] stackData;
-	stackData = tempData;
-	stackData[index++] = newValue;
+		temp_data[i] = stack_data[i];
+	delete [] stack_data;
+	stack_data = temp_data;
+	stack_data[index++] = newValue;
 }
 
 // Удаление элемента из стека
 template <typename T>
-T DynStackNode<T>::pop()
+T Dyn_stack_node<T>::pop()
 {
 	if (index < 0)
 		return T();
-	T value = stackData[index];
-	T *tempStack = new T[index];
+	T value = stack_data[index];
+	T *temp_stack = new T[index];
 	for (size_t i = 0; i < index; ++i)
-		tempStack[i] = stackData[i];
-	delete [] stackData;
+		temp_stack[i] = stack_data[i];
+	delete [] stack_data;
 	--index;
 	// Возвращение значения элемента стека
 	return value;
@@ -99,14 +100,14 @@ T DynStackNode<T>::pop()
 
 // Вернуть значение последнего элемента
 template <typename T>
-T DynStackNode<T>::top()
+T Dyn_stack_node<T>::top()
 {
-	return stackData[index];
+	return stack_data[index];
 }
 
 // Очистка всего стека
 template <typename T>
-void DynStackNode<T>::clear()
+void Dyn_stack_node<T>::clear()
 {
 	while (index >= 0)
 		pop();
@@ -114,32 +115,32 @@ void DynStackNode<T>::clear()
 
 // Вернуть размер стека
 template <typename T>
-size_t DynStackNode<T>::size()
+size_t Dyn_stack_node<T>::size()
 {
 	return (index + 1);
 }
 
 // Вывод стека
 template <typename T>
-void DynStackNode<T>::print()
+void Dyn_stack_node<T>::print()
 {
 	for (size_t _index = 0; _index <= index; ++_index)
-		std::cout << stackData[_index] << ' ';
+		std::cout << stack_data[_index] << ' ';
 	std::cout << std::endl;
 }
 
 // Ввод стека
 template <typename T>
-void DynStackNode<T>::scan()
+void Dyn_stack_node<T>::scan()
 {
 	std::cout << "Enter the number of stack elements: ";
-	size_t stackSize;
+	size_t stack_size;
 
 	do {
-		std::cin >> stackSize;
-	} while (stackSize < 1);
+		std::cin >> stack_size;
+	} while (stack_size < 1);
 
-	for (size_t _index = 0; _index < stackSize; ++_index) {
+	for (size_t _index = 0; _index < stack_size; ++_index) {
 		std::cout << "Enter the value [" << _index << "] stack element: ";
 		T input;
 		std::cin >> input;
