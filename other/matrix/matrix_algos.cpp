@@ -1,7 +1,7 @@
 #include <iomanip>
 #include <cstring>
 #include <cmath>
-#include "matrix_algos.h"
+#include "matrix_algos.hpp"
 
 
 // Конструктор матрицы
