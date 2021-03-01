@@ -5,24 +5,24 @@
 
 
 // Конструктор матрицы
-Matrix::Matrix(unsigned int _size) : sizeMatrix(_size)
+Matrix::Matrix(unsigned int _size) : size_matrix(_size)
 {
-    matrix = new double*[sizeMatrix];
-    matrix[0] = new double[sizeMatrix * sizeMatrix];
-    for (unsigned int i = 0; i < sizeMatrix; ++i) {
-        matrix[i] = matrix[0] + sizeMatrix * i;
-        memset(matrix[i], 0, sizeMatrix);
+    matrix = new double*[size_matrix];
+    matrix[0] = new double[size_matrix * size_matrix];
+    for (unsigned int i = 0; i < size_matrix; ++i) {
+        matrix[i] = matrix[0] + size_matrix * i;
+        memset(matrix[i], 0, size_matrix);
     }
 }
 
 // Конструктор матрицы по двумерному массиву
-Matrix::Matrix(double **_array, unsigned int _size) : sizeMatrix(_size)
+Matrix::Matrix(double **_array, unsigned int _size) : size_matrix(_size)
 {
-    matrix = new double*[sizeMatrix];
-    matrix[0] = new double[sizeMatrix * sizeMatrix];
-    for (unsigned int i = 0; i < sizeMatrix; ++i) {
-        matrix[i] = matrix[0] + sizeMatrix * i;
-        for (unsigned int j = 0; j < sizeMatrix; ++j)
+    matrix = new double*[size_matrix];
+    matrix[0] = new double[size_matrix * size_matrix];
+    for (unsigned int i = 0; i < size_matrix; ++i) {
+        matrix[i] = matrix[0] + size_matrix * i;
+        for (unsigned int j = 0; j < size_matrix; ++j)
             matrix[i][j] = _array[i][j];
     }
 }
@@ -34,21 +34,21 @@ Matrix::~Matrix()
     delete [] matrix;
 }
 
-double **Matrix::getSubMatrix(double **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y)
+double **Matrix::get_sub_matrix(double **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y)
 {
-    unsigned int subSize = size - 1;
-    double **subMatrix = new double*[subSize];
-    subMatrix[0] = new double[subSize * subSize];
-    for (unsigned int i = 0, h = 0; i < subSize; ++i, h++) {
-            subMatrix[i] = subMatrix[0] + subSize * i;
-        for (unsigned int j = 0, k = 0; j < subSize; ++j, ++k)
-            subMatrix[i][j] = _matrix[(h == delim_y) ? ++h : h][(j == delim_x) ? ++k : k];
+    unsigned int sub_size = size - 1;
+    double **sub_matrix = new double*[sub_size];
+    sub_matrix[0] = new double[sub_size * sub_size];
+    for (unsigned int i = 0, h = 0; i < sub_size; ++i, h++) {
+            sub_matrix[i] = sub_matrix[0] + sub_size * i;
+        for (unsigned int j = 0, k = 0; j < sub_size; ++j, ++k)
+            sub_matrix[i][j] = _matrix[(h == delim_y) ? ++h : h][(j == delim_x) ? ++k : k];
     }
-    return subMatrix;
+    return sub_matrix;
 }
 
 // Вычисление определителя
-double Matrix::procDeterm(double **_matrix, unsigned int size)
+double Matrix::proc_determ(double **_matrix, unsigned int size)
 {
     if (size <= 1) {
         return _matrix[0][0];
@@ -56,10 +56,10 @@ double Matrix::procDeterm(double **_matrix, unsigned int size)
     
     double determinator = 0;
     for (unsigned int i = 0; i < size; ++i) {
-        double **subMatrix = getSubMatrix(_matrix, size, i, 0);
-        determinator += _matrix[0][i] * procDeterm(subMatrix, size - 1) * ((i % 2 == 0) ? 1 : -1);
-        delete [] subMatrix[0];
-        delete [] subMatrix;
+        double **sub_matrix = get_sub_matrix(_matrix, size, i, 0);
+        determinator += _matrix[0][i] * proc_determ(sub_matrix, size - 1) * ((i % 2 == 0) ? 1 : -1);
+        delete [] sub_matrix[0];
+        delete [] sub_matrix;
     }
     
     return determinator;
@@ -68,8 +68,8 @@ double Matrix::procDeterm(double **_matrix, unsigned int size)
 // Вывод матрицы
 void Matrix::print(unsigned int _t)
 {    
-    for (unsigned int i = 0; i < sizeMatrix; ++i) {
-        for (unsigned int j = 0; j < sizeMatrix; ++j)
+    for (unsigned int i = 0; i < size_matrix; ++i) {
+        for (unsigned int j = 0; j < size_matrix; ++j)
             std::cout << std::setw(_t) << matrix[i][j] << ' ';
         std::cout << std::endl;
     }
@@ -78,8 +78,8 @@ void Matrix::print(unsigned int _t)
 // Ввод матрицы
 void Matrix::scan()
 {
-    for (unsigned int i = 0; i < sizeMatrix; ++i) {
-        for (unsigned int j = 0; j < sizeMatrix; ++j) {
+    for (unsigned int i = 0; i < size_matrix; ++i) {
+        for (unsigned int j = 0; j < size_matrix; ++j) {
             std::cout << "Enter the value [" << i << "][" << j << "] element: ";
             std::cin >> matrix[i][j];
         }
@@ -90,16 +90,16 @@ void Matrix::scan()
 // Заполнение матрицы случайными числами
 void Matrix::random(const long range)
 {
-    for (unsigned int i = 0; i < sizeMatrix; ++i)
-        for (unsigned int j = 0; j < sizeMatrix; ++j)
+    for (unsigned int i = 0; i < size_matrix; ++i)
+        for (unsigned int j = 0; j < size_matrix; ++j)
             matrix[i][j] = rand() % range;
 }
 
 // Транспонирование матрицы
 void Matrix::transpose()
 {
-    for (unsigned int i = 0; i < sizeMatrix; ++i)
-        for (unsigned int j = 0; j < sizeMatrix; ++j)
+    for (unsigned int i = 0; i < size_matrix; ++i)
+        for (unsigned int j = 0; j < size_matrix; ++j)
             if (j > i) {
                 double tmp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
@@ -110,49 +110,49 @@ void Matrix::transpose()
 // Получение обратной матрицы
 void Matrix::inverse()
 {
-    double determ = getDeterm();
+    double determ = get_determ();
     
     if (determ == 0)
         return;
     
-    double **invMatrix = new double*[sizeMatrix];
-    invMatrix[0] = new double[sizeMatrix * sizeMatrix];
-    for (unsigned int i = 0; i < sizeMatrix; ++i)
-        invMatrix[i] = invMatrix[0] + sizeMatrix * i;
+    double **inv_matrix = new double*[size_matrix];
+    inv_matrix[0] = new double[size_matrix * size_matrix];
+    for (unsigned int i = 0; i < size_matrix; ++i)
+        inv_matrix[i] = inv_matrix[0] + size_matrix * i;
         
-    for (unsigned int i = 0; i < sizeMatrix; ++i)
-        for (unsigned int j = 0; j < sizeMatrix; ++j) {
-            double **subMatrix = getSubMatrix(matrix, sizeMatrix, j, i);
-            invMatrix[j][i] = procDeterm(subMatrix, sizeMatrix - 1) * 
-                ((((sizeMatrix * i + j) % 2) == 1) ? -1 : 1) / determ;
-            delete [] subMatrix[0];
-            delete [] subMatrix;
+    for (unsigned int i = 0; i < size_matrix; ++i)
+        for (unsigned int j = 0; j < size_matrix; ++j) {
+            double **sub_matrix = get_sub_matrix(matrix, size_matrix, j, i);
+            inv_matrix[j][i] = proc_determ(sub_matrix, size_matrix - 1) * 
+                ((((size_matrix * i + j) % 2) == 1) ? -1 : 1) / determ;
+            delete [] sub_matrix[0];
+            delete [] sub_matrix;
         }
     
-    for (unsigned int i = 0; i < sizeMatrix; ++i)
-        for (unsigned int j = 0; j < sizeMatrix; ++j)
-            matrix[i][j] = invMatrix[i][j];
+    for (unsigned int i = 0; i < size_matrix; ++i)
+        for (unsigned int j = 0; j < size_matrix; ++j)
+            matrix[i][j] = inv_matrix[i][j];
     
-    delete [] invMatrix[0];
-    delete [] invMatrix;
+    delete [] inv_matrix[0];
+    delete [] inv_matrix;
 }
 
 // Фукнция получения определителя
-double Matrix::getDeterm()
+double Matrix::get_determ()
 {
-    return procDeterm(matrix, sizeMatrix);
+    return proc_determ(matrix, size_matrix);
 }
 
 // Получение размера матрицы
 unsigned char Matrix::size()
 {
-    return sizeMatrix;
+    return size_matrix;
 }
 
 // Возвращение элемента матрицы
 double *Matrix::operator[](unsigned int _row)
 {
-    if (0 <= _row || _row < sizeMatrix)
+    if (0 <= _row || _row < size_matrix)
         return matrix[_row];
     return nullptr;
 }

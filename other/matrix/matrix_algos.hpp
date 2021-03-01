@@ -1,5 +1,5 @@
 /*
- * matrix_algos.h
+ * matrix_algos.hpp
  * 
  * Библиотека по работе с квадратными матрицами
  * (C++)
@@ -15,12 +15,12 @@ private:
     // Указатель на указатели на элементы матрицы
     double **matrix;
     // Размерность матрицы
-    unsigned int sizeMatrix;
+    unsigned int size_matrix;
     
     // Вычисление подматрицы
-    double **getSubMatrix(double **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y);
+    double **get_sub_matrix(double **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y);
     // Вычисление определителя
-    double procDeterm(double **_matrix, unsigned int size);
+    double proc_determ(double **_matrix, unsigned int size);
 public:
     // Конструктор матрицы
     Matrix(unsigned int _size = 3);
@@ -29,7 +29,7 @@ public:
     // Деструктор матрицы
     ~Matrix();
     // Фукнция получения определителя
-    double getDeterm();
+    double get_determ();
     // Получение размера матрицы
     unsigned char size();
     // Вывод матрицы
