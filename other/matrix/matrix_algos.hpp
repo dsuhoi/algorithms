@@ -5,8 +5,8 @@
  * (C++)
  */
 
-#ifndef __MATRIX_H__
-#define __MATRIX_H__
+#ifndef __MATRIX_HPP__
+#define __MATRIX_HPP__
 
 #include <iostream>
 
