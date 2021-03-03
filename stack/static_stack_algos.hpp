@@ -19,11 +19,6 @@
 template <typename T, size_t MAX_STACK_SIZE>
 class Stat_stack_node : public Data_interface<T>
 {
-private:
-	// Стек
-	T stack_data[MAX_STACK_SIZE];
-	// Позиция последнего элемента в стеке
-	size_t index;
 public:
 	// Конструктор
 	Stat_stack_node();
@@ -47,6 +42,11 @@ public:
 
 	// Создание массива из элементов стека
 	T *stack_to_array(unsigned int &array_len);
+private:
+	// Стек
+	T stack_data[MAX_STACK_SIZE];
+	// Позиция последнего элемента в стеке
+	size_t index;
 };
 
 

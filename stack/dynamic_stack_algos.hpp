@@ -19,12 +19,6 @@
 template <typename T>
 class Dyn_stack_node : public Data_interface<T>
 {
-private:
-	// Стек
-	T *stack_data;
-	// Позиция последнего элемента в стеке
-	size_t index;
-
 public:
 	// Конструктор
 	Dyn_stack_node();
@@ -49,6 +43,11 @@ public:
 
 	// Создание массива из элементов стека
 	T *stack_to_array(unsigned int &array_len);
+private:
+	// Стек
+	T *stack_data;
+	// Позиция последнего элемента в стеке
+	size_t index;
 };
 
 //*************************************
