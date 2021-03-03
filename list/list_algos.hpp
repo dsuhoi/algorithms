@@ -34,25 +34,10 @@ constexpr auto MAX_LIST_SIZE = 1000;  // максимальное кол-во у
 template <typename T>
 class List_node : public Data_interface<T>
 {
-private:
-	// Структура узла
-	struct Node {
-		// Указатель на следующий узел
-		Node *p_next_node;
-		// Значение узла
-		T value;
-		// Конструкторы узла
-		Node() : p_next_node(nullptr) {}
-		Node(T new_value) : value(new_value), p_next_node(nullptr) {}
-	};
-	// Вершина списка
-	Node *m_head_node;
-
 public:
 	// Класс итератора односвязного списка
-	class List_iterator {
-	private:
-		Node *current_node;
+	class List_iterator 
+    {
 	public:
 		// Конструктор класса
 		List_iterator(Node *_node);
@@ -63,6 +48,8 @@ public:
 		T operator *();
 		// Оператор инкрементирования
 		void operator ++();
+	private:
+		Node *current_node;
 	};
 
 	List_node(); // Пустой конструктор
@@ -106,6 +93,20 @@ public:
 
 	// Создание массива (со ссылкой на длину arrayLen) из элементов списка
 	T *list_to_array(unsigned int &array_len);
+private:
+	// Структура узла
+	struct Node 
+    {
+		// Указатель на следующий узел
+		Node *p_next_node;
+		// Значение узла
+		T value;
+		// Конструкторы узла
+		Node() : p_next_node(nullptr) {}
+		Node(T new_value) : value(new_value), p_next_node(nullptr) {}
+	};
+	// Вершина списка
+	Node *m_head_node;
 };
 
 //***********************************************

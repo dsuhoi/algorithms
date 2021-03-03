@@ -13,9 +13,8 @@
 // Интерфейс структур данных
 //****************************
 template <typename T>
-class Data_interface
+struct Data_interface
 {
-public:
 	// Установка новых элементов в структуру
 	virtual void push(T newValue) = 0;
 	virtual void push_back(T newValue) = 0;
