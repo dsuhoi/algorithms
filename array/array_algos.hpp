@@ -42,12 +42,12 @@ constexpr auto RANDOM_RANGE = 100;
  * delete [] arr;
  */
 template <typename T>
-T *init_arr(const unsigned int _len)
+T* init_arr(const unsigned int _len)
 {
 	if((_len < 1) || (MAX_ARR_SIZE < _len))
 		return nullptr;
 	
-	T *arr = new T [_len];
+	T* arr = new T [_len];
 	
 	#ifdef RANDOM_RANGE
 		// Заполнение случайными числами
@@ -69,13 +69,13 @@ T *init_arr(const unsigned int _len)
  * delete [] arr;
  */
 template <typename T>
-T **init_arr2(const unsigned int _row, const unsigned int _column)
+T** init_arr2(const unsigned int _row, const unsigned int _column)
 {
 	if(((_row * _column) < 1) || (MAX_ARR_SIZE < (_row * _column)))
 		return nullptr;
 
 	// Выделение памяти под указатели на указатели на элементы
-	T **arr = new T* [_row];
+	T** arr = new T* [_row];
 	// Установка первого указателя
 	arr[0] = new T [_row * _column];
 	
@@ -99,7 +99,7 @@ T **init_arr2(const unsigned int _row, const unsigned int _column)
 
 // Вывод _len элементов массива Arr
 template <typename T>
-void print_arr(T *arr, const unsigned int _len)
+void print_arr(T* arr, const unsigned int _len)
 {
 	for (size_t i = 0; i < _len; ++i)
 		std::cout << arr[i] << DELIM_CHR;   // Вывод элемента и символа разделителя
@@ -108,7 +108,7 @@ void print_arr(T *arr, const unsigned int _len)
 
 // Вывод _row строк и _column столбцов элементов массива Arr
 template <typename T>
-void print_arr2(T **arr, const unsigned int _row, const unsigned int _column)
+void print_arr2(T** arr, const unsigned int _row, const unsigned int _column)
 {
 	for (size_t i = 0; i < _row; ++i) {
 		for (size_t j = 0; j < _column; ++j)
@@ -120,7 +120,7 @@ void print_arr2(T **arr, const unsigned int _row, const unsigned int _column)
 
 // Ввод элементов и длины массива (p_len - указатель на длину) и выделение памяти под него
 template <typename T>
-T *scan_arr(unsigned int &p_len)
+T* scan_arr(unsigned int & p_len)
 {
 	std::cout << "Enter the length of the array: ";
 	// Ввод длины массива и проверка вводимых данных
@@ -128,7 +128,7 @@ T *scan_arr(unsigned int &p_len)
 		std::cin >> p_len;
 	} while (p_len < 0 || MAX_ARR_SIZE < p_len);
 	// Выделение памяти под массив
-	T *arr = init_arr<T>(p_len);
+	T* arr = init_arr<T>(p_len);
 	// Ввод элементов
 	for (size_t i = 0; i < p_len; ++i) {
 		std::cout << "Enter the value [" << i << "] element: ";
@@ -140,7 +140,7 @@ T *scan_arr(unsigned int &p_len)
 // Ввод элементов, кол-ва строк и столбцов массива (p_row и p_column - указатели на кол-во строк и столбцов)
 // и выделение памяти под него
 template <typename T>
-T **scan_arr2(unsigned int &p_row, unsigned int &p_column)
+T** scan_arr2(unsigned int& p_row, unsigned int& p_column)
 {
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	std::cout << "Enter the number of rows in the array: ";
@@ -153,7 +153,7 @@ T **scan_arr2(unsigned int &p_row, unsigned int &p_column)
 		std::cin >> p_column;
 	} while (p_column < 0 || MAX_ARR_SIZE < p_column);
 	
-	T **arr = init_arr2<T>(p_row, p_column);
+	T** arr = init_arr2<T>(p_row, p_column);
 	
 	for (size_t i = 0; i < p_row; ++i) {
 		for (size_t j = 0; j < p_column; ++j) {
@@ -170,7 +170,7 @@ T **scan_arr2(unsigned int &p_row, unsigned int &p_column)
  * Метод Ч.А.Р. Хоара (1962г)
  */
 template <typename T>
-void quick_sort(T *arr, const unsigned int _left, const unsigned int _right, int (*comp)(const T, const T))
+void quick_sort(T* arr, const unsigned int _left, const unsigned int _right, int (*comp)(const T, const T))
 {
 	// Условие выхода из рекурсии
 	if(_left >= _right)
@@ -193,7 +193,7 @@ void quick_sort(T *arr, const unsigned int _left, const unsigned int _right, int
 
 // Сортировка Шелла. Массив arr с длиной len сортируется по функции comp
 template <typename T>
-void shell_sort(T *arr, const unsigned int len, int (*comp)(const T, const T))
+void shell_sort(T* arr, const unsigned int len, int (*comp)(const T, const T))
 {
 	for (size_t dist = len/2; dist > 0; dist /= 2)
 		for (size_t i = 0; i < len - dist; ++i)
@@ -203,14 +203,14 @@ void shell_sort(T *arr, const unsigned int len, int (*comp)(const T, const T))
 
 // Сортировка слиянием. Массив arr с длиной len сортируется по функции comp
 template <typename T>
-void merge_sort(T *arr, const size_t len, int (*comp)(const T, const T))
+void merge_sort(T* arr, const size_t len, int (*comp)(const T, const T))
 {
 	if(len < 2)
 		return;
 	size_t middle = len/2;
 	merge_sort(arr, middle, comp);
 	merge_sort(&arr[middle], len/2, comp);
-	int *buf = new int[len];
+	T* buf = new T[len];
 	for (size_t left = 0, right = middle, i = 0; i < len; ++i)
 		if((right >= len) || (left < middle && comp(arr[left], arr[right])))
 			buf[i] = arr[left++];
@@ -224,7 +224,7 @@ void merge_sort(T *arr, const size_t len, int (*comp)(const T, const T))
 
 // Замена местами элементов
 template <typename T>
-void swap(T &a, T &b)
+void swap(T & a, T & b)
 {
 	T old_element = std::move(a);
 	a = std::move(b);
@@ -232,7 +232,7 @@ void swap(T &a, T &b)
 }
 
 // Получение длины строки
-size_t _strlen(char *s)
+size_t _strlen(char* s)
 {
 	size_t len = 0;
 	while (s[len++] != 0);
@@ -240,13 +240,13 @@ size_t _strlen(char *s)
 }
 
 // Копирование строк
-void _strcpy(char *out, char *in)
+void _strcpy(char* out, char* in)
 {
 	while ((*(out++) = *(in++)) != 0);
 }
 
 // Лексический анализатор (аналог strtok)
-char *_strtok(char *src, char *delim)
+char* _strtok(char* src, char* delim)
 {
 	// Лямбда-функция сравнение символов разделителей
 	auto isdelim = [&delim](char c) -> bool {
@@ -256,7 +256,7 @@ char *_strtok(char *src, char *delim)
 		return false;
 	};
 	
-	static char *buf = NULL;
+	static char* buf = nullptr;
 	static size_t index, len;
 	if (src != nullptr) {
 		// Освобождение памяти с прошлых итераций функции
@@ -297,12 +297,12 @@ char *_strtok(char *src, char *delim)
 
 // Функция смены размерности матрицы arr с old_n X old_m на new_n X new_m
 template <typename T>
-int resize_arr2(T **(&arr), const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m)
+int resize_arr2(T** (&arr), const size_t old_n, const size_t old_m, const size_t new_n, const size_t new_m)
 {
 	if (new_m * new_n != old_m * old_n)
 		return 1;
 	
-	T *buf = new T[old_n * old_m]; //malloc(old_n * old_m * sizeof(T));
+	T* buf = new T[old_n * old_m]; //malloc(old_n * old_m * sizeof(T));
 	for (size_t i = 0; i < old_n; ++i)
 		for (size_t j = 0; j < old_m; ++j)
 			buf[old_m*i + j] = arr[i][j];

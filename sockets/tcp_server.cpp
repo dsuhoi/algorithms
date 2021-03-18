@@ -23,7 +23,7 @@ enum RESULT {
 };
 
 
-inline RESULT init_server(int *listener, const int host)
+inline RESULT init_server(int* listener, const int host)
 {
     /*
      * AF_UNIX для передачи данных используется файловая система ввода/вывода Unix.
@@ -81,7 +81,7 @@ inline RESULT init_server(int *listener, const int host)
 }
 
 
-inline RESULT connection(int *listener)
+inline RESULT connection(int* listener)
 {
     // Параметры буфера ввода/вывода
     const size_t BUF_LEN = 1024;
@@ -123,7 +123,7 @@ inline RESULT connection(int *listener)
 }
 
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     RESULT result;
     // Номер порта

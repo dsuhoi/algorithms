@@ -16,7 +16,7 @@ public:
     // Конструктор матрицы
     Matrix(unsigned int _size = 3);
     // Конструктор матрицы по двумерному массиву
-    Matrix(double **_array, unsigned int _size);
+    Matrix(double** _array, unsigned int _size);
     // Деструктор матрицы
     ~Matrix();
     // Фукнция получения определителя
@@ -34,17 +34,17 @@ public:
     // Получение обратной матрицы
     void inverse();
     // Возвращение строки матрицы
-    double *operator[](unsigned int _row);
+    double* operator[](unsigned int _row);
 private:
     // Указатель на указатели на элементы матрицы
-    double **matrix;
+    double** matrix;
     // Размерность матрицы
     unsigned int size_matrix;
     
     // Вычисление подматрицы
-    double **get_sub_matrix(double **_matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y);
+    double** get_sub_matrix(double** _matrix, unsigned int size, unsigned int delim_x, unsigned int delim_y);
     // Вычисление определителя
-    double proc_determ(double **_matrix, unsigned int size);
+    double proc_determ(double** _matrix, unsigned int size);
 };
 
 #endif

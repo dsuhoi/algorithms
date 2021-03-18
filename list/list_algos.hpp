@@ -40,16 +40,16 @@ public:
     {
 	public:
 		// Конструктор класса
-		List_iterator(Node *_node);
+		List_iterator(Node * _node);
 		// Операторы сравнения
-		bool operator ==(const List_iterator &iter);
-		bool operator !=(const List_iterator &iter);
+		bool operator==(const List_iterator & iter);
+		bool operator!=(const List_iterator & iter);
 		// Оператор разыменования
-		T operator *();
+		T operator*();
 		// Оператор инкрементирования
-		void operator ++();
+		void operator++();
 	private:
-		Node *current_node;
+		Node* current_node;
 	};
 
 	List_node(); // Пустой конструктор
@@ -84,7 +84,7 @@ public:
 	// Ввод элементов списка
 	void scan() override;
 
-	friend std::ofstream &operator<<(std::ofstream &out, List_node<T> &list);
+	friend std::ofstream &operator<<(std::ofstream& out, List_node<T>& list);
 
 	// Возвращение итератора начала списка
 	List_iterator begin();
@@ -92,13 +92,13 @@ public:
 	List_iterator end();
 
 	// Создание массива (со ссылкой на длину arrayLen) из элементов списка
-	T *list_to_array(unsigned int &array_len);
+	T* list_to_array(unsigned int& array_len);
 private:
 	// Структура узла
 	struct Node 
     {
 		// Указатель на следующий узел
-		Node *p_next_node;
+		Node* p_next_node;
 		// Значение узла
 		T value;
 		// Конструкторы узла
@@ -106,7 +106,7 @@ private:
 		Node(T new_value) : value(new_value), p_next_node(nullptr) {}
 	};
 	// Вершина списка
-	Node *m_head_node;
+	Node* m_head_node;
 };
 
 //***********************************************
@@ -114,11 +114,11 @@ private:
 //***********************************************
 // Конструктор класса
 template <typename T>
-List_node<T>::List_iterator::List_iterator(Node *_node) : current_node(_node) {}
+List_node<T>::List_iterator::List_iterator(Node* _node) : current_node(_node) {}
 
 // Операторы сравнения
 template <typename T>
-bool List_node<T>::List_iterator::operator ==(const List_iterator &iter)
+bool List_node<T>::List_iterator::operator==(const List_iterator& iter)
 {
 	if (this == &iter)
 		return true;
@@ -127,14 +127,14 @@ bool List_node<T>::List_iterator::operator ==(const List_iterator &iter)
 }
 
 template <typename T>
-bool List_node<T>::List_iterator::operator !=(const List_iterator &iter)
+bool List_node<T>::List_iterator::operator!=(const List_iterator& iter)
 {
 	return !(this == iter);
 }
 
 // Оператор разыменования
 template <typename T>
-T List_node<T>::List_iterator::operator *()
+T List_node<T>::List_iterator::operator*()
 {
 	if (current_node != nullptr)
 		return current_node->value;
@@ -144,7 +144,7 @@ T List_node<T>::List_iterator::operator *()
 
 // Оператор инкрементирования
 template <typename T>
-void List_node<T>::List_iterator::operator ++()
+void List_node<T>::List_iterator::operator++()
 {
 	if (current_node != nullptr)
 		current_node = current_node->p_next_node;
@@ -204,7 +204,7 @@ template <typename T>
 void List_node<T>::push(T new_value)
 {
 	// Выделение памяти под новый узел
-	if (Node *new_node = new Node(new_value)) {
+	if (Node* new_node = new Node(new_value)) {
 		// Смена указателя на верхний узел
 		new_node->p_next_node = m_head_node;
 		// Перестановка указателя на новый верхний узел
@@ -217,10 +217,10 @@ template <typename T>
 void List_node<T>::push_back(T new_value)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	if (Node *new_node = new Node(new_value)) {
+	if (Node* new_node = new Node(new_value)) {
 		new_node->p_next_node = nullptr;
 		// Получение указателя на последний узел
-		List_node *lastNode = m_head_node;
+		List_node* lastNode = m_head_node;
 		// Нахождение последнего элемента списка
 		while (lastNode->p_next_node!=nullptr)
 			lastNode = lastNode->p_next_node;
@@ -238,7 +238,7 @@ T List_node<T>::pop()
 	if (m_head_node == nullptr)
 		return T();
 	// Создание указателя на вершину списка
-	List_node *lastNode = m_head_node;
+	List_node * lastNode = m_head_node;
 	T lastValue = lastNode->value;
 	m_head_node = m_head_node->p_next_node;
 	// Удаление узла
@@ -264,7 +264,7 @@ T List_node<T>::pop_back()
 	while (m_head_node->p_next_node->p_next_node != nullptr)
 		m_head_node = m_head_node->p_next_node;
 	// Создание указателя на предпоследний узел
-	List_node *lastNode = m_head_node;
+	List_node* lastNode = m_head_node;
 	// Значение последнего узла
 	T lastValue = lastNode->p_next_node->value;
 	// Удаление последнего узла
@@ -280,7 +280,7 @@ template <typename T>
 void List_node<T>::insert(T new_value, const unsigned int index)
 {
 	// Получение указателя на узел до индекса
-	List_node *prev_node = m_head_node;
+	List_node* prev_node = m_head_node;
 	size_t cnt = 0;
 	while (cnt < index && prev_node != nullptr) {
 		prev_node = prev_node->p_next_node;
@@ -288,7 +288,7 @@ void List_node<T>::insert(T new_value, const unsigned int index)
 	}
 
 	// Создание нового узла
-	if (List_node *new_node = new List_node(new_value)) {
+	if (List_node* new_node = new List_node(new_value)) {
 		// Вставка узла в нужную позицию
 		new_node->p_next_node = prev_node->p_next_node;
 		prev_node->p_next_node = new_node;
@@ -300,7 +300,7 @@ template <typename T>
 T List_node<T>::get_node(const unsigned int index)
 {
 	// Создание указателя на узел
-	List_node *index_node = m_head_node;
+	List_node* index_node = m_head_node;
 	size_t cnt = 0;
 	// Получение указателя на искомый узел
 	while ((cnt++) < index && index_node != nullptr)
@@ -351,7 +351,7 @@ template <typename T>
 size_t List_node<T>::size()
 {
 	size_t size_list = 0;
-	List_node *list_counter = m_head_node;
+	List_node* list_counter = m_head_node;
 	// Подсчёт узлов до конца списка
 	while (list_counter != nullptr) {
 		++size_list;
@@ -363,12 +363,12 @@ size_t List_node<T>::size()
 
 // Создание массива (со ссылкой на длину ArrayLen) из элементов списка с вершиной m_head_node
 template <typename T>
-T *List_node<T>::list_to_array(unsigned int &array_len)
+T* List_node<T>::list_to_array(unsigned int& array_len)
 {
 	// Получение длины будущего массива (кол-ва узлов в списке)
 	array_len = size();
 	// Выделение памяти под массив
-	T *arr = new T[array_len];
+	T* arr = new T[array_len];
 	// Заполнение массива
 	for (size_t i = 0; i < array_len; ++i)
 		// Получение значения из узла под индексом i

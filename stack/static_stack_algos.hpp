@@ -41,7 +41,7 @@ public:
 	void scan() override;
 
 	// Создание массива из элементов стека
-	T *stack_to_array(unsigned int &array_len);
+	T* stack_to_array(unsigned int& array_len);
 private:
 	// Стек
 	T stack_data[MAX_STACK_SIZE];
@@ -104,12 +104,12 @@ size_t Stat_stack_node<T, MAX_STACK_SIZE>::size()
 
 // Создание массива из элементов стека
 template <typename T, size_t MAX_STACK_SIZE>
-T *Stat_stack_node<T, MAX_STACK_SIZE>::stack_to_array(unsigned int &array_len)
+T* Stat_stack_node<T, MAX_STACK_SIZE>::stack_to_array(unsigned int& array_len)
 {
 	// Получение длины будущего массива
 	array_len = size();
 	// Выделение памяти под массив
-	T *arr = new T[array_len];
+	T* arr = new T[array_len];
 	// Заполнение массива
 	memcpy(arr, stack_data, array_len * sizeof(T));
 	// Возвращение указателя на массив

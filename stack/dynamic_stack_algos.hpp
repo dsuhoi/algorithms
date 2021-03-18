@@ -42,10 +42,10 @@ public:
 	void scan() override;
 
 	// Создание массива из элементов стека
-	T *stack_to_array(unsigned int &array_len);
+	T* stack_to_array(unsigned int& array_len);
 private:
 	// Стек
-	T *stack_data;
+	T* stack_data;
 	// Позиция последнего элемента в стеке
 	size_t index;
 };
@@ -73,7 +73,7 @@ Dyn_stack_node<T>::~Dyn_stack_node()
 template <typename T>
 void Dyn_stack_node<T>::push(T newValue)
 {
-	T *temp_data = new T[index + 2];
+	T* temp_data = new T[index + 2];
 	for (size_t i = 0; i <= index; ++i)
 		temp_data[i] = stack_data[i];
 	delete [] stack_data;
@@ -88,7 +88,7 @@ T Dyn_stack_node<T>::pop()
 	if (index < 0)
 		return T();
 	T value = stack_data[index];
-	T *temp_stack = new T[index];
+	T* temp_stack = new T[index];
 	for (size_t i = 0; i < index; ++i)
 		temp_stack[i] = stack_data[i];
 	delete [] stack_data;
