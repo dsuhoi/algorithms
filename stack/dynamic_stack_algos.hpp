@@ -16,7 +16,7 @@
 //***************************
 // Класс динамического стека
 //***************************
-template <typename T>
+template<typename T>
 class Dyn_stack_node : public Data_interface<T>
 {
 public:
@@ -55,7 +55,7 @@ private:
 //*************************************
 
 // Конструктор
-template <typename T>
+template<typename T>
 Dyn_stack_node<T>::Dyn_stack_node()
 {
 	stack_data = nullptr;
@@ -63,14 +63,14 @@ Dyn_stack_node<T>::Dyn_stack_node()
 }
 
 // Деструктор
-template <typename T>
+template<typename T>
 Dyn_stack_node<T>::~Dyn_stack_node()
 {
 	delete [] stack_data;
 }
 
 // Создание нового элемента стека
-template <typename T>
+template<typename T>
 void Dyn_stack_node<T>::push(T newValue)
 {
 	T* temp_data = new T[index + 2];
@@ -82,7 +82,7 @@ void Dyn_stack_node<T>::push(T newValue)
 }
 
 // Удаление элемента из стека
-template <typename T>
+template<typename T>
 T Dyn_stack_node<T>::pop()
 {
 	if (index < 0)
@@ -98,14 +98,14 @@ T Dyn_stack_node<T>::pop()
 }
 
 // Вернуть значение последнего элемента
-template <typename T>
+template<typename T>
 T Dyn_stack_node<T>::top()
 {
 	return stack_data[index];
 }
 
 // Очистка всего стека
-template <typename T>
+template<typename T>
 void Dyn_stack_node<T>::clear()
 {
 	while (index >= 0)
@@ -113,14 +113,14 @@ void Dyn_stack_node<T>::clear()
 }
 
 // Вернуть размер стека
-template <typename T>
+template<typename T>
 size_t Dyn_stack_node<T>::size()
 {
 	return (index + 1);
 }
 
 // Вывод стека
-template <typename T>
+template<typename T>
 void Dyn_stack_node<T>::print()
 {
 	for (size_t _index = 0; _index <= index; ++_index)
@@ -129,7 +129,7 @@ void Dyn_stack_node<T>::print()
 }
 
 // Ввод стека
-template <typename T>
+template<typename T>
 void Dyn_stack_node<T>::scan()
 {
 	std::cout << "Enter the number of stack elements: ";

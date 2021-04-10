@@ -16,7 +16,7 @@
 //***************************
 // Класс статического стека
 //***************************
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 class Stat_stack_node : public Data_interface<T>
 {
 public:
@@ -55,11 +55,11 @@ private:
 //************************************
 
 // Конструктор
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 Stat_stack_node<T, MAX_STACK_SIZE>::Stat_stack_node() : index(0) {}
 
 // Создание нового элемента стека
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 void Stat_stack_node<T, MAX_STACK_SIZE>::push(T new_value)
 {
 	if (index < MAX_STACK_SIZE - 1)
@@ -67,7 +67,7 @@ void Stat_stack_node<T, MAX_STACK_SIZE>::push(T new_value)
 }
 
 // Удаление элемента из стека
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 T Stat_stack_node<T, MAX_STACK_SIZE>::pop()
 {
 	if (index < 0)
@@ -80,14 +80,14 @@ T Stat_stack_node<T, MAX_STACK_SIZE>::pop()
 }
 
 // Вернуть значение последнего элемента
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 T Stat_stack_node<T, MAX_STACK_SIZE>::top()
 {
 	return stack_data[index];
 }
 
 // Очистка всего стека
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 void Stat_stack_node<T, MAX_STACK_SIZE>::clear()
 {
 	while (index >= 0)
@@ -95,7 +95,7 @@ void Stat_stack_node<T, MAX_STACK_SIZE>::clear()
 }
 
 // Вернуть размер стека!
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 size_t Stat_stack_node<T, MAX_STACK_SIZE>::size()
 {
 	// Возвращение размера стека
@@ -103,7 +103,7 @@ size_t Stat_stack_node<T, MAX_STACK_SIZE>::size()
 }
 
 // Создание массива из элементов стека
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 T* Stat_stack_node<T, MAX_STACK_SIZE>::stack_to_array(unsigned int& array_len)
 {
 	// Получение длины будущего массива
@@ -117,7 +117,7 @@ T* Stat_stack_node<T, MAX_STACK_SIZE>::stack_to_array(unsigned int& array_len)
 }
 
 // Вывод стека
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 void Stat_stack_node<T, MAX_STACK_SIZE>::print()
 {
 	for (size_t _index = 0; _index <= index; ++_index)
@@ -126,7 +126,7 @@ void Stat_stack_node<T, MAX_STACK_SIZE>::print()
 }
 
 // Ввод стека
-template <typename T, size_t MAX_STACK_SIZE>
+template<typename T, size_t MAX_STACK_SIZE>
 void Stat_stack_node<T, MAX_STACK_SIZE>::scan()
 {
 	for (size_t _index = 0; _index < MAX_STACK_SIZE; ++_index) {
