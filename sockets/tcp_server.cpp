@@ -35,7 +35,8 @@ inline RESULT init_server(int* listener, const int host)
      */
     
     *listener = socket(AF_INET, SOCK_STREAM, 0);
-    if (*listener < 0) {
+    if (*listener < 0)
+	{
         perror("socket");
         return SOCKET;
     }
@@ -63,7 +64,8 @@ inline RESULT init_server(int* listener, const int host)
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     
     // Открытие портов
-    if (bind(*listener, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+    if (bind(*listener, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+	{
         perror("bind");
         return BIND;
     }
@@ -88,16 +90,19 @@ inline RESULT connection(int* listener)
     char buf[BUF_LEN] = {0};
     const char STOP_CHR = '#';
     
-    do {
+    do
+    {
         // Создание сокета для общения с клиентом
         int sock = accept(*listener, NULL, NULL);
-        if (sock < 0) {
+        if (sock < 0)
+	    { 
             perror("accept");
             return ACCEPT;
         }
 
         // Ожидание ответа от клиента
-        while (1) {
+        while (1)
+	    {
             if (recv(sock, buf, BUF_LEN, 0) <= 0)
                 break;
         

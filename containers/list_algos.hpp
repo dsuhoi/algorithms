@@ -36,7 +36,7 @@ class List_node : public Data_interface<T>
 public:
 	// Класс итератора односвязного списка
 	class List_iterator 
-    {
+	{
 	public:
 		// Конструктор класса
 		List_iterator(Node * _node);
@@ -86,7 +86,7 @@ public:
 	friend std::ofstream &operator<<(std::ofstream& out, List_node<T>& list);
 
 	// Возвращение итератора начала списка
-	List_iterator begin();
+    List_iterator begin();
 	// Возвращение итератора конца списка
 	List_iterator end();
 
@@ -95,14 +95,16 @@ public:
 private:
 	// Структура узла
 	struct Node 
-    {
+	{
 		// Указатель на следующий узел
 		Node* p_next_node;
 		// Значение узла
 		T value;
 		// Конструкторы узла
-		Node() : p_next_node(nullptr) {}
-		Node(T new_value) : value(new_value), p_next_node(nullptr) {}
+		Node() : p_next_node(nullptr)
+        {}
+        Node(T new_value) : value(new_value), p_next_node(nullptr)
+        {}
 	};
 	// Вершина списка
 	Node* m_head_node;
@@ -113,7 +115,8 @@ private:
 //***********************************************
 // Конструктор класса
 template<typename T>
-List_node<T>::List_iterator::List_iterator(Node* _node) : current_node(_node) {}
+List_node<T>::List_iterator::List_iterator(Node* _node) : current_node(_node)
+{}
 
 // Операторы сравнения
 template<typename T>
@@ -168,7 +171,8 @@ typename List_node<T>::List_iterator List_node<T>::end()
 //*************************************
 // Пустой конструктор
 template<typename T>
-List_node<T>::List_node() : m_head_node(nullptr) {}
+List_node<T>::List_node() : m_head_node(nullptr)
+{}
 
 // Конструктор списка с num_node узлами
 template<typename T>
@@ -201,7 +205,8 @@ template<typename T>
 void List_node<T>::push(T new_value)
 {
 	// Выделение памяти под новый узел
-	if (Node* new_node = new Node(new_value)) {
+	if (Node* new_node = new Node(new_value))
+	{
 		// Смена указателя на верхний узел
 		new_node->p_next_node = m_head_node;
 		// Перестановка указателя на новый верхний узел
@@ -214,7 +219,8 @@ template<typename T>
 void List_node<T>::push_back(T new_value)
 {
 	// Выделение памяти под первый узел и присвоение значений
-	if (Node* new_node = new Node(new_value)) {
+	if (Node* new_node = new Node(new_value))
+	{
 		new_node->p_next_node = nullptr;
 		// Получение указателя на последний узел
 		List_node* lastNode = m_head_node;
@@ -252,7 +258,8 @@ T List_node<T>::pop_back()
 	if (m_head_node == nullptr)
 		return T();
 	// Проверка на наличие одного узла в списке и его удаление
-	if (m_head_node->p_next_node == nullptr) {
+	if (m_head_node->p_next_node == nullptr)
+	{
 		free(m_head_node);
 		m_head_node = nullptr;
 		return T();
@@ -279,13 +286,15 @@ void List_node<T>::insert(T new_value, const unsigned int index)
 	// Получение указателя на узел до индекса
 	List_node* prev_node = m_head_node;
 	size_t cnt = 0;
-	while (cnt < index && prev_node != nullptr) {
+	while (cnt < index && prev_node != nullptr)
+	{
 		prev_node = prev_node->p_next_node;
 		++cnt;
 	}
 
 	// Создание нового узла
-	if (List_node* new_node = new List_node(new_value)) {
+	if (List_node* new_node = new List_node(new_value))
+	{
 		// Вставка узла в нужную позицию
 		new_node->p_next_node = prev_node->p_next_node;
 		prev_node->p_next_node = new_node;
@@ -326,7 +335,8 @@ void List_node<T>::scan()
 	unsigned int size_list = 0;  // Размер списка
 	// Ввод размера списка
 	std::cout << "Enter the number of nodes in the list: ";
-	do {
+	do
+    {
 		std::cin >> size_list;
 	} while (size_list < 0 || MAX_LIST_SIZE < size_list);
 
@@ -336,7 +346,8 @@ void List_node<T>::scan()
 	// Первый узел списка
 	push_back(value);
 	// Заполнение списка
-	for (size_t i = 1; i < size_list; ++i) {
+	for (size_t i = 1; i < size_list; ++i)
+	{
 		std::cout << "Enter the value [" << i << "] list node: ";
 		std::cin >> value;
 		push_back(value);
@@ -350,7 +361,8 @@ size_t List_node<T>::size()
 	size_t size_list = 0;
 	List_node* list_counter = m_head_node;
 	// Подсчёт узлов до конца списка
-	while (list_counter != nullptr) {
+	while (list_counter != nullptr)
+	{
 		++size_list;
 		list_counter = list_counter->p_next_node;
 	}

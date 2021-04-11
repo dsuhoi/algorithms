@@ -27,20 +27,20 @@ using Dyn_stack_node = Stack_node<T, false, 0>;
 template<bool flag, typename T, typename U>
 struct Select
 {
-    typedef T Type;
+	using Type = T;
 };
 
 template<typename T, typename U>
 struct Select<false, T, U>
 {
-    typedef U Type;
+	using Type = U;
 };
 
 // Отображение констант
 template<int i>
 struct Int2type
 {
-    enum { value = i };
+	enum { value = i };
 };
 
 
@@ -75,52 +75,53 @@ public:
 	// Создание массива из элементов стека
 	T* stack2array(unsigned int& array_len);
 private:
-    void destructor(Int2type<true>) {}
-    
-    void destructor(Int2type<false>) 
-    {
-        delete [] stack_data;
-    }
+	void destructor(Int2type<true>)
+	{}
+	
+	void destructor(Int2type<false>) 
+	{
+		delete [] stack_data;
+	}
 
-    void push(T value, Int2type<true>)
-    {
-        if (index < MAX_STACK_SIZE - 1)
-            stack_data[index++] = value;
-    }
-    
-    void push(T value, Int2type<false>)
-    {
-    	T* temp_data = new T[index + 2];
-	    for (size_t i = 0; i <= index; ++i)
-	    	temp_data[i] = stack_data[i];
-	    delete [] stack_data;
-	    stack_data = temp_data;
-	    stack_data[index++] = value;
-    }
+	void push(T value, Int2type<true>)
+	{
+		if (index < MAX_STACK_SIZE - 1)
+			stack_data[index++] = value;
+	}
+	
+	void push(T value, Int2type<false>)
+	{
+		T* temp_data = new T[index + 2];
+		for (size_t i = 0; i <= index; ++i)
+			temp_data[i] = stack_data[i];
+		delete [] stack_data;
+		stack_data = temp_data;
+		stack_data[index++] = value;
+	}
 
-    T pop(Int2type<true>)
-    {
-    	if (index < 0)
-		    return T();
-    	T value = stack_data[index];
-	    stack_data[index--] = T();
-    	// Возвращение значения элемента стека
-	    return value;
-    }
+	T pop(Int2type<true>)
+	{
+		if (index < 0)
+			return T();
+		T value = stack_data[index];
+		stack_data[index--] = T();
+		// Возвращение значения элемента стека
+		return value;
+	}
 
-    T pop(Int2type<false>)
-    {
-	    if (index < 0)
-    		return T();
-	    T value = stack_data[index];
-	    T* temp_stack = new T[index];
-	    for (size_t i = 0; i < index; ++i)
-		    temp_stack[i] = stack_data[i];
-    	delete [] stack_data;
-    	--index;
-	    // Возвращение значения элемента стека
-	    return value;
-    }
+	T pop(Int2type<false>)
+	{
+		if (index < 0)
+			return T();
+		T value = stack_data[index];
+		T* temp_stack = new T[index];
+		for (size_t i = 0; i < index; ++i)
+			temp_stack[i] = stack_data[i];
+		delete [] stack_data;
+		--index;
+		// Возвращение значения элемента стека
+		return value;
+	}
 
 	// Стек
 	typename Select<is_static, T[MAX_STACK_SIZE], T*>::Type stack_data;
@@ -134,27 +135,28 @@ private:
 
 // Конструктор
 template<typename T, bool is_static, size_t MAX_STACK_SIZE>
-Stack_node<T, is_static, MAX_STACK_SIZE>::Stack_node() : index(0) {}
+Stack_node<T, is_static, MAX_STACK_SIZE>::Stack_node() : index(0)
+	{}
 
 // Деструктор
 template<typename T, bool is_static, size_t MAX_STACK_SIZE>
 Stack_node<T, is_static, MAX_STACK_SIZE>::~Stack_node()
 {
-    destructor(Int2type<is_static>());
+	destructor(Int2type<is_static>());
 }
 
 // Создание нового элемента стека
 template<typename T, bool is_static, size_t MAX_STACK_SIZE>
 void Stack_node<T, is_static, MAX_STACK_SIZE>::push(T value)
 {
-    push(value, Int2type<is_static>());
+	push(value, Int2type<is_static>());
 }
 
 // Удаление элемента из стека
 template<typename T, bool is_static, size_t MAX_STACK_SIZE>
 T Stack_node<T, is_static, MAX_STACK_SIZE>::pop()
 {
-    return pop(Int2type<is_static>());
+	return pop(Int2type<is_static>());
 }
 
 // Вернуть значение последнего элемента
@@ -195,11 +197,13 @@ void Stack_node<T, is_static, MAX_STACK_SIZE>::scan()
 	std::cout << "Enter the number of stack elements: ";
 	size_t stack_size;
 
-	do {
+	do
+    {
 		std::cin >> stack_size;
 	} while (stack_size < 1);
 
-	for (size_t _index = 0; _index < stack_size; ++_index) {
+	for (size_t _index = 0; _index < stack_size; ++_index)
+	{
 		std::cout << "Enter the value [" << _index << "] stack element: ";
 		T input;
 		std::cin >> input;

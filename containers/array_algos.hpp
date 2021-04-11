@@ -79,7 +79,8 @@ T** init_arr2(const unsigned int _row, const unsigned int _column)
 	// Установка первого указателя
 	arr[0] = new T [_row * _column];
 	
-	for (size_t i = 0; i < _row; ++i) {
+	for (size_t i = 0; i < _row; ++i)
+	{
 		// Установка следующих указателей
 		arr[i] = arr[0] + _column*i;
 		
@@ -110,7 +111,8 @@ void print_arr(T* arr, const unsigned int _len)
 template<typename T>
 void print_arr2(T** arr, const unsigned int _row, const unsigned int _column)
 {
-	for (size_t i = 0; i < _row; ++i) {
+	for (size_t i = 0; i < _row; ++i)
+	{
 		for (size_t j = 0; j < _column; ++j)
 			std::cout << arr[i][j] << DELIM_CHR; // Вывод элемента и символа разделителя
 		std::cout << std::endl;                         // Вывод символа перевода каретки
@@ -124,13 +126,15 @@ T* scan_arr(unsigned int & p_len)
 {
 	std::cout << "Enter the length of the array: ";
 	// Ввод длины массива и проверка вводимых данных
-	do {
+	do
+    {
 		std::cin >> p_len;
 	} while (p_len < 0 || MAX_ARR_SIZE < p_len);
 	// Выделение памяти под массив
 	T* arr = init_arr<T>(p_len);
 	// Ввод элементов
-	for (size_t i = 0; i < p_len; ++i) {
+	for (size_t i = 0; i < p_len; ++i)
+	{
 		std::cout << "Enter the value [" << i << "] element: ";
 		std::cin >> arr[i];
 	}
@@ -144,19 +148,23 @@ T** scan_arr2(unsigned int& p_row, unsigned int& p_column)
 {
 	// Ввод кол-ва строк и столбцов и проверка вводимых данных
 	std::cout << "Enter the number of rows in the array: ";
-	do {
+	do
+    {
 		std::cin >> p_row;
 	} while (p_row < 0 || MAX_ARR_SIZE < p_row);
 	
 	std::cout << "Enter the number of rows in the array: ";
-	do {
+	do
+    {
 		std::cin >> p_column;
 	} while (p_column < 0 || MAX_ARR_SIZE < p_column);
 	
 	T** arr = init_arr2<T>(p_row, p_column);
 	
-	for (size_t i = 0; i < p_row; ++i) {
-		for (size_t j = 0; j < p_column; ++j) {
+	for (size_t i = 0; i < p_row; ++i)
+	{
+		for (size_t j = 0; j < p_column; ++j)
+		{
 			std::cout << "Enter the value [" << i << "][" << j << "] element: "; // Ввод элемента
 			std::cin >> arr[i][j];
 		}
@@ -258,9 +266,11 @@ char* _strtok(char* src, char* delim)
 	
 	static char* buf = nullptr;
 	static size_t index, len;
-	if (src != nullptr) {
+	if (src != nullptr)
+	{
 		// Освобождение памяти с прошлых итераций функции
-		if (buf != nullptr) {
+		if (buf != nullptr)
+		{
 			delete buf;
 			buf = nullptr;
 		}
@@ -273,11 +283,14 @@ char* _strtok(char* src, char* delim)
 	
 	// Начало нового слова становится не определено
 	size_t left = EOF;
-	for (; index <= len; ++index) {
+	for (; index <= len; ++index)
+	{
 		// Если попался символ разделитель, то
-		if (isdelim(buf[index])) {
+		if (isdelim(buf[index]))
+		{
 			// Если это конец слова, то берём случайные две буквы
-			if (left >= 0 && (index-1) >= left) {
+			if (left >= 0 && (index-1) >= left)
+			{
 				buf[index++] = 0;
 				return &buf[left];
 			}
@@ -287,7 +300,8 @@ char* _strtok(char* src, char* delim)
 	}
 	
 	// Освобождение памяти
-	if (buf != nullptr) {
+	if (buf != nullptr)
+	{
 		delete buf;
 		buf = nullptr;
 	}
@@ -311,7 +325,8 @@ int resize_arr2(T** (&arr), const size_t old_n, const size_t old_m, const size_t
 	
 	arr = new T*[new_n];
 	arr[0] = new T[new_n * new_m];
-	for (size_t i = 0; i < new_n; ++i) {
+	for (size_t i = 0; i < new_n; ++i)
+	{
 		arr[i] = arr[0] + new_m * i;
 		for (size_t j = 0; j < new_m; ++j)
 			arr[i][j] = buf[new_m*i + j];
