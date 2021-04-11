@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include <cstring>
-#include "../interface/data_interface.hpp"
+#include "data_interface.hpp"
 
 //***************************
 // Класс динамического стека
