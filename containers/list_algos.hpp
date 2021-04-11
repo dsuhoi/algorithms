@@ -12,8 +12,7 @@
 #define __LIST_LIB_HPP__
 
 #include <iostream>
-#include <ctime>
-#include "../interface/data_interface.hpp"
+#include "data_interface.hpp"
 
 //************
 // Константы
@@ -184,8 +183,6 @@ List_node<T>::List_node(const unsigned int num_node) : m_head_node(nullptr)
 template<typename T>
 List_node<T>::List_node(const unsigned int num_node, const unsigned int random_range) : m_head_node(nullptr)
 {
-	srand(time(NULL));
-
 	for (size_t i = 0; i < num_node; ++i)
 		push(rand() % random_range);
 }
