@@ -148,14 +148,4 @@ private:
     size_t index;
 };
 
-//*************************************
-// Функции класса стека
-//*************************************
-
-// Ввод стека
-template <typename T, bool is_static, size_t MAX_STACK_SIZE>
-void Stack_node<T, is_static, MAX_STACK_SIZE>::scan()
-{
-}
-
 #endif
