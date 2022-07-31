@@ -37,6 +37,18 @@ class List_node : public Data_interface<T>
     // Вершина списка
     Node* m_head_node;
 
+    // Получить последний узел
+    Node* get_last_node()
+    {
+        if (m_head_node == nullptr || m_head_node->p_next_node == nullptr)
+            return nullptr;
+        auto lastNode = m_head_node;
+        for (; lastNode->p_next_node->p_next_node != nullptr;
+             lastNode = lastNode->p_next_node)
+            ;
+        return lastNode;
+    }
+
 public:
     // Класс итератора односвязного списка
     class List_iterator
@@ -75,7 +87,7 @@ public:
     List_node() : m_head_node(nullptr){};  // Пустой конструктор
     // Конструктор списка по num_node количеству узлов в нём
     // (все узлы равны случайным числам с пределом random_range)
-    List_node(const unsigned int num_node, const unsigned int random_range = -1)
+    List_node(const size_t num_node, const long random_range = -1)
         : m_head_node(nullptr)
     {
         for (size_t i = 0; i < num_node; ++i)
@@ -110,21 +122,11 @@ public:
         while (m_head_node != nullptr) pop();
     }
     // Вставить new_value узел в позицию index
-    void insert(T new_value, const unsigned int index);
+    void insert(T new_value, const size_t index);
 
     // Получить значение узла в позиции index
-    T get_node(const unsigned int index);
-    // Получить последний узел
-    Node* get_last_node()
-    {
-        if (m_head_node == nullptr || m_head_node->p_next_node == nullptr)
-            return nullptr;
-        auto lastNode = m_head_node;
-        for (; lastNode->p_next_node->p_next_node != nullptr;
-             lastNode = lastNode->p_next_node)
-            ;
-        return lastNode;
-    }
+    T get_node(const size_t index);
+
     // Получить количество узлов в списке
     size_t size() override;
 
@@ -139,7 +141,7 @@ public:
     List_iterator end() { return List_iterator(nullptr); }
 
     // Создание массива (со ссылкой на длину arrayLen) из элементов списка
-    T* list_to_array(unsigned int& array_len);
+    T* list_to_array(size_t& array_len);
 };
 
 //*************************************
@@ -223,7 +225,7 @@ T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::pop_back()
 // Вставить new_value узел в позицию index
 template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
 void List_node<T, MAX_LIST_SIZE, DELIM_CHR>::insert(T new_value,
-                                                    const unsigned int index)
+                                                    const size_t index)
 {
     // Получение указателя на узел до индекса
     auto prev_node = m_head_node;
@@ -245,7 +247,7 @@ void List_node<T, MAX_LIST_SIZE, DELIM_CHR>::insert(T new_value,
 
 // Получить значение узла в позиции index
 template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::get_node(const unsigned int index)
+T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::get_node(const size_t index)
 {
     // Создание указателя на узел
     auto index_node = m_head_node;
@@ -314,8 +316,7 @@ size_t List_node<T, MAX_LIST_SIZE, DELIM_CHR>::size()
 // Создание массива (со ссылкой на длину ArrayLen) из элементов списка с
 // вершиной m_head_node
 template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-T* List_node<T, MAX_LIST_SIZE, DELIM_CHR>::list_to_array(
-    unsigned int& array_len)
+T* List_node<T, MAX_LIST_SIZE, DELIM_CHR>::list_to_array(size_t& array_len)
 {
     // Получение длины будущего массива (кол-ва узлов в списке)
     array_len = size();
