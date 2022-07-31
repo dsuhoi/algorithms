@@ -265,6 +265,9 @@ public:
     template <typename... Args2>
     using add = typename add_t<tlist, Args2...>::value;
 
+    template <typename T>
+    static constexpr auto in = in_t<tlist, T>::value;
+
     friend std::ostream& operator<<(std::ostream& out, tlist t)
     {
         out << '<';
@@ -273,8 +276,10 @@ public:
         return out;
     }
 };
+
 };  // namespace types
 
+/* EXAMPLE */
 /* int main(int argc, char* argv[]) */
 /* { */
 /*     using t1 = type_list<int, char, bool, type_list<float, double>, long>; */
