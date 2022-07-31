@@ -82,6 +82,51 @@ struct type_at_t
     using value = typename type_at_t<typename tlist::tail, N - 1>::value;
 };
 
+// Проверка на наличие элемента в списке
+template <class tlist, typename T>
+struct in_t
+{
+    static constexpr auto value = in_t<typename tlist::tail, T>::value;
+};
+
+template <typename T>
+struct in_t<empty_type, T>
+{
+    static constexpr auto value = 0;
+};
+
+template <typename T, typename... Args>
+struct in_t<type_list<T, Args...>, T>
+{
+    static constexpr auto value = 1;
+};
+
+template <class, typename, size_t>
+struct _index_t;
+
+template <typename T, size_t N>
+struct _index_t<empty_type, T, N>
+{
+    static constexpr auto value = 0;
+};
+
+template <class tlist, typename T, size_t N>
+struct _index_t
+{
+    static constexpr auto value =
+        same_t<T, typename tlist::head>::value
+            ? N
+            : N + 1 + _index_t<typename tlist::tail, T, N>::value;
+};
+
+// Индекс элемента
+template <class tlist, typename T>
+struct index_t
+{
+    static constexpr long value =
+        in_t<tlist, T>::value ? _index_t<tlist, T, 0>::value : -1;
+};
+
 // Добавление элемента в конец списка
 template <typename, typename>
 struct append_t;
