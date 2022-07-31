@@ -41,10 +41,7 @@ struct Select<false, T, U>
 template <int i>
 struct Int2type
 {
-    enum
-    {
-        value = i
-    };
+    static constexpr auto value = i;
 };
 
 //***************************

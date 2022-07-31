@@ -35,8 +35,17 @@ struct if_t<false, U, T>
 };
 
 // Список типов
-template <typename Head, typename... Tail>
+template <typename... Args>
 struct type_list
+{
+    using head = empty_type;
+    using tail = empty_type;
+};
+// Пустой список
+using empty_list = type_list<>;
+
+template <typename Head, typename... Tail>
+struct type_list<Head, Tail...>
 {
     using head = Head;
     using tail = type_list<Tail...>;
@@ -46,7 +55,7 @@ template <typename T>
 struct type_list<T>
 {
     using head = T;
-    using tail = empty_type;
+    using tail = type_list<>;
 };
 
 // Размер списка
@@ -54,7 +63,7 @@ template <class>
 struct length_t;
 
 template <>
-struct length_t<empty_type>
+struct length_t<empty_list>
 {
     static constexpr auto value = 0;
 };
@@ -82,6 +91,14 @@ struct type_at_t
     using value = typename type_at_t<typename tlist::tail, N - 1>::value;
 };
 
+// Проверка на пустой список
+template <class tlist>
+struct empty_t
+{
+    static constexpr auto value =
+        same_t<typename tlist::head, empty_type>::value ? 1 : 0;
+};
+
 // Проверка на наличие элемента в списке
 template <class tlist, typename T>
 struct in_t
@@ -90,7 +107,7 @@ struct in_t
 };
 
 template <typename T>
-struct in_t<empty_type, T>
+struct in_t<empty_list, T>
 {
     static constexpr auto value = 0;
 };
@@ -105,7 +122,7 @@ template <class, typename, size_t>
 struct _index_t;
 
 template <typename T, size_t N>
-struct _index_t<empty_type, T, N>
+struct _index_t<empty_list, T, N>
 {
     static constexpr auto value = 0;
 };
@@ -162,5 +179,75 @@ struct add_t<type_list<Args1...>, type_list<Args2...>>
 {
     using value = type_list<Args1..., Args2...>;
 };
+
+// Удаление элементов из списка
+template <typename tlist, typename T>
+struct remove_t
+{
+private:
+    using del_ = typename remove_t<typename tlist::tail, T>::value;
+    using head_ = typename tlist::head;
+
+public:
+    using value =
+        typename if_t<same_t<head_, T>::value, del_,
+                      typename add_t<type_list<head_>, del_>::value>::value;
+};
+
+template <typename T>
+struct remove_t<empty_list, T>
+{
+    using value = empty_type;
+};
+
+template <typename Head, typename T>
+struct remove_t<type_list<Head>, T>
+{
+    using value = typename if_t<same_t<Head, T>::value, empty_list,
+                                type_list<Head>>::value;
+};
+
+// Вывод списка
+std::ostream& operator<<(std::ostream& out, empty_list)
+{
+    out << "<>";
+    return out;
+}
+
+template <class T>
+void print_type(std::ostream& out, T)
+{
+    out << typeid(T).name();
+}
+
+template <typename... Args>
+void print_type(std::ostream& out, type_list<Args...> t)
+{
+    out << t;
+}
+
+template <typename T>
+void print_list(std::ostream&, T);
+
+template <typename T, typename... Args>
+void print_list(std::ostream& out, type_list<T, Args...>)
+{
+    using this_list = type_list<Args...>;
+    print_type(out, T());
+    if (!empty_t<this_list>::value)
+    {
+        out << ' ';
+        print_list(out, this_list());
+    }
+}
+
+template <typename... Args>
+std::ostream& operator<<(std::ostream& out, type_list<Args...> t)
+{
+    out << '>';
+    print_list(out, t);
+    out << '>';
+    return out;
+}
 
 #endif /* ifndef __TYPE_LIST__ */
