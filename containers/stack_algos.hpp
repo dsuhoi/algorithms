@@ -26,15 +26,15 @@ using Dyn_stack_node = Stack_node<T, false, 0>;
 
 // Шаблон выбора типа
 template <bool flag, typename T, typename U>
-struct Select
+struct if_t
 {
-    using Type = T;
+    using value = T;
 };
 
 template <typename T, typename U>
-struct Select<false, T, U>
+struct if_t<false, T, U>
 {
-    using Type = U;
+    using value = U;
 };
 
 // Отображение констант
@@ -140,7 +140,7 @@ private:
     }
 
     // Стек
-    typename Select<is_static, T[MAX_STACK_SIZE], T*>::Type stack_data;
+    typename if_t<is_static, T[MAX_STACK_SIZE], T*>::Type stack_data;
     // Позиция последнего элемента в стеке
     size_t index;
 };

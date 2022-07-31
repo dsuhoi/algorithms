@@ -3,11 +3,6 @@
 
 #include <iostream>
 
-// Флаг ошибок
-class null_type;
-// Флаг конца списка
-class empty_type;
-
 // Сравнение типов
 template <typename U, typename T>
 struct same_t
@@ -33,6 +28,9 @@ struct if_t<false, U, T>
 {
     using value = T;
 };
+
+// Флаг конца списка
+class empty_type;
 
 // Список типов
 template <typename... Args>
@@ -95,8 +93,7 @@ struct type_at_t
 template <class tlist>
 struct empty_t
 {
-    static constexpr auto value =
-        same_t<typename tlist::head, empty_type>::value ? 1 : 0;
+    static constexpr auto value = same_t<tlist, empty_list>::value ? 1 : 0;
 };
 
 // Проверка на наличие элемента в списке
@@ -249,5 +246,11 @@ std::ostream& operator<<(std::ostream& out, type_list<Args...> t)
     out << '>';
     return out;
 }
+
+/* int main(int argc, char* argv[]) */
+/* { */
+/*     using t1 = type_list<int, char, bool, type_list<float, double>, long>; */
+/*     std::cout << t1() << std::endl; */
+/* } */
 
 #endif /* ifndef __TYPE_LIST__ */
