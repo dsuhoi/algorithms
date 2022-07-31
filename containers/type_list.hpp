@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+namespace types
+{
+
 // Флаг конца списка
 class empty_type;
 
@@ -270,6 +273,7 @@ public:
         return out;
     }
 };
+};  // namespace types
 
 /* int main(int argc, char* argv[]) */
 /* { */
