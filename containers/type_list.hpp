@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+// Флаг конца списка
+class empty_type;
+
 // Сравнение типов
 template <typename U, typename T>
 struct same_t
@@ -29,10 +32,10 @@ struct if_t<false, U, T>
     using value = T;
 };
 
-// Флаг конца списка
-class empty_type;
-
 // Список типов
+template <typename... Args>
+struct type_list;
+
 template <typename... Args>
 struct type_list
 {
@@ -41,20 +44,6 @@ struct type_list
 };
 // Пустой список
 using empty_list = type_list<>;
-
-template <typename Head, typename... Tail>
-struct type_list<Head, Tail...>
-{
-    using head = Head;
-    using tail = type_list<Tail...>;
-};
-
-template <typename T>
-struct type_list<T>
-{
-    using head = T;
-    using tail = type_list<>;
-};
 
 // Размер списка
 template <class>
@@ -241,11 +230,46 @@ void print_list(std::ostream& out, type_list<T, Args...>)
 template <typename... Args>
 std::ostream& operator<<(std::ostream& out, type_list<Args...> t)
 {
-    out << '>';
+    out << '<';
     print_list(out, t);
     out << '>';
     return out;
 }
+
+template <typename Head, typename... Tail>
+class type_list<Head, Tail...>
+{
+    using tlist = type_list<Head, Tail...>;
+
+public:
+    using head = Head;
+    using tail = type_list<Tail...>;
+    static constexpr size_t length = length_t<tlist>::value;
+    template <size_t N>
+    using get = typename type_at_t<tlist, N>::value;
+    template <typename T>
+    static constexpr auto index = index_t<tlist, T>::value;
+
+    template <typename T>
+    using push = typename push_t<tlist, T>::value;
+
+    template <typename T>
+    using remove = typename remove_t<tlist, T>::value;
+
+    template <typename... Args2>
+    using append = typename append_t<tlist, Args2...>::value;
+
+    template <typename... Args2>
+    using add = typename add_t<tlist, Args2...>::value;
+
+    friend std::ostream& operator<<(std::ostream& out, tlist t)
+    {
+        out << '<';
+        print_list(out, t);
+        out << '>';
+        return out;
+    }
+};
 
 /* int main(int argc, char* argv[]) */
 /* { */
