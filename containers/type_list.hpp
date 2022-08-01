@@ -5,7 +5,6 @@
 
 namespace types
 {
-
 // Флаг конца списка
 class empty_type;
 
@@ -44,25 +43,25 @@ struct type_list
 {
     using head = empty_type;
     using tail = empty_type;
+
+    static constexpr auto length = 0;
+    template <typename>
+    static constexpr auto in = false;
+    template <typename>
+    static constexpr auto index = -1;
+
+    template <typename>
+    using get = type_list<>;
+    template <typename T>
+    using push = type_list<T>;
+    template <typename>
+    using remove = type_list<>;
+    template <typename... Args2>
+    using append = type_list<Args2...>;
 };
+
 // Пустой список
 using empty_list = type_list<>;
-
-// Размер списка
-template <class>
-struct length_t;
-
-template <>
-struct length_t<empty_list>
-{
-    static constexpr auto value = 0;
-};
-
-template <typename tlist>
-struct length_t
-{
-    static constexpr auto value = 1 + length_t<typename tlist::tail>::value;
-};
 
 // Получение элемента по индексу
 template <class, size_t>
@@ -77,7 +76,7 @@ struct type_at_t<tlist, 0>
 template <class tlist, size_t N>
 struct type_at_t
 {
-    static_assert(N < length_t<tlist>::value, "Error: N index in type list!");
+    static_assert(N < tlist::length, "Error: N index in type list!");
     using value = typename type_at_t<typename tlist::tail, N - 1>::value;
 };
 
@@ -86,25 +85,6 @@ template <class tlist>
 struct empty_t
 {
     static constexpr auto value = same_t<tlist, empty_list>::value ? 1 : 0;
-};
-
-// Проверка на наличие элемента в списке
-template <class tlist, typename T>
-struct in_t
-{
-    static constexpr auto value = in_t<typename tlist::tail, T>::value;
-};
-
-template <typename T>
-struct in_t<empty_list, T>
-{
-    static constexpr auto value = 0;
-};
-
-template <typename T, typename... Args>
-struct in_t<type_list<T, Args...>, T>
-{
-    static constexpr auto value = 1;
 };
 
 template <class, typename, size_t>
@@ -123,34 +103,6 @@ struct _index_t
         same_t<T, typename tlist::head>::value
             ? N
             : N + 1 + _index_t<typename tlist::tail, T, N>::value;
-};
-
-// Индекс элемента
-template <class tlist, typename T>
-struct index_t
-{
-    static constexpr long value =
-        in_t<tlist, T>::value ? _index_t<tlist, T, 0>::value : -1;
-};
-
-// Добавление элемента в конец списка
-template <typename, typename>
-struct append_t;
-
-template <typename T, typename... Args>
-struct append_t<type_list<Args...>, T>
-{
-    using value = type_list<Args..., T>;
-};
-
-// Добавление элемента в начало списка
-template <typename, typename>
-struct push_t;
-
-template <typename T, typename... Args>
-struct push_t<type_list<Args...>, T>
-{
-    using value = type_list<T, Args...>;
 };
 
 // Склейка списков
@@ -186,7 +138,7 @@ public:
 template <typename T>
 struct remove_t<empty_list, T>
 {
-    using value = empty_type;
+    using value = empty_list;
 };
 
 template <typename Head, typename T>
@@ -223,7 +175,7 @@ void print_list(std::ostream& out, type_list<T, Args...>)
 {
     using this_list = type_list<Args...>;
     print_type(out, T());
-    if (!empty_t<this_list>::value)
+    if (this_list::length)
     {
         out << ' ';
         print_list(out, this_list());
@@ -247,26 +199,30 @@ class type_list<Head, Tail...>
 public:
     using head = Head;
     using tail = type_list<Tail...>;
-    static constexpr size_t length = length_t<tlist>::value;
+    static constexpr size_t length = 1 + tail::length;
+    template <typename T>
+    static constexpr auto in =
+        same_t<head, T>::value ? true : tail::template in<T>;
+    // Получение элемента по индексу
     template <size_t N>
     using get = typename type_at_t<tlist, N>::value;
+    // Индекс элемента
     template <typename T>
-    static constexpr auto index = index_t<tlist, T>::value;
-
+    static constexpr long index =
+        tlist::template in<T> ? _index_t<tlist, T, 0>::value : -1;
+    // Добавление элемента в начало списка
     template <typename T>
-    using push = typename push_t<tlist, T>::value;
-
+    using push = type_list<T, head, Tail...>;
+    // Удаление элементов из списка
     template <typename T>
     using remove = typename remove_t<tlist, T>::value;
 
+    // Добавление элемента в конец списка
     template <typename... Args2>
-    using append = typename append_t<tlist, Args2...>::value;
-
+    using append = type_list<Head, Tail..., Args2...>;
+    // Склейка списков
     template <typename... Args2>
     using add = typename add_t<tlist, Args2...>::value;
-
-    template <typename T>
-    static constexpr auto in = in_t<tlist, T>::value;
 
     friend std::ostream& operator<<(std::ostream& out, tlist t)
     {
