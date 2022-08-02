@@ -53,9 +53,7 @@ class Stack_node : public Data_interface<T>
     using stack_type = Stack_node<T, is_static, MAX_STACK_SIZE>;
 
 public:
-    // Конструктор
     Stack_node() : index(0){};
-    // Деструктор
     ~Stack_node() { destructor(Int2type<is_static>()); }
     // Создание нового элемента стека
     void push(T newValue) override { push(newValue, Int2type<is_static>()); };
@@ -101,7 +99,6 @@ public:
 
 private:
     void destructor(Int2type<true>) {}
-
     void destructor(Int2type<false>) { delete[] stack_data; }
 
     void push(T value, Int2type<true>)
@@ -123,7 +120,6 @@ private:
         if (index < 0) return T();
         T value = stack_data[index];
         stack_data[index--] = T();
-        // Возвращение значения элемента стека
         return value;
     }
 
@@ -135,7 +131,6 @@ private:
         for (size_t i = 0; i < index; ++i) temp_stack[i] = stack_data[i];
         delete[] stack_data;
         --index;
-        // Возвращение значения элемента стека
         return value;
     }
 
