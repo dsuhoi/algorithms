@@ -182,15 +182,6 @@ void print_list(std::ostream& out, type_list<T, Args...>)
     }
 }
 
-template <typename... Args>
-std::ostream& operator<<(std::ostream& out, type_list<Args...> t)
-{
-    out << '<';
-    print_list(out, t);
-    out << '>';
-    return out;
-}
-
 template <typename Head, typename... Tail>
 class type_list<Head, Tail...>
 {
@@ -199,6 +190,7 @@ class type_list<Head, Tail...>
 public:
     using head = Head;
     using tail = type_list<Tail...>;
+
     static constexpr size_t length = 1 + tail::length;
     template <typename T>
     static constexpr auto in =
@@ -236,10 +228,11 @@ public:
 };  // namespace types
 
 /* EXAMPLE */
-/* int main(int argc, char* argv[]) */
-/* { */
-/*     using t1 = type_list<int, char, bool, type_list<float, double>, long>; */
-/*     std::cout << t1() << std::endl; */
-/* } */
+int main(int argc, char* argv[])
+{
+    using namespace types;
+    using t1 = type_list<int, char, bool, type_list<float, double>, long>;
+    std::cout << t1() << std::endl;
+}
 
 #endif /* ifndef __TYPE_LIST__ */

@@ -17,10 +17,8 @@
 
 template <typename, bool, size_t>
 class Stack_node;
-// Класс статического стека
 template <typename T, size_t U>
 using Static_stack_node = Stack_node<T, true, U>;
-// Класс динамического стека
 template <typename T>
 using Dyn_stack_node = Stack_node<T, false, 0>;
 
