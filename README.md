@@ -1,2 +1,2 @@
 # algorithms
-Библиотека алгоритмов, паттернов и технологий.
+Library of algorithms, patterns and technologies.
