@@ -1,5 +1,5 @@
 /*
- * array_algos.hpp
+ * array.hpp
  *
  * Copyright 2020 DSuhoi
  *

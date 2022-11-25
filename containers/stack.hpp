@@ -1,5 +1,5 @@
 /*
- * stack_algos.hpp
+ * stack.hpp
  *
  * Copyright 2020 DSuhoi
  * Библиотека для работы со стеком
@@ -22,7 +22,7 @@ using Static_stack_node = Stack_node<T, true, U>;
 template <typename T>
 using Dyn_stack_node = Stack_node<T, false, 0>;
 
-// Шаблон выбора типа
+// Bыбор типа
 template <bool flag, typename T, typename U>
 struct if_t
 {
@@ -37,14 +37,12 @@ struct if_t<false, T, U>
 
 // Отображение констант
 template <int i>
-struct Int2type
+struct int2type
 {
     static constexpr auto value = i;
 };
 
-//***************************
 // Класс стека
-//***************************
 template <typename T, bool is_static, size_t MAX_STACK_SIZE = 1024>
 class Stack_node : public Data_interface<T>
 {
@@ -52,11 +50,11 @@ class Stack_node : public Data_interface<T>
 
 public:
     Stack_node() : index(0){};
-    ~Stack_node() { destructor(Int2type<is_static>()); }
+    ~Stack_node() { destructor(int2type<is_static>()); }
     // Создание нового элемента стека
-    void push(T newValue) override { push(newValue, Int2type<is_static>()); };
+    void push(T newValue) override { push(newValue, int2type<is_static>()); };
     // Удаление элемента из стека
-    T pop() override { pop(Int2type<is_static>()); };
+    T pop() override { pop(int2type<is_static>()); };
     // Вернуть значение последнего элемента
     T top() override { return stack_data[index]; };
 
@@ -96,15 +94,15 @@ public:
     T* stack2array(unsigned int& array_len);
 
 private:
-    void destructor(Int2type<true>) {}
-    void destructor(Int2type<false>) { delete[] stack_data; }
+    void destructor(int2type<true>) {}
+    void destructor(int2type<false>) { delete[] stack_data; }
 
-    void push(T value, Int2type<true>)
+    void push(T value, int2type<true>)
     {
         if (index < MAX_STACK_SIZE - 1) stack_data[index++] = value;
     }
 
-    void push(T value, Int2type<false>)
+    void push(T value, int2type<false>)
     {
         T* temp_data = new T[index + 2];
         for (size_t i = 0; i <= index; ++i) temp_data[i] = stack_data[i];
@@ -113,7 +111,7 @@ private:
         stack_data[index++] = value;
     }
 
-    T pop(Int2type<true>)
+    T pop(int2type<true>)
     {
         if (index < 0) return T();
         T value = stack_data[index];
@@ -121,7 +119,7 @@ private:
         return value;
     }
 
-    T pop(Int2type<false>)
+    T pop(int2type<false>)
     {
         if (index < 0) return T();
         T value = stack_data[index];
