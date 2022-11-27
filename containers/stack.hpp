@@ -6,6 +6,7 @@
 #include <iostream>
 #include <istream>
 
+#include "../metapatterns/base_patterns.hpp"
 #include "data_interface.hpp"
 
 template <typename, bool, size_t>
@@ -15,26 +16,6 @@ using static_stack = stack_t<T, true, U>;
 template <typename T, size_t U = 1024>
 using dynamic_stack = stack_t<T, false, U>;
 
-// Bыбор типа
-template <bool flag, typename T, typename U>
-struct if_t
-{
-    using value = T;
-};
-
-template <typename T, typename U>
-struct if_t<false, T, U>
-{
-    using value = U;
-};
-
-// Отображение констант
-template <int i>
-struct int2type
-{
-    static constexpr auto value = i;
-};
-
 // Класс стека
 template <typename T, bool is_static, size_t MAX_STACK_SIZE = 1024>
 class stack_t : public data_interface<T>
@@ -42,8 +23,8 @@ class stack_t : public data_interface<T>
     using stack_type = stack_t<T, is_static, MAX_STACK_SIZE>;
 
 public:
-    stack_t() : index(0) { constructor(int2type<is_static>()); }
-    ~stack_t() { destructor(int2type<is_static>()); }
+    stack_t() : index(0) { constructor(types::int2type<is_static>()); }
+    ~stack_t() { destructor(types::int2type<is_static>()); }
     void push(T value) override
     {
         if (index < MAX_STACK_SIZE - 1) stack_data[index++] = value;
@@ -90,13 +71,16 @@ public:
     T* stack2array(unsigned int& array_len);
 
 private:
-    void constructor(int2type<true>) {}
-    void constructor(int2type<false>) { stack_data = new T[MAX_STACK_SIZE]; }
-    void destructor(int2type<true>) {}
-    void destructor(int2type<false>) { delete[] stack_data; }
+    void constructor(types::int2type<true>) {}
+    void constructor(types::int2type<false>)
+    {
+        stack_data = new T[MAX_STACK_SIZE];
+    }
+    void destructor(types::int2type<true>) {}
+    void destructor(types::int2type<false>) { delete[] stack_data; }
 
     // Стек
-    typename if_t<is_static, T[MAX_STACK_SIZE], T*>::value stack_data;
+    typename types::if_t<is_static, T[MAX_STACK_SIZE], T*>::value stack_data;
     // Позиция последнего элемента в стеке
     size_t index;
 };

@@ -3,36 +3,12 @@
 
 #include <iostream>
 
+#include "base_patterns.hpp"
+
 namespace types
 {
 // Флаг конца списка
 class empty_type;
-
-// Сравнение типов
-template <typename U, typename T>
-struct same_t
-{
-    static constexpr auto value = false;
-};
-
-template <typename U>
-struct same_t<U, U>
-{
-    static constexpr auto value = true;
-};
-
-// Тернарный оператор
-template <bool, typename U, typename T>
-struct if_t
-{
-    using value = U;
-};
-
-template <typename U, typename T>
-struct if_t<false, U, T>
-{
-    using value = T;
-};
 
 // Список типов
 template <typename... Args>
