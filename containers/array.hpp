@@ -1,24 +1,9 @@
-/*
- * array.hpp
- *
- * Copyright 2020 DSuhoi
- *
- * Библиотека часто используемых функций и алгоритмов
- * для работы с массивами. Функции ввода, вывода, сортировки
- * и т.п.
- * (C++ library)
- */
-
 #ifndef __ARRAY_LIB_HPP__
 #define __ARRAY_LIB_HPP__
 
 #include <cstddef>
 #include <ctime>
 #include <iostream>
-
-//*****************************************
-// Основные функции по работе с массивами
-//*****************************************
 
 // Выделение памяти под одномерный массив длины _len
 // и возвращение указателя на начало массива
@@ -75,7 +60,6 @@ T** init_arr2(const unsigned int _row, const unsigned int _column)
             memset(arr[i], 0, _column);
         }
     }
-
     return arr;
 }
 

@@ -1,13 +1,3 @@
-/*
- * list.hpp
- *
- * Copyright 2020 DSuhoi
- *
- * Библиотека класса односвязного списка.
- * Методы ввода, вывода, заполнения, поиска и т.п.
- * (C++ library)
- */
-
 #ifndef __LIST_LIB_HPP__
 #define __LIST_LIB_HPP__
 
@@ -16,53 +6,45 @@
 
 #include "data_interface.hpp"
 
-//****************************
 // Класс односвязного списка
-//****************************
-
-template <typename T, auto MAX_LIST_SIZE = 1000, auto DELIM_CHR = ' '>
-class List_node : public Data_interface<T>
+template <typename T, const size_t MAX_LIST_SIZE = 1000>
+class list_t : public data_interface<T>
 {
-    // Структура узла
-    struct Node
+    struct node_t
     {
-        Node* p_next_node;
+        node_t* p_next_node;
         T value;
-        Node() : p_next_node(nullptr) {}
-        Node(T new_value) : p_next_node(nullptr), value(new_value) {}
+        node_t() : p_next_node(nullptr) {}
+        node_t(T new_value) : p_next_node(nullptr), value(new_value) {}
     };
     // Вершина списка
-    Node* m_head_node;
+    node_t* m_head_node;
 
-    // Получить последний узел
-    Node* get_last_node()
+    node_t* get_last_node()
     {
         if (m_head_node == nullptr || m_head_node->p_next_node == nullptr)
             return nullptr;
-        auto lastNode = m_head_node;
-        for (; lastNode->p_next_node->p_next_node != nullptr;
-             lastNode = lastNode->p_next_node)
+        auto last_node = m_head_node;
+        for (; last_node->p_next_node->p_next_node != nullptr;
+             last_node = last_node->p_next_node)
             ;
-        return lastNode;
+        return last_node;
     }
 
 public:
     // Класс итератора односвязного списка
-    class List_iterator
+    class list_iterator
     {
     public:
-        // Конструктор класса
-        List_iterator(Node* _node) : current_node(_node) {}
-        // Операторы сравнения
-        bool operator==(const List_iterator& iter)
+        list_iterator(node_t* _node) : current_node(_node) {}
+        bool operator==(const list_iterator& iter)
         {
             if (this == &iter)
                 return true;
             else
                 return current_node == iter.current_node;
         }
-        bool operator!=(const List_iterator& iter) { return !(this == iter); }
-        // Оператор разыменования
+        bool operator!=(const list_iterator& iter) { return !(this == iter); }
         T operator*()
         {
             if (current_node != nullptr)
@@ -70,7 +52,6 @@ public:
             else
                 return T();
         }
-        // Оператор инкрементирования
         void operator++()
         {
             if (current_node != nullptr)
@@ -78,11 +59,11 @@ public:
         }
 
     private:
-        Node* current_node;
+        node_t* current_node;
     };
 
-    List_node() : m_head_node(nullptr){};
-    List_node(const size_t num_node, const long random_range = -1)
+    list_t() : m_head_node(nullptr){};
+    list_t(const size_t num_node, const long random_range = -1)
         : m_head_node(nullptr)
     {
         for (size_t i = 0; i < num_node; ++i)
@@ -91,16 +72,37 @@ public:
             else
                 push(T());
     }
-    ~List_node() { clear(); }
+    ~list_t() { clear(); }
 
-    // Добавить new_value узел в начало списка
-    void push(T new_value) override;
-    // Добавить new_value узел в конец списка
-    void push_back(T new_value) override;
+    void push(T new_value) override
+    {
+        if (node_t* new_node = new node_t(new_value))
+        {
+            new_node->p_next_node = m_head_node;
+            m_head_node = new_node;
+        }
+    }
+    void push_back(T new_value) override
+    {
+        if (node_t* new_node = new node_t(new_value))
+        {
+            new_node->p_next_node = nullptr;
+            auto last_node = m_head_node;
+            while (last_node->p_next_node != nullptr)
+                last_node = last_node->p_next_node;
+            last_node->p_next_node = new_node;
+        }
+    }
 
-    // Удалить первый узел
-    T pop() override;
-    // Удалить последний узел
+    T pop() override
+    {
+        if (m_head_node == nullptr) return T();
+        auto last_node = m_head_node;
+        T last_value = last_node->value;
+        m_head_node = m_head_node->p_next_node;
+        delete last_node;
+        return last_value;
+    }
     T pop_back() override;
 
     T top() override
@@ -115,72 +117,39 @@ public:
     {
         while (m_head_node != nullptr) pop();
     }
-    // Вставить new_value узел в позицию index
     void insert(T new_value, const size_t index);
 
-    // Получить значение узла в позиции index
-    T get_node(const size_t index);
+    T get(const size_t index);
 
-    // Получить количество узлов в списке
-    size_t size() override;
+    size_t size() override
+    {
+        size_t size_list = 0;
+        auto list_counter = m_head_node;
+        while (list_counter != nullptr)
+        {
+            ++size_list;
+            list_counter = list_counter->p_next_node;
+        }
+        return size_list;
+    }
 
-    // Вывод всех элементов списка
-    void print() override;
-    // Ввод элементов списка
-    void scan() override;
+    friend std::ostream& operator<<(std::ostream& out, list_t& list_)
+    {
+        size_t list_size = list_.size();
+        for (size_t index = 0; index < list_size; ++index)
+            out << list_.get(index) << ' ';
+        return out;
+    }
 
-    // Возвращение итератора начала списка
-    List_iterator begin() { return List_iterator(m_head_node); }
-    // Возвращение итератора конца списка
-    List_iterator end() { return List_iterator(nullptr); }
+    list_iterator begin() { return list_iterator(m_head_node); }
+    list_iterator end() { return list_iterator(nullptr); }
 
-    // Создание массива (со ссылкой на длину arrayLen) из элементов списка
-    T* list_to_array(size_t& array_len);
+    // Создание массива (со ссылкой на длину array_len) из элементов списка
+    T* list2array(size_t& array_len);
 };
 
-//*************************************
-// Функции класса односвязного списка
-//*************************************
-// Добавить new_value узел в начало списка
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-void List_node<T, MAX_LIST_SIZE, DELIM_CHR>::push(T new_value)
-{
-    if (Node* new_node = new Node(new_value))
-    {
-        new_node->p_next_node = m_head_node;
-        m_head_node = new_node;
-    }
-}
-
-// Добавить new_value узел в конец списка
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-void List_node<T, MAX_LIST_SIZE, DELIM_CHR>::push_back(T new_value)
-{
-    if (Node* new_node = new Node(new_value))
-    {
-        new_node->p_next_node = nullptr;
-        auto lastNode = m_head_node;
-        while (lastNode->p_next_node != nullptr)
-            lastNode = lastNode->p_next_node;
-        lastNode->p_next_node = new_node;
-    }
-}
-
-// Удалить первый узел
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::pop()
-{
-    if (m_head_node == nullptr) return T();
-    auto lastNode = m_head_node;
-    T lastValue = lastNode->value;
-    m_head_node = m_head_node->p_next_node;
-    delete lastNode;
-    return lastValue;
-}
-
-// Удалить последний узел
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::pop_back()
+template <typename T, const size_t MAX_LIST_SIZE>
+T list_t<T, MAX_LIST_SIZE>::pop_back()
 {
     if (m_head_node == nullptr) return T();
     if (m_head_node->p_next_node == nullptr)
@@ -189,37 +158,45 @@ T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::pop_back()
         m_head_node = nullptr;
         return T();
     }
-    auto lastNode = get_last_node();
+    auto last_node = get_last_node();
 
-    T lastValue = lastNode->p_next_node->value;
-    delete lastNode->p_next_node;
-    lastNode->p_next_node = nullptr;
-    return lastValue;
+    T last_value = last_node->p_next_node->value;
+    delete last_node->p_next_node;
+    last_node->p_next_node = nullptr;
+    return last_value;
 }
 
-// Вставить new_value узел в позицию index
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-void List_node<T, MAX_LIST_SIZE, DELIM_CHR>::insert(T new_value,
-                                                    const size_t index)
+template <typename T, const size_t MAX_LIST_SIZE>
+void list_t<T, MAX_LIST_SIZE>::insert(T new_value, const size_t index)
 {
-    auto prev_node = m_head_node;
-    size_t cnt = 0;
-    while (cnt < index && prev_node != nullptr)
+    if (index <= 0)
     {
-        prev_node = prev_node->p_next_node;
-        ++cnt;
+        push(new_value);
     }
-
-    if (auto new_node = new List_node(new_value))
+    else if (MAX_LIST_SIZE <= index)
     {
-        new_node->p_next_node = prev_node->p_next_node;
-        prev_node->p_next_node = new_node;
+        push_back(new_value);
+    }
+    else
+    {
+        auto prev_node = m_head_node;
+        size_t cnt = 1;
+        while (cnt < index && index < MAX_LIST_SIZE && prev_node != nullptr)
+        {
+            prev_node = prev_node->p_next_node;
+            ++cnt;
+        }
+
+        if (auto new_node = new node_t(new_value))
+        {
+            new_node->p_next_node = prev_node->p_next_node;
+            prev_node->p_next_node = new_node;
+        }
     }
 }
 
-// Получить значение узла в позиции index
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::get_node(const size_t index)
+template <typename T, const size_t MAX_LIST_SIZE>
+T list_t<T, MAX_LIST_SIZE>::get(const size_t index)
 {
     auto index_node = m_head_node;
     size_t cnt = 0;
@@ -228,57 +205,8 @@ T List_node<T, MAX_LIST_SIZE, DELIM_CHR>::get_node(const size_t index)
     return index_node->value;
 }
 
-// Вывод всех элементов списка
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-void List_node<T, MAX_LIST_SIZE, DELIM_CHR>::print()
-{
-    size_t list_size = size();
-    for (size_t index = 0; index < list_size; ++index)
-        std::cout << get_node(index) << DELIM_CHR;
-    std::cout << std::endl;
-}
-
-// Ввод элементов списка
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-void List_node<T, MAX_LIST_SIZE, DELIM_CHR>::scan()
-{
-    size_t size_list = 0;
-    std::cout << "Enter the number of nodes in the list: ";
-    do
-    {
-        std::cin >> size_list;
-    } while (size_list < 0 || MAX_LIST_SIZE < size_list);
-
-    T value = 0;
-    std::cout << "Enter the value [0] list node: ";
-    std::cin >> value;
-    push_back(value);
-    for (size_t i = 1; i < size_list; ++i)
-    {
-        std::cout << "Enter the value [" << i << "] list node: ";
-        std::cin >> value;
-        push_back(value);
-    }
-}
-
-// Получить количество узлов в списке
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-size_t List_node<T, MAX_LIST_SIZE, DELIM_CHR>::size()
-{
-    size_t size_list = 0;
-    auto list_counter = m_head_node;
-    while (list_counter != nullptr)
-    {
-        ++size_list;
-        list_counter = list_counter->p_next_node;
-    }
-    return size_list;
-}
-
-// Создание массива (со ссылкой на длину ArrayLen) из элементов списка с
-// вершиной m_head_node
-template <typename T, auto MAX_LIST_SIZE, auto DELIM_CHR>
-T* List_node<T, MAX_LIST_SIZE, DELIM_CHR>::list_to_array(size_t& array_len)
+template <typename T, const size_t MAX_LIST_SIZE>
+T* list_t<T, MAX_LIST_SIZE>::list2array(size_t& array_len)
 {
     array_len = size();
     auto arr = new T[array_len];

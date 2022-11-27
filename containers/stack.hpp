@@ -1,14 +1,7 @@
-/*
- * stack.hpp
- *
- * Copyright 2020 DSuhoi
- * Библиотека для работы со стеком
- * (C++ library)
- */
-
 #ifndef __STACK_LIB_HPP__
 #define __STACK_LIB_HPP__
 
+#include <cstddef>
 #include <cstring>
 #include <iostream>
 #include <istream>
@@ -16,11 +9,11 @@
 #include "data_interface.hpp"
 
 template <typename, bool, size_t>
-class Stack_node;
-template <typename T, size_t U>
-using Static_stack_node = Stack_node<T, true, U>;
-template <typename T>
-using Dyn_stack_node = Stack_node<T, false, 0>;
+class stack_t;
+template <typename T, size_t U = 1024>
+using static_stack = stack_t<T, true, U>;
+template <typename T, size_t U = 1024>
+using dynamic_stack = stack_t<T, false, U>;
 
 // Bыбор типа
 template <bool flag, typename T, typename U>
@@ -44,36 +37,39 @@ struct int2type
 
 // Класс стека
 template <typename T, bool is_static, size_t MAX_STACK_SIZE = 1024>
-class Stack_node : public Data_interface<T>
+class stack_t : public data_interface<T>
 {
-    using stack_type = Stack_node<T, is_static, MAX_STACK_SIZE>;
+    using stack_type = stack_t<T, is_static, MAX_STACK_SIZE>;
 
 public:
-    Stack_node() : index(0){};
-    ~Stack_node() { destructor(int2type<is_static>()); }
-    // Создание нового элемента стека
-    void push(T newValue) override { push(newValue, int2type<is_static>()); };
-    // Удаление элемента из стека
-    T pop() override { pop(int2type<is_static>()); };
-    // Вернуть значение последнего элемента
+    stack_t() : index(0) { constructor(int2type<is_static>()); }
+    ~stack_t() { destructor(int2type<is_static>()); }
+    void push(T value) override
+    {
+        if (index < MAX_STACK_SIZE - 1) stack_data[index++] = value;
+    }
+    void push_back(T newValue) override { push(newValue); }
+    T pop() override
+    {
+        if (index < 1) return T();
+        T value = stack_data[index - 1];
+        stack_data[index--] = T();
+        return value;
+    }
+    T pop_back() override { return pop(); }
     T top() override { return stack_data[index]; };
-
-    // Очистка всего стека
     void clear() override
     {
         while (index > 0) pop();
-    };
-    // Вернуть размер стека
-    size_t size() override { return index + 1; }
+    }
+    size_t size() override { return index; }
 
-    // Вывод стека
     friend std::ostream& operator<<(std::ostream& out, const stack_type& stack_)
     {
-        for (size_t _index = 0; _index <= stack_.index; ++_index)
+        for (size_t _index = 0; _index < stack_.index; ++_index)
             out << stack_.stack_data[_index] << ' ';
         return out;
     }
-    // Ввод стека
     friend std::istream& operator>>(std::istream& in, const stack_type& stack_)
     {
         size_t stack_size = 0;
@@ -94,44 +90,13 @@ public:
     T* stack2array(unsigned int& array_len);
 
 private:
+    void constructor(int2type<true>) {}
+    void constructor(int2type<false>) { stack_data = new T[MAX_STACK_SIZE]; }
     void destructor(int2type<true>) {}
     void destructor(int2type<false>) { delete[] stack_data; }
 
-    void push(T value, int2type<true>)
-    {
-        if (index < MAX_STACK_SIZE - 1) stack_data[index++] = value;
-    }
-
-    void push(T value, int2type<false>)
-    {
-        T* temp_data = new T[index + 2];
-        for (size_t i = 0; i <= index; ++i) temp_data[i] = stack_data[i];
-        delete[] stack_data;
-        stack_data = temp_data;
-        stack_data[index++] = value;
-    }
-
-    T pop(int2type<true>)
-    {
-        if (index < 0) return T();
-        T value = stack_data[index];
-        stack_data[index--] = T();
-        return value;
-    }
-
-    T pop(int2type<false>)
-    {
-        if (index < 0) return T();
-        T value = stack_data[index];
-        T* temp_stack = new T[index];
-        for (size_t i = 0; i < index; ++i) temp_stack[i] = stack_data[i];
-        delete[] stack_data;
-        --index;
-        return value;
-    }
-
     // Стек
-    typename if_t<is_static, T[MAX_STACK_SIZE], T*>::Type stack_data;
+    typename if_t<is_static, T[MAX_STACK_SIZE], T*>::value stack_data;
     // Позиция последнего элемента в стеке
     size_t index;
 };
